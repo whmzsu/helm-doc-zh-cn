@@ -1,0 +1,1208 @@
+快速入门指南
+本指南介绍如何快速开始使用Helm。
+
+先决条件
+需要以下先决条件才能成功且安全地使用Helm。
+
+一个Kubernetes集群
+决定应用于安装的安全配置（如果有的话）
+安装和配置集群端服务Helm和Tiller。
+安装Kubernetes或有权访问群集
+你必须安装Kubernetes。对于Helm的最新版本，我们推荐最新的Kubernetes稳定版本，在大多数情况下它是次要版本。
+你也应该有一个本地配置的副本kubectl。
+注：1.6之前的Kubernetes版本对基于角色的访问控制（RBAC）提供有限或不支持。
+
+Helm将通过阅读您的Kubernetes配置文件（通常$HOME/.kube/config）来确定在哪里安装Tiller 。这是kubectl使用的文件。
+
+要找出Tiller将安装到哪个集群，可以运行 kubectl config current-context或kubectl cluster-info。
+
+$ kubectl config current-context
+my-cluster
+了解您的安全上下文
+与所有强大的工具一样，确保您正在为您的场景正确安装它。
+
+如果您在完全控制的群集上使用Helm，如minikube或专用网络中的共享不受关注的群集，则默认安装（不适用于安全配置）很好，而且它绝对是最简单的。要安装Helm而无需额外的安全措施，请安装Helm，然后初始化Helm。
+
+但是，如果您的集群暴露于较大的网络中，或者您与其他人共享集群 - 生产集群属于这一类别 - 则必须采取额外步骤来确保安装的安全，以防止不小心或恶意的行为者损坏集群或其数据。要应用保护Helm以便在生产环境和其他多租户方案中使用的配置，请参阅保护头盔安装
+
+如果您的群集启用了基于角色的访问控制（RBAC），则可能需要在继续之前配置服务帐户和规则。
+
+安装头盔
+下载Helm客户端的二进制版本。您可以使用类似工具 homebrew，或查看官方版本页面。
+
+有关更多详细信息或其他选项，请参阅安装指南。
+
+初始化头盔并安装TILLER
+一旦掌握了Helm，您就可以初始化本地CLI，并在一步中将Tiller安装到您的Kubernetes集群中：
+
+$ helm init
+这会将Tiller安装到您看到的Kubernetes群集中 kubectl config current-context。
+
+提示：想要安装到不同的群集中？使用该 --kube-context标志。
+
+提示：当您想升级Tiller时，只需运行即可helm init --upgrade。
+
+默认情况下，当安装Tiller时，它没有启用身份验证。要了解有关为Tiller配置强大的TLS身份验证的更多信息，请参阅 Tiller TLS指南。
+
+安装示例图表
+要安装图表，您可以运行该helm install命令。Helm有几种方法来查找和安装图表，但最简单的方法是使用官方stable图表之一。
+
+$ helm repo update              # Make sure we get the latest list of charts
+$ helm install stable/mysql
+Released smiling-penguin
+在上面的例子中，stable/mysql图表已经发布，我们的新版本的名字是smiling-penguin。通过运行您可以简单了解该MySQL图表的功能helm inspect stable/mysql。
+
+无论何时安装图表，都会创建一个新版本。所以一张图表可以多次安装到同一个群集中。而且每个都可以独立管理和升级。
+
+该helm install命令是一个非常强大的命令，具有很多功能。要了解更多信息，请查看使用头盔指南
+
+了解发布
+很容易看到使用Helm发布的内容：
+
+$ helm ls
+NAME             VERSION   UPDATED                   STATUS    CHART
+smiling-penguin  1         Wed Sep 28 12:59:46 2016  DEPLOYED  mysql-0.1.0
+该helm list功能将向您显示所有已部署版本的列表。
+
+卸载发行版
+要卸载发行版，请使用以下helm delete命令：
+
+$ helm delete smiling-penguin
+Removed smiling-penguin
+这smiling-penguin将从Kubernetes 卸载，但您仍然可以请求有关该版本的信息：
+
+$ helm status smiling-penguin
+Status: DELETED
+...
+由于Helm在您删除发行版之后会追踪您的发行版，因此您可以审核群集的历史记录，甚至可以取消删除发行版（带helm rollback）。
+
+阅读帮助文本
+要了解有关可用Helm命令的更多信息，请使用helm help或键入一个后跟该-h标志的命令：
+
+$ helm get -h
+安装头盔
+Helm有两个部分：Helm客户端（helm）和Helm服务器（Tiller）。本指南介绍如何安装客户端，然后继续显示两种安装服务器的方式。
+
+重要提示：如果您有责任确保您的群集是受控制的环境，尤其是在共享资源时，强烈建议使用安全配置安装Tiller。有关指导，请参阅确保头盔安装。
+
+安装头盔客户端
+Helm客户端可以从源代码安装，也可以从预先构建的二进制版本安装。
+
+来自二进制版本
+每一个版本头盔提供多种操作系统的二进制版本。这些二进制版本可以手动下载和安装。
+
+下载你想要的版本
+解压缩（tar -zxvf helm-v2.0.0-linux-amd64.tgz）
+helm在解压后的目录中找到二进制文件，并将其移动到所需的目的地（mv linux-amd64/helm /usr/local/bin/helm）
+从那里，你应该能够运行客户端：helm help。
+
+从自制软件（macOS）
+Kubernetes社区的成员为Homebrew贡献了Helm公式。这个公式通常是最新的。
+
+brew install kubernetes-helm
+（注意：emacs-helm也有一个公式，这是一个不同的项目。）
+
+从脚本
+头盔现在有一个安装程序脚本，将自动获取最新版本的Helm客户端并在本地安装。
+
+您可以获取该脚本，然后在本地执行它。这是有据可查的，以便您可以在运行之前仔细阅读并理解它在做什么。
+
+$ curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
+$ chmod 700 get_helm.sh
+$ ./get_helm.sh
+是的，curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash如果你想生活在边缘，你可以做到这一点。
+
+从金丝雀构建
+“Canary”版本是从最新的主分支构建的Helm软件的版本。它们不是正式版本，可能不稳定。但是，他们提供了测试尖端功能的机会。
+
+金丝雀头盔二进制文件存储在Kubernetes Helm GCS存储桶中。以下是常见构建的链接：
+
+Linux AMD64
+macOS AMD64
+实验窗口AMD64
+从源代码（Linux，macOS）
+从源代码构建头盔的工作稍微多一点，但如果你想测试最新的（预发布）头盔版本，最好的方法是去。
+
+您必须安装带有滑行和Mercurial 的工作Go环境 。
+
+$ cd $GOPATH
+$ mkdir -p src/k8s.io
+$ cd src/k8s.io
+$ git clone https://github.com/kubernetes/helm.git
+$ cd helm
+$ make bootstrap build
+该bootstrap目标将尝试安装依赖，重建 vendor/树，并验证配置。
+
+该build目标将编译helm并将其放置在bin/helm。分蘖也被编辑，并且被放置在bin/tiller。
+
+安装TILLER
+Helm的服务器部分Tiller通常运行在您的Kubernetes集群内部。但是对于开发，它也可以在本地运行，并配置为与远程Kubernetes群集通信。
+
+轻松进行群集内安装
+安装tiller到群集中最简单的方法就是运行 helm init。这将验证helm本地环境设置是否正确（并在必要时进行设置）。然后它会连接到kubectl默认连接的任何集群（kubectl config view）。一旦连接，它将安装tiller到 kube-system命名空间中。
+
+之后helm init，您应该可以运行kubectl get pods --namespace kube-system并看到Tiller正在运行。
+
+你可以明确告诉helm init...
+
+用--canary-image旗子安装金丝雀身材
+安装特定的图像（版本） --tiller-image
+使用安装到特定群集 --kube-context
+用一个特定的命名空间安装 --tiller-namespace
+一旦安装了Tiller，运行helm version应该会显示客户端和服务器版本。（如果它仅显示客户端版本， helm则无法连接到服务器kubectl，请查看是否有任何 tillerPod正在运行。）
+
+kube-system除非--tiller-namespace或TILLER_NAMESPACE已设置，Helm将在命名空间中 查找Tiller 。
+
+安装分蘖金丝雀生物
+金丝雀图像是从master分支建立的。他们可能不稳定，但他们为您提供测试最新功能的机会。
+
+安装金丝雀图像最简单的方法是helm init与 --canary-image标志一起使用：
+
+$ helm init --canary-image
+这将使用最近建立的容器图像。您可以随时使用删除kube-system名称空间中的Tiller部署来卸载Tiller kubectl。
+
+本地运行分蘖
+对于开发而言，在本地处理Tiller有时更容易，并将其配置为连接到远程Kubernetes群集。
+
+上面介绍了建立Tiller的过程。
+
+一旦tiller建成，只需启动它：
+
+$ bin/tiller
+Tiller running on :44134
+当Tiller在本地运行时，它将尝试连接到由配置的Kubernetes群集kubectl。（运行kubectl config view以查看是哪个群集。）
+
+您必须告知helm连接到这个新的本地Tiller主机，而不是连接到群集中的一个。有两种方法可以做到这一点。首先是--host在命令行上指定选项。第二个是设置$HELM_HOST环境变量。
+
+$ export HELM_HOST=localhost:44134
+$ helm version # Should connect to localhost.
+Client: &version.Version{SemVer:"v2.0.0-alpha.4", GitCommit:"db...", GitTreeState:"dirty"}
+Server: &version.Version{SemVer:"v2.0.0-alpha.4", GitCommit:"a5...", GitTreeState:"dirty"}
+重要的是，即使在本地运行，Tiller也会将发布配置存储在Kubernetes内的ConfigMaps中。
+
+升级TILLER
+从Helm 2.2.0开始，Tiller可以升级使用helm init --upgrade。
+
+对于旧版本的Helm或手动升级，可以使用kubectl修改Tiller映像：
+
+$ export TILLER_TAG=v2.0.0-beta.1        # Or whatever version you want
+$ kubectl --namespace=kube-system set image deployments/tiller-deploy tiller=gcr.io/kubernetes-helm/tiller:$TILLER_TAG
+deployment "tiller-deploy" image updated
+设置TILLER_TAG=canary将获得主设备的最新快照。
+
+删除或重新安装分蘖
+由于Tiller将其数据存储在Kubernetes ConfigMaps中，因此您可以安全地删除并重新安装Tiller，而无需担心丢失任何数据。推荐删除Tiller的方法是使用kubectl delete deployment tiller-deploy --namespace kube-system或更简洁helm reset。
+
+然后可以从客户端重新安装Tiller：
+
+$ helm init
+高级用法
+helm init 提供了额外的标志，用于在安装之前修改Tiller的部署清单。
+
+运用 --node-selectors
+该--node-selectors标志允许我们指定调度Tiller窗格所需的节点标签。
+
+下面的例子将在nodeSelector属性下创建指定的标签。
+
+helm init --node-selectors "beta.kubernetes.io/os"="linux"
+已安装的部署清单将包含我们的节点选择器标签。
+
+...
+spec:
+  template:
+    spec:
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+...
+运用 --override
+--override允许您指定Tiller的部署清单的属性。与--setHelm其他地方使用的命令不同，它 helm init --override操纵最终清单的指定属性（没有“值”文件）。因此，您可以为部署清单中的任何有效属性指定任何有效值。
+
+覆盖注释
+在下面的示例中，我们使用--override添加修订版本属性并将其值设置为1。
+
+helm init --override metadata.annotations."deployment\.kubernetes\.io/revision"="1"
+输出：
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+...
+覆盖亲和力
+在下面的例子中，我们为节点亲和力设置了属性。--override可以组合多个 命令来修改同一列表项的不同属性。
+
+helm init --override "spec.template.spec.affinity.nodeAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].weight"="1" --override "spec.template.spec.affinity.nodeAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].preference.matchExpressions[0].key"="e2e-az-name"
+指定的属性组合到“preferredDuringSchedulingIgnoredDuringExecution”属性的第一个列表项中。
+
+...
+spec:
+  strategy: {}
+  template:
+    ...
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - preference:
+              matchExpressions:
+              - key: e2e-az-name
+                operator: ""
+            weight: 1
+...
+运用 --output
+该--output标志允许我们跳过安装Tiller的部署清单，并以JSON或YAML格式简单地将部署清单输出到stdout。然后可以使用类似工具修改输出，jq 并使用手动安装kubectl。
+
+在下面的例子中，我们helm init用--output json标志执行。
+
+helm init --output json
+Tiller安装被跳过，清单以JSON格式输出到stdout。
+
+"apiVersion": "extensions/v1beta1",
+"kind": "Deployment",
+"metadata": {
+    "creationTimestamp": null,
+    "labels": {
+        "app": "helm",
+        "name": "tiller"
+    },
+    "name": "tiller-deploy",
+    "namespace": "kube-system"
+},
+...
+存储后端
+默认情况下，tiller将发布信息存储ConfigMaps在其运行的名称空间中。从Helm 2.7.0开始，现在有一个Secrets用于存储发布信息的beta存储后端。添加了这个功能是为了Secret 在Kubernetes 发布加密的同时保护图表的安全性。
+
+要启用秘密后端，您需要使用以下选项启动Tiller：
+
+helm init --override 'spec.template.spec.containers[0].command'='{/tiller,--storage=secret}'
+目前，如果您想从默认后端切换到秘密后端，您必须自行为此进行迁移。当这个后端从测试版本毕业时，将会有更正式的移徙路径
+
+结论
+在大多数情况下，安装和获取预先构建的helm二进制代码一样简单helm init。这份文件涵盖了那些想要用Helm做更复杂的事情的人。
+
+一旦成功安装了Helm Client和Tiller，您可以继续使用Helm来管理图表。
+
+Kubernetes分销指南
+本文档捕获有关在特定Kubernetes环境中使用Helm的信息。
+
+我们正在尝试为此文档添加更多详细信息。如果可以，请通过Pull Requests提供。
+
+MINIKUBE
+Helm已经过测试并且已知可以与minikube一起使用。它不需要额外的配置。
+
+SCRIPTS/LOCAL-CLUSTER 和HYPERKUBE
+通过配置Hyperkube scripts/local-cluster.sh已知可以工作。对于原始Hyperkube，您可能需要进行一些手动配置。
+
+GKE
+已知Google的GKE托管Kubernetes平台与Helm一起工作，并且不需要额外的配置。
+
+UBUNTU与'KUBEADM'
+kubeadm已知的Kubernetes 可用于以下Linux发行版：
+
+Ubuntu 16.04
+Fedora发布25
+某些版本的Helm（v2.0.0-beta2）要求您export KUBECONFIG=/etc/kubernetes/admin.conf 创建或创建一个~/.kube/config。
+
+COREOS提供的CONTAINER LINUX
+Helm要求kubelet可以访问该socat程序的副本，以代理与Tiller API的连接。在Container Linux上，Kubelet在具有socat 的hyperkube容器映像中运行。因此，尽管Container Linux没有socat运行运行kubelet的容器​​文件系统，但它具有socat。要了解更多信息，请阅读Kubelet Wrapper文档。
+
+OPENSHIFT
+Helm可在OpenShift Online，OpenShift Dedicated，OpenShift Container Platform（版本> = 3.6）或OpenShift Origin（版本> = 3.6）中直接使用。要了解更多，请阅读此博客文章。
+
+PLATFORM9
+Helm Client和Helm Server（Tiller）预装了Platform9 Managed Kubernetes。Platform9通过App目录UI和本地Kubernetes CLI提供对所有官方Helm图表的访问。其他存储库可以手动添加。有关更多详细信息，请参阅Platform9 App Catalog文章。
+
+安装：常见问题
+本节跟踪安装或开始使用Helm时遇到的一些更常遇到的问题。
+
+我们很乐意为您提供更好的帮助。要添加，更正或删除信息，提出问题或向我们发送拉取请求。
+
+下载
+我想知道更多关于我的下载选项。
+
+问：我无法获得最新Helm的GitHub发布。他们在哪？
+
+答：我们不再使用GitHub版本。二进制文件现在存储在 GCS公共存储区中。
+
+问：为什么没有Debian / Fedora / ... Helm的本地软件包？
+
+我们很乐意提供这些信息，或者将您指向可靠的提供商。如果您对帮助感兴趣，我们很乐意。这就是家酿式的开始。
+
+问：你为什么要提供一个curl ...|bash脚本？
+
+答：我们的存储库（scripts/get）中有一个脚本可以作为curl ..|bash脚本执行。这些传输全部受HTTPS保护，并且脚本会对其获取的包进行一些审计。但是，脚本具有任何shell脚本的所有常见危险。
+
+我们提供它是因为它很有用，但我们建议用户先仔细阅读脚本。然而，我们真正喜欢的是更好的Helm打包版本。
+
+安装
+我正在尝试安装Helm / Tiller，但有些事情是不对的。
+
+问：我如何将Helm客户端文件放在〜/ .helm以外的地方？
+
+设置$HELM_HOME环境变量，然后运行helm init：
+
+export HELM_HOME=/some/path
+helm init --client-only
+请注意，如果您有现有的存储库，则需要重新添加它们helm repo add...。
+
+问：我如何配置Helm，但不安装Tiller？
+
+答：默认情况下，helm init将确保本​​地$HELM_HOME配置，然后在群集上安装Tiller。要本地配置，但不安装Tiller，请使用helm init --client-only。
+
+问：如何在集群上手动安装Tiller？
+
+答：分蘖是作为Kubernetes安装的deployment。您可以通过运行获取清单helm init --dry-run --debug，然后手动安装 kubectl。建议您不要删除或更改该部署中的标签，因为它们有时用于支持脚本和工具。
+
+问：为什么Error response from daemon: target is unknown在Tiller安装期间获得？
+
+答：用户报告无法在使用Docker 1.13.0的Kubernetes实例上安装Tiller。造成这种情况的根本原因是Docker中的一个错误，它使得一个版本与早期版本的Docker推送到Docker注册表的映像不兼容。
+
+该问题在发布后不久就已修复，并在Docker 1.13.1-RC1和更高版本中提供。
+
+入门
+我成功安装了Helm / Tiller，但我无法使用它。
+
+问：试图使用Helm，我得到错误“客户端传输中断”
+
+E1014 02:26:32.885226   16143 portforward.go:329] an error occurred forwarding 37008 -> 44134: error forwarding port 44134 to pod tiller-deploy-2117266891-e4lev_kube-system, uid : unable to do port forwarding: socat not found.
+2016/10/14 02:26:32 transport: http2Client.notifyError got notified that the client transport was broken EOF.
+Error: transport is closing
+答：这通常表明Kubernetes未设置为允许端口转发。
+
+通常情况下，缺少的部分是socat。如果您正在运行CoreOS，我们被告知它可能在安装时配置错误。CoreOS团队建议阅读以下内容：
+
+https://coreos.com/kubernetes/docs/latest/kubelet-wrapper.html
+以下是一些解决的问题，可以帮助您开始使用：
+
+https://github.com/kubernetes/helm/issues/1371
+https://github.com/kubernetes/helm/issues/966
+Q：试图使用Helm，我得到错误“8.8.8.8:53查找XXXXX：没有这样的主机”
+
+Error: Error forwarding ports: error upgrading connection: dial tcp: lookup kube-4gb-lon1-02 on 8.8.8.8:53: no such host
+答：我们在多节点群集中看到了Ubuntu和Kubeadm的这个问题。问题是节点期望某些DNS记录可以通过全局DNS获得。在上游解决此问题之前，您可以按照以下方式解决该问题。在每个控制平面节点上：
+
+1）添加条目/etc/hosts，将你的主机名映射到它们的公有IP 2）安装dnsmasq（例如apt install -y dnsmasq）3）移除k8s api服务器容器（kubelet将重新创建它）4）然后systemctl restart docker（或者重新启动节点）为它提取/ etc /resolv.conf更改
+
+请参阅此问题以获取更多信息：https：//github.com/kubernetes/helm/issues/1455
+
+问：在GKE（Google Container Engine）上，我收到“目前没有SSH隧道”
+
+Error: Error forwarding ports: error upgrading connection: No SSH tunnels currently open. Were the targets able to accept an ssh-key for user "gke-[redacted]"?
+错误消息的另一个变体是：
+
+Unable to connect to the server: x509: certificate signed by unknown authority
+
+答：问题是您的本地Kubernetes配置文件必须具有正确的凭据。
+
+在GKE上创建集群时，它将为您提供凭据，包括SSL证书和证书颁发机构。这些需要存储在一个Kubernetes配置文件中（默认：~/.kube/config这样kubectl并且helm可以访问它们。
+
+问：当我运行Helm命令时，出现有关隧道或代理的错误
+
+答：Helm使用Kubernetes代理服务连接到Tiller服务器。如果命令kubectl proxy不适合你，Helm也不会。通常，错误与缺失的socat服务有关。
+
+问：分蘖因恐慌而崩溃
+
+当我在Helm上运行命令时，Tiller崩溃时会出现如下错误：
+
+Tiller is listening on :44134
+Probes server is listening on :44135
+Storage driver is ConfigMap
+Cannot initialize Kubernetes connection: the server has asked for the client to provide credentials 2016-12-20 15:18:40.545739 I | storage.go:37: Getting release "bailing-chinchilla" (v1) from storage
+panic: runtime error: invalid memory address or nil pointer dereference
+[signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x8053d5]
+
+goroutine 77 [running]:
+panic(0x1abbfc0, 0xc42000a040)
+        /usr/local/go/src/runtime/panic.go:500 +0x1a1
+k8s.io/helm/vendor/k8s.io/kubernetes/pkg/client/unversioned.(*ConfigMaps).Get(0xc4200c6200, 0xc420536100, 0x15, 0x1ca7431, 0x6, 0xc42016b6a0)
+        /home/ubuntu/.go_workspace/src/k8s.io/helm/vendor/k8s.io/kubernetes/pkg/client/unversioned/configmap.go:58 +0x75
+k8s.io/helm/pkg/storage/driver.(*ConfigMaps).Get(0xc4201d6190, 0xc420536100, 0x15, 0xc420536100, 0x15, 0xc4205360c0)
+        /home/ubuntu/.go_workspace/src/k8s.io/helm/pkg/storage/driver/cfgmaps.go:69 +0x62
+k8s.io/helm/pkg/storage.(*Storage).Get(0xc4201d61a0, 0xc4205360c0, 0x12, 0xc400000001, 0x12, 0x0, 0xc420200070)
+        /home/ubuntu/.go_workspace/src/k8s.io/helm/pkg/storage/storage.go:38 +0x160
+k8s.io/helm/pkg/tiller.(*ReleaseServer).uniqName(0xc42002a000, 0x0, 0x0, 0xc42016b800, 0xd66a13, 0xc42055a040, 0xc420558050, 0xc420122001)
+        /home/ubuntu/.go_workspace/src/k8s.io/helm/pkg/tiller/release_server.go:577 +0xd7
+k8s.io/helm/pkg/tiller.(*ReleaseServer).prepareRelease(0xc42002a000, 0xc42027c1e0, 0xc42002a001, 0xc42016bad0, 0xc42016ba08)
+        /home/ubuntu/.go_workspace/src/k8s.io/helm/pkg/tiller/release_server.go:630 +0x71
+k8s.io/helm/pkg/tiller.(*ReleaseServer).InstallRelease(0xc42002a000, 0x7f284c434068, 0xc420250c00, 0xc42027c1e0, 0x0, 0x31a9, 0x31a9)
+        /home/ubuntu/.go_workspace/src/k8s.io/helm/pkg/tiller/release_server.go:604 +0x78
+k8s.io/helm/pkg/proto/hapi/services._ReleaseService_InstallRelease_Handler(0x1c51f80, 0xc42002a000, 0x7f284c434068, 0xc420250c00, 0xc42027c190, 0x0, 0x0, 0x0, 0x0, 0x0)
+        /home/ubuntu/.go_workspace/src/k8s.io/helm/pkg/proto/hapi/services/tiller.pb.go:747 +0x27d
+k8s.io/helm/vendor/google.golang.org/grpc.(*Server).processUnaryRPC(0xc4202f3ea0, 0x28610a0, 0xc420078000, 0xc420264690, 0xc420166150, 0x288cbe8, 0xc420250bd0, 0x0, 0x0)
+        /home/ubuntu/.go_workspace/src/k8s.io/helm/vendor/google.golang.org/grpc/server.go:608 +0xc50
+k8s.io/helm/vendor/google.golang.org/grpc.(*Server).handleStream(0xc4202f3ea0, 0x28610a0, 0xc420078000, 0xc420264690, 0xc420250bd0)
+        /home/ubuntu/.go_workspace/src/k8s.io/helm/vendor/google.golang.org/grpc/server.go:766 +0x6b0
+k8s.io/helm/vendor/google.golang.org/grpc.(*Server).serveStreams.func1.1(0xc420124710, 0xc4202f3ea0, 0x28610a0, 0xc420078000, 0xc420264690)
+        /home/ubuntu/.go_workspace/src/k8s.io/helm/vendor/google.golang.org/grpc/server.go:419 +0xab
+created by k8s.io/helm/vendor/google.golang.org/grpc.(*Server).serveStreams.func1
+        /home/ubuntu/.go_workspace/src/k8s.io/helm/vendor/google.golang.org/grpc/server.go:420 +0xa3
+答：请检查Kubernetes的安全设置。
+
+Tiller中的恐慌几乎总是由于未能与Kubernetes API服务器进行协商而导致的结果（此时，Tiller不能再做任何有用的事情，因此恐慌并退出）。
+
+通常，这是认证失败的结果，因为运行Tiller的Pod没有正确的令牌。
+
+要解决这个问题，你需要改变你的Kubernetes配置。确保--service-account-private-key-file从controller-manager和 --service-account-key-file从API服务器指向同一 X509 RSA密钥。
+
+升级
+我的头盔曾经工作，然后我升级。现在它已经坏了。
+
+问：升级后，我收到错误“客户端版本不兼容”。怎么了？
+
+Tiller和Helm必须协商一个通用版本，以确保他们可以安全地进行通信而不会违反API假设。该错误意味着版本差异太大而无法安全地继续。通常，您需要为此手动升级Tiller。
+
+该安装指南大约有安全头盔升级和分蘖权威信息。
+
+版本号的规则如下：
+
+预发布版本与其他一切不兼容。Alpha.1与...不相容Alpha.2。
+修补程序版本兼容：1.2.3与1.2.4兼容
+少量修订不兼容：1.2.0与1.3.0不兼容，但我们可能在未来放宽这一限制。
+主要版本不兼容：1.0.0与2.0.0不兼容。
+卸载
+我正在尝试删除东西。
+
+问：当我删除Tiller部署时，如何发布所有版本？
+
+发行版存储在kube-system名称空间内的ConfigMaps中。您将不得不手动删除它们以摆脱该记录或使用helm delete --purge。
+
+问：我想删除我的本地头盔。它的所有文件在哪里？
+
+与helm二进制文件一起，Helm存储了一些文件$HELM_HOME，默认位于~/.helm。
+
+使用头盔
+本指南解释了使用Helm（和Tiller）来管理Kubernetes群集上的软件包的基础知识。它假定您已经 安装了Helm客户端和Tiller服务器（通常是helm init）。
+
+如果您只是想运行一些快速命令，您可能希望从“ 快速入门指南”开始。本章将介绍Helm命令的具体内容，并解释如何使用Helm。
+
+三大概念
+甲图表是一个头盔包。它包含在Kubernetes集群内部运行应用程序，工具或服务所需的所有资源定义。可以把它想象成一个Homebrew公式，一个Apt dpkg或一个Yum RPM文件的Kubernetes等价物。
+
+阿库是其中的图表可以被收集和共享的地方。这就像Perl的CPAN档案或 Fedora软件包数据库，但对于Kubernetes软件包。
+
+甲推出处于Kubernetes集群中运行的图表的一个实例。一张图表通常可以多次安装到同一个群集中。每次安装时，都会创建一个新版本。考虑一个MySQL图表。如果您希望在群集中运行两个数据库，则可以安装该图表两次。每个人都有自己的发行版，而发行版又将有自己的发行版名称。
+
+考虑到这些概念，我们现在可以像这样解释Helm：
+
+Helm将图表安装到Kubernetes中，为每个安装创建一个新版本。要找到新的图表，您可以搜索Helm图表 存储库。
+
+'舵搜索'：查找图表
+首次安装Helm时，它已预配置为与官方Kubernetes图表存储库交谈。该存储库包含许多精心策划和维护的图表。此图表存储库是stable默认命名 的。
+
+您可以通过运行来查看哪些图表可用helm search：
+
+$ helm search
+NAME                 	VERSION 	DESCRIPTION
+stable/drupal   	0.3.2   	One of the most versatile open source content m...
+stable/jenkins  	0.1.0   	A Jenkins Helm chart for Kubernetes.
+stable/mariadb  	0.5.1   	Chart for MariaDB
+stable/mysql    	0.1.0   	Chart for MySQL
+...
+没有过滤器，helm search显示所有可用的图表。您可以通过使用过滤器进行搜索来缩小搜索结果范围：
+
+$ helm search mysql
+NAME               	VERSION	DESCRIPTION
+stable/mysql  	0.1.0  	Chart for MySQL
+stable/mariadb	0.5.1  	Chart for MariaDB
+现在您只会看到与您的过滤器匹配的结果。
+
+为什么 mariadb在列表中？因为它的包描述与MySQL相关。我们可以使用helm inspect chart看到这个：
+
+$ helm inspect stable/mariadb
+Fetched stable/mariadb to mariadb-0.5.1.tgz
+description: Chart for MariaDB
+engine: gotpl
+home: https://mariadb.org
+keywords:
+- mariadb
+- mysql
+- database
+- sql
+...
+搜索是找到可用软件包的好方法。一旦找到想要安装的软件包，可以使用helm install它来安装它。
+
+'HELM INSTALL'：安装一个软件包
+要安装新的软件包，请使用该helm install命令。最简单的，它只需要一个参数：图表的名称。
+
+$ helm install stable/mariadb
+Fetched stable/mariadb-0.3.0 to /Users/mattbutcher/Code/Go/src/k8s.io/helm/mariadb-0.3.0.tgz
+happy-panda
+Last Deployed: Wed Sep 28 12:32:28 2016
+Namespace: default
+Status: DEPLOYED
+
+Resources:
+==> extensions/Deployment
+NAME                     DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+happy-panda-mariadb   1         0         0            0           1s
+
+==> v1/Secret
+NAME                     TYPE      DATA      AGE
+happy-panda-mariadb   Opaque    2         1s
+
+==> v1/Service
+NAME                     CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+happy-panda-mariadb   10.0.0.70    <none>        3306/TCP   1s
+
+
+Notes:
+MariaDB can be accessed via port 3306 on the following DNS name from within your cluster:
+happy-panda-mariadb.default.svc.cluster.local
+
+To connect to your database run the following command:
+
+   kubectl run happy-panda-mariadb-client --rm --tty -i --image bitnami/mariadb --command -- mysql -h happy-panda-mariadb
+现在mariadb图表已安装。请注意，安装图表会创建一个新版本对象。上面的版本被命名 happy-panda。（如果你想使用你自己的发布名称，只需使用该 --name标志helm install。）
+
+在安装过程中，helm客户端将打印有关创建哪些资源的有用信息，发布的状态以及是否可以或应该采取其他配置步骤。
+
+Helm不会等到所有资源都在运行之前运行。许多图表需要大小超过600M的Docker映像，并且可能需要很长时间才能安装到群集中。
+
+要跟踪发布状态或重新读取配置信息，可以使用helm status：
+
+$ helm status happy-panda
+Last Deployed: Wed Sep 28 12:32:28 2016
+Namespace: default
+Status: DEPLOYED
+
+Resources:
+==> v1/Service
+NAME                     CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+happy-panda-mariadb   10.0.0.70    <none>        3306/TCP   4m
+
+==> extensions/Deployment
+NAME                     DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+happy-panda-mariadb   1         1         1            1           4m
+
+==> v1/Secret
+NAME                     TYPE      DATA      AGE
+happy-panda-mariadb   Opaque    2         4m
+
+
+Notes:
+MariaDB can be accessed via port 3306 on the following DNS name from within your cluster:
+happy-panda-mariadb.default.svc.cluster.local
+
+To connect to your database run the following command:
+
+   kubectl run happy-panda-mariadb-client --rm --tty -i --image bitnami/mariadb --command -- mysql -h happy-panda-mariadb
+以上显示了您发布的当前状态。
+
+在安装前自定义图表
+安装我们在这里的方式将只使用此图表的默认配置选项。很多时候，您需要自定义图表以使用您的首选配置。
+
+要查看图表上可配置的选项，请使用helm inspect values：
+
+helm inspect values stable/mariadb
+Fetched stable/mariadb-0.3.0.tgz to /Users/mattbutcher/Code/Go/src/k8s.io/helm/mariadb-0.3.0.tgz
+## Bitnami MariaDB image version
+## ref: https://hub.docker.com/r/bitnami/mariadb/tags/
+##
+## Default: none
+imageTag: 10.1.14-r3
+
+## Specify a imagePullPolicy
+## Default to 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
+## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+##
+# imagePullPolicy:
+
+## Specify password for root user
+## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#setting-the-root-password-on-first-run
+##
+# mariadbRootPassword:
+
+## Create a database user
+## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#creating-a-database-user-on-first-run
+##
+# mariadbUser:
+# mariadbPassword:
+
+## Create a database
+## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#creating-a-database-on-first-run
+##
+# mariadbDatabase:
+然后，您可以在YAML格式的文件中覆盖任何这些设置，然后在安装过程中传递该文件。
+
+$ echo '{mariadbUser: user0, mariadbDatabase: user0db}' > config.yaml
+$ helm install -f config.yaml stable/mariadb
+以上将创建一个名称为MariaDB的默认用户user0，并授予该用户对新创建user0db数据库的访问权限，但将接受该图表的所有其他默认值。
+
+在安装过程中有两种方式传递配置数据：
+
+--values（或-f）：用覆盖指定一个YAML文件。这可以指定多次，最右边的文件将优先
+--set：在命令行上指定覆盖。
+如果两者都使用，则将--set值合并到--values更高的优先级中。指定的覆盖--set将保存在配置图中。--set可以使用已知的值 查看给定的版本helm get values <release-name>。这一直是价值观--set可以通过运行清除helm upgrade与--reset-values 指定。
+
+C语言的格式和局限性 --set
+该--set选项使用零个或多个名称/值对。最简单的就是这样使用它：--set name=value。YAML的等价物是：
+
+name: value
+多个值由,字符分隔。因此--set a=b,c=d变成：
+
+a: b
+c: d
+支持更复杂的表达式。例如，--set outer.inner=value被翻译成这样：
+
+outer:
+  inner: value
+列表可以通过在{和中包含值来表示}。例如， --set name={a, b, c}转化为：
+
+name:
+  - a
+  - b
+  - c
+从Helm 2.5.0开始，可以使用数组索引语法访问列表项。例如，--set servers[0].port=80变成：
+
+servers:
+  - port: 80
+可以通过这种方式设置多个值。该行--set servers[0].port=80,servers[0].host=example变成：
+
+servers:
+  - port: 80
+    host: example
+有时候你需要在你的--set行中使用特殊字符。您可以使用反斜杠来转义字符; --set name=value1\,value2会变成：
+
+name: "value1,value2"
+同样，您也可以转义点序列，这可能在图表使用该toYaml函数解析注释，标签和节点选择器时派上用场 。--set nodeSelector."kubernetes\.io/role"=master变为的语法 ：
+
+nodeSelector:
+  kubernetes.io/role: master
+使用深层嵌套的数据结构可能很难表达--set。鼓励图表设计师--set在设计values.yaml文件格式时考虑使用情况。
+
+更多的安装方法
+该helm install命令可以从多个来源安装：
+
+图表存储库（正如我们上面所见）
+本地图表档案（helm install foo-0.1.1.tgz）
+解压缩的图表目录（helm install path/to/foo）
+完整的URL（helm install https://example.com/charts/foo-1.2.3.tgz）
+'舵升级'和'舵回滚'：升级版本和失败时恢复
+当新版本的图表发布时，或者当您想要更改发行版的配置时，可以使用该helm upgrade 命令。
+
+升级需要现有版本并根据您提供的信息进行升级。由于Kubernetes图表可能很大而且很复杂，因此Helm会尝试执行最小侵入式升级。它只会更新自上次发布以来发生更改的内容。
+
+$ helm upgrade -f panda.yaml happy-panda stable/mariadb
+Fetched stable/mariadb-0.3.0.tgz to /Users/mattbutcher/Code/Go/src/k8s.io/helm/mariadb-0.3.0.tgz
+happy-panda has been upgraded. Happy Helming!
+Last Deployed: Wed Sep 28 12:47:54 2016
+Namespace: default
+Status: DEPLOYED
+...
+在上面的例子中，happy-panda发行版使用相同的图表进行升级，但使用新的YAML文件：
+
+mariadbUser: user1
+我们可以使用helm get values看看这个新设置是否生效。
+
+$ helm get values happy-panda
+mariadbUser: user1
+该helm get命令是查看集群中的发行版的有用工具。正如我们上面所看到的，它表明我们的新价值 panda.yaml已被部署到群集中。
+
+现在，如果在发布过程中某些事情没有按计划进行，那么使用回滚到以前的版本很容易helm rollback [RELEASE] [REVISION]。
+
+$ helm rollback happy-panda 1
+上述回滚我们的快乐熊猫到它的第一个发行版本。发布版本是增量修订。每次发生安装，升级或回滚时，修订版本号都会增加1.第一个修订版本号始终为1.我们可以使用helm history [RELEASE] 查看特定版本的修订版号。
+
+安装/升级/回滚的有用选项
+在安装/升级/回滚期间，您可以指定几个其他有用的选项来定制Helm的行为。请注意，这不是cli标志的完整列表。要查看所有标志的说明，请运行 helm <command> --help。
+
+--timeout：等待Kubernetes命令完成的值（秒），默认值为300（5分钟）
+--wait：等待所有Pod都处于就绪状态，PVC绑定，Deployments的最小（Desired减号maxUnavailable）Pod处于就绪状态，并且服务LoadBalancer在将发行版标记为成功之前具有IP地址（如果是a，则为Ingress ）。它会等待 --timeout价值。如果达到超时，发布将被标记为 FAILED。注意：在部署replicas设置为1并且 maxUnavailable未设置为0作为滚动更新策略的一部分的情况下， --wait将返回就绪状态，因为它已满足就绪状态下的最小Pod。
+--no-hooks：这会跳过命令的运行钩子
+--recreate-pods（仅适用于upgrade和rollback）：此标志将导致重新创建所有窗格（属于部署的窗格除外）
+'HELM DELETE'：删除发行版
+在需要从群集中卸载或删除发行版时，请使用以下helm delete命令：
+
+$ helm delete happy-panda
+这将从集群中删除该版本。您可以使用以下helm list命令查看当前部署的所有版本：
+
+$ helm list
+NAME           	VERSION	UPDATED                        	STATUS         	CHART
+inky-cat       	1      	Wed Sep 28 12:59:46 2016       	DEPLOYED       	alpine-0.1.0
+从上面的输出中，我们可以看到该happy-panda版本已被删除。
+
+然而，Helm总是保留记录发生了什么。需要查看已删除的版本？helm list --deleted显示了这些内容，并helm list --all显示了所有版本（已删除和当前部署，以及失败的版本）：
+
+⇒  helm list --all
+NAME           	VERSION	UPDATED                        	STATUS         	CHART
+happy-panda   	2      	Wed Sep 28 12:47:54 2016       	DELETED        	mariadb-0.3.0
+inky-cat       	1      	Wed Sep 28 12:59:46 2016       	DEPLOYED       	alpine-0.1.0
+kindred-angelf 	2      	Tue Sep 27 16:16:10 2016       	DELETED        	alpine-0.1.0
+由于Helm保留已删除版本的记录，因此不能重新使用版本名称。（如果您确实需要重新使用发行版名称，则可以使用此 --replace标志，但它只会重新使用现有版本并替换其资源。）
+
+请注意，因为版本以这种方式保存，所以可以回滚已删除的资源并重新激活它。
+
+'HELM REPO'：使用存储库
+到目前为止，我们一直只从stable存储库安装图表。但是您可以配置helm使用其他存储库。Helm在该helm repo命令下提供了多个存储库工具。
+
+您可以使用helm repo list以下命令查看配置了哪些存储库：
+
+$ helm repo list
+NAME           	URL
+stable         	https://kubernetes-charts.storage.googleapis.com
+local          	http://localhost:8879/charts
+mumoshu        	https://mumoshu.github.io/charts
+新的存储库可以添加helm repo add：
+
+$ helm repo add dev https://example.com/dev-charts
+由于图表存储库经常更改，因此您可以随时通过运行确保您的Helm客户端处于最新状态helm repo update。
+
+创建你自己的图表
+该图表开发指南介绍了如何开发自己的图表。但您可以通过使用以下helm create 命令快速入门：
+
+$ helm create deis-workflow
+Creating deis-workflow
+现在有一张图表./deis-workflow。您可以编辑它并创建自己的模板。
+
+在编辑图表时，您可以验证它是否通过运行良好格式化helm lint。
+
+当将图表打包分发时，可以运行以下 helm package命令：
+
+$ helm package deis-workflow
+deis-workflow-0.1.0.tgz
+现在可以通过helm install以下方式轻松安装该图表：
+
+$ helm install ./deis-workflow-0.1.0.tgz
+...
+可以将已归档的图表加载到图表存储库中。请参阅图表存储库服务器的文档以了解如何上传。
+
+注意：stable存储库在Kubernetes Charts GitHub存储库上进行管理。该项目接受图表源代码，并且（在审计后）为您打包。
+
+分蘖，命名空间和RBAC
+在某些情况下，您可能希望将Tiller的范围或将多个Tillers部署到单个群集。以下是在这些情况下运营的一些最佳做法。
+
+Tiller可以安装到任何命名空间。默认情况下，它安装在kube-system中。您可以运行多个Tillers，只要它们各自在自己的名称空间中运行。
+限制Tiller只能安装到特定的名称空间和/或资源类型由Kubernetes RBAC角色和角色绑定控制。您可以通过在配置Helm时向Tiller添加服务帐户helm init --service-account <NAME>。你可以在这里找到更多的信息。
+版本名称是唯一的PER TILLER实例。
+图表应该只包含存在于单个命名空间中的资源。
+不建议将多个Tillers配置为在相同的名称空间中管理资源。
+结论
+本章介绍了helm客户端的基本使用模式，包括搜索，安装，升级和删除。它也涵盖类似有用的工具命令helm status，helm get和 helm repo。
+
+有关这些命令的更多信息，请查看Helm的内置帮助：helm help。
+
+在下一章中，我们将看看开发图表的过程。
+
+头盔插件指南
+Helm 2.1.0引入了客户端Helm 插件的概念。插件是一种可以通过helmCLI 访问的工具，但它不是内置Helm代码库的一部分。
+
+现有的插件可以在相关部分找到或通过搜索Github。
+
+本指南介绍了如何使用和创建插件。
+
+概述
+头盔插件是与Helm无缝集成的附加工具。它们提供了扩展Helm核心功能集的方法，但不需要将每个新功能都写入Go并添加到核心工具中。
+
+头盔插件具有以下功能：
+
+可以在Helm安装中添加和删除它们，而不会影响核心Helm工具。
+它们可以用任何编程语言编写。
+他们与Helm融合，并会出现在helm help其他地方。
+头盔插件居住$(helm home)/plugins。
+
+Helm插件模型部分建模在​​Git的插件模型上。为此，您有时可能会听到helm称为瓷层，插件是管道。这是提示Helm提供用户体验和顶级处理逻辑的简略方式，而插件则是执行所需操作的“细节工作”。
+
+安装插件
+使用该$ helm plugin install <path|url>命令安装插件。您可以将路径传递到本地文件系统上的插件或远程VCS回购的URL。该helm plugin install命令克隆或复制该插件的路径/ URL给定$ (helm home)/plugins
+
+$ helm plugin install https://github.com/technosophos/helm-template
+如果你有一个插件tar分发版，只需将插件解压到 $(helm home)/plugins目录中即可。
+
+您也可以通过发布直接从URL安装tarball插件 helm plugin install http://domain/path/to/plugin.tar.gz
+
+建筑插件
+在很多方面，插件类似于图表。每个插件都有一个顶级目录，然后是一个plugin.yaml文件。
+
+$(helm home)/plugins/
+  |- keybase/
+      |
+      |- plugin.yaml
+      |- keybase.sh
+
+在上面的例子中，keybase插件包含在名为的目录中keybase。它有两个文件：（plugin.yaml必需）和一个可执行脚本keybase.sh（可选）。
+
+插件的核心是一个简单的YAML文件plugin.yaml。这是一个插件的插件YAML，它增加了对Keybase操作的支持：
+
+name: "keybase"
+version: "0.1.0"
+usage: "Integrate Keybase.io tools with Helm"
+description: |-
+  This plugin provides Keybase services to Helm.
+ignoreFlags: false
+useTunnel: false
+command: "$HELM_PLUGIN_DIR/keybase.sh"
+这name是插件的名称。当Helm执行插件时，这是它将使用的名称（例如，helm NAME将调用此插件）。
+
+name应该匹配目录名称。在我们上面的例子中，这意味着插件name: keybase应该包含在一个名为的目录中keybase。
+
+限制name：
+
+name不能复制其中一个现有的helm顶级命令。
+name必须限制为ASCII az，AZ，0-9 _和-。
+version是插件的SemVer 2版本。 usage并且description都用于生成命令的帮助文本。
+
+该ignoreFlags开关告诉H​​elm 不会将标志传递给插件。所以，如果一个插件被调用，helm myplugin --foo并且ignoreFlags: true，然后--foo 被丢弃。
+
+该useTunnel开关指示插件需要一个隧道分蘖。这应该设置为true 任何时候插件与Tiller谈话。它会导致Helm打开一个隧道，然后$TILLER_HOST为该隧道设置正确的本地地址。但是不用担心：如果Helm由于Tiller在本地运行而检测到隧道不是必需的，它不会创建隧道。
+
+最后，也是最重要的command是，这个插件在调用时会执行的命令。在执行插件之前插入环境变量。上面的模式说明了指出插件程序所在位置的首选方式。
+
+有一些使用插件命令的策略：
+
+如果插件包含可执行文件，command:则应将可执行文件打包到插件目录中。
+该command:行将在执行前展开任何环境变量。$HELM_PLUGIN_DIR将指向插件目录。
+该命令本身不在shell中执行。所以你不能在一个shell脚本上运行。
+Helm将大量配置注入到环境变量中。查看环境以查看可用信息。
+Helm对插件的语言没有任何假设。你可以用任何你喜欢的方式写下它。
+命令负责执行具体的帮助文本-h和--help。头盔将使用usage和description对helm help和helm help myplugin，但不会处理helm myplugin --help。
+下载器插件
+默认情况下，Helm可以使用HTTP / S获取图表。从Helm 2.4.0开始，插件可以具有从任意源下载图表的特殊功能。
+
+插件应在plugin.yaml文件（顶层）中声明这个特殊功能：
+
+downloaders:
+- command: "bin/mydownloader"
+  protocols:
+  - "myprotocol"
+  - "myprotocols"
+如果安装了这样的插件，Helm可以通过调用指定的协议方案与存储库进行交互command。特殊存储库应与常规存储库类似：特殊存储库helm repo add favorite myprotocol://example.com/ 的规则与常规存储库的规则相同：Helm必须能够下载index.yaml文件才能发现并缓存可用图表列表。
+
+定义的命令将使用以下方案调用： command certFile keyFile caFile full-URL。SSL凭证来自存储在其中的回购定义$HELM_HOME/repository/repositories.yaml。预计下载器插件将原始内容转储到stdout并在stderr上报告错误。
+
+环境变量
+当Helm执行插件时，它将外部环境传递给插件，并且还会注入一些其他环境变量。
+
+KUBECONFIG如果插件设置在外部环境中，则为插件设置变量。
+
+以下变量保证设置：
+
+HELM_PLUGIN：插件目录的路径
+HELM_PLUGIN_NAME：插件的名称，正如所调用的helm。所以 helm myplug会有简称myplug。
+HELM_PLUGIN_DIR：包含该插件的目录。
+HELM_BIN：helm命令的路径（由用户执行）。
+HELM_HOME：Helm家的路径。
+HELM_PATH_*：重要Helm文件和目录的路径存储在前缀为HELM_PATH。的环境变量中。
+TILLER_HOST：domain:port分蘖。如果创建隧道，则会指向隧道的本地端点。否则，它会指向$HELM_HOST，--host或默认主机（按照优先级的头盔的规则）。
+虽然HELM_HOST 可以设置，但不能保证它会指向正确的Tiller实例。这是为了允许插件开发人员HELM_HOST在插件本身需要手动配置连接时以其原始状态进行访问 。
+
+关于 USETUNNEL
+如果插件指定useTunnel: true，Helm将执行以下操作（按顺序）：
+
+解析全局标志和环境
+创建隧道
+组 TILLER_HOST
+执行插件
+关闭隧道
+command退货后，隧道即被移除。因此，例如，一个命令不能后台进程，并假定该进程将能够使用该隧道。
+
+关于标记解析的注记
+在执行插件时，Helm会解析全局标志以供自己使用。其中一些标志不会传递给插件。
+
+--debug：如果已指定，$HELM_DEBUG则设为1
+--home：这被转换为 $HELM_HOME
+--host：这被转换为 $HELM_HOST
+--kube-context：这是简单的丢弃。如果你的插件使用useTunnel，这是用来为你设置隧道。
+插件应该显示帮助文本，然后退出-h和--help。在所有其他情况下，插件可以根据需要使用标志。
+
+基于角色的访问控制
+在Kubernetes中，为特定于应用程序的服务帐户授予角色是确保您的应用程序在您指定的范围内运行的最佳实践。详细了解官方Kubernetes文档中的服务帐户权限。
+
+Bitnami还为您在集群中配置RBAC提供了一个很棒的指导，可让您了解RBAC基础知识。
+
+本指南面向希望限制分蘖能力的用户，以便将资源安装到某些名称空间，或授予掌舵客户端运行对分蘖实例的访问权限。
+
+分蘖和基于角色的访问控制
+您可以--service-account <NAME>在配置头盔时使用该标志将服务帐户添加到Tiller 。作为先决条件，您必须创建一个角色绑定，该角色绑定指定了预先设置的角色和服务帐户名称。
+
+一旦你满足了先决条件并且拥有一个具有正确权限的服务帐户，你就可以像这样运行一个命令： helm init --service-account <NAME>
+
+示例：具有集群管理员角色的服务帐户
+$ kubectl create serviceaccount tiller --namespace kube-system
+serviceaccount "tiller" created
+在rbac-config.yaml：
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tiller
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: tiller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: tiller
+    namespace: kube-system
+注意：集群管理员角色是在Kubernetes集群中默认创建的，因此您不必显式地定义它。
+
+$ kubectl create -f rbac-config.yaml
+serviceaccount "tiller" created
+clusterrolebinding "tiller" created
+$ helm init --service-account tiller
+示例：在名称空间中部署分配器，仅限于在该名称空间中部署资源
+在上面的例子中，我们让Tiller管理员访问整个集群。您无需为Tiller集群管理员访问权限工作。您可以指定Role和RoleBinding来将Tiller的范围限制为特定的命名空间，而不是指定ClusterRole或ClusterRoleBinding。
+
+$ kubectl create namespace tiller-world
+namespace "tiller-world" created
+$ kubectl create serviceaccount tiller --namespace tiller-world
+serviceaccount "tiller" created
+定义允许分蘖管理所有资源的角色，tiller-world如role-tiller.yaml：
+
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: tiller-manager
+  namespace: tiller-world
+rules:
+- apiGroups: ["", "extensions", "apps"]
+  resources: ["*"]
+  verbs: ["*"]
+$ kubectl create -f role-tiller.yaml
+role "tiller-manager" created
+在rolebinding-tiller.yaml，
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: tiller-binding
+  namespace: tiller-world
+subjects:
+- kind: ServiceAccount
+  name: tiller
+  namespace: tiller-world
+roleRef:
+  kind: Role
+  name: tiller-manager
+  apiGroup: rbac.authorization.k8s.io
+$ kubectl create -f rolebinding-tiller.yaml
+rolebinding "tiller-binding" created
+之后，您可以运行helm init以在tiller-world名称空间中安装分蘖。
+
+$ helm init --service-account tiller --tiller-namespace tiller-world
+$HELM_HOME has been configured at /Users/awesome-user/.helm.
+
+Tiller (the helm server side component) has been installed into your Kubernetes Cluster.
+Happy Helming!
+
+$ helm install nginx --tiller-namespace tiller-world --namespace tiller-world
+NAME:   wayfaring-yak
+LAST DEPLOYED: Mon Aug  7 16:00:16 2017
+NAMESPACE: tiller-world
+STATUS: DEPLOYED
+
+RESOURCES:
+==> v1/Pod
+NAME                  READY  STATUS             RESTARTS  AGE
+wayfaring-yak-alpine  0/1    ContainerCreating  0         0s
+示例：在名称空间中部署分配器，仅限于在另一个名称空间中部署资源
+在上面的例子中，我们让Tiller管理员访问它内部部署的名称空间。现在，让我们限制Tiller的范围，将资源部署在不同的命名空间中！
+
+例如，让我们在命名空间中安装tiller，myorg-system并允许tiller在命名空间中部署资源myorg-users。
+
+$ kubectl create namespace myorg-system
+namespace "myorg-system" created
+$ kubectl create serviceaccount tiller --namespace myorg-system
+serviceaccount "tiller" created
+定义允许分蘖管理所有资源的角色，myorg-users如role-tiller.yaml：
+
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: tiller-manager
+  namespace: myorg-users
+rules:
+- apiGroups: ["", "extensions", "apps"]
+  resources: ["*"]
+  verbs: ["*"]
+$ kubectl create -f role-tiller.yaml
+role "tiller-manager" created
+将服务帐户绑定到该角色。在rolebinding-tiller.yaml，
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: tiller-binding
+  namespace: myorg-users
+subjects:
+- kind: ServiceAccount
+  name: tiller
+  namespace: myorg-system
+roleRef:
+  kind: Role
+  name: tiller-manager
+  apiGroup: rbac.authorization.k8s.io
+$ kubectl create -f rolebinding-tiller.yaml
+rolebinding "tiller-binding" created
+我们还需要授予分拣者访问权限以读取myorg系统中的配置文件，以便它可以存储版本信息。在role-tiller-myorg-system.yaml：
+
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  namespace: myorg-system
+  name: tiller-manager
+rules:
+- apiGroups: ["", "extensions", "apps"]
+  resources: ["configmaps"]
+  verbs: ["*"]
+$ kubectl create -f role-tiller-myorg-system.yaml
+role "tiller-manager" created
+和各自的角色绑定。在rolebinding-tiller-myorg-system.yaml：
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: tiller-binding
+  namespace: myorg-system
+subjects:
+- kind: ServiceAccount
+  name: tiller
+  namespace: myorg-system
+roleRef:
+  kind: Role
+  name: tiller-manager
+  apiGroup: rbac.authorization.k8s.io
+$ kubectl create -f rolebinding-tiller-myorg-system.yaml
+rolebinding "tiller-binding" created
+头盔和基于角色的访问控制
+当在一个pod中运行helm客户端时，为了让helm客户端与一个分蘖实例交谈，它需要授予某些特权。具体来说，helm客户端需要能够创建pods，转发端口并能够在分舵运行的命名空间中列出pod（因此它可以找到分蘖）。
+
+示例：在名称空间中部署头盔，在另一个名称空间中与Tiller交谈
+在这个例子中，我们将假设tiller正在名为空间中运行，tiller-world并且头盔客户端正在名为空间中运行helm-world。默认情况下，tiller正在kube-system命名空间中运行。
+
+在helm-user.yaml：
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: helm
+  namespace: helm-world
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  name: tiller-user
+  namespace: tiller-world
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods/portforward
+  verbs:
+  - create
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - list
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: tiller-user-binding
+  namespace: tiller-world
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: tiller-user
+subjects:
+- kind: ServiceAccount
+  name: helm
+  namespace: helm-world
+$ kubectl create -f helm-user.yaml
+serviceaccount "helm" created
+role "tiller-user" created
+rolebinding "tiller-user-binding" created
+确保您的头盔安装
+Helm是一款强大而灵活的Kubernetes软件包管理和操作工具。使用默认安装命令安装它 - helm init- 快速轻松地安装Tiller，与Helm相对应的服务器端组件。
+
+但是，此默认安装不适用于任何安全配置。使用这种类型的安装是完全合适的，因为您在处理没有安全问题或几乎没有安全问题的群集时可以使用这种安装方式，例如使用Minikube进行本地开发，或者使用在专用网络中安全性良好且无数据共享或无其他用户或团队。如果是这种情况，那么默认安装很好，但请记住：大功率带来了巨大的责任。决定使用默认安装时始终使用尽职调查。
+
+谁需要安全配置？
+对于以下类型的集群，我们强烈建议您将正确的安全配置应用于Helm和Tiller，以确保集群的安全性，集群中的数据以及它所连接的网络。
+
+暴露于不受控制的网络环境的群集：不受信任的网络参与者可以访问群集，也可以访问可访问网络环境的不受信任的应用程序。
+许多人使用的群集 - 多租户群集 - 作为共享环境
+有权访问或使用高价值数据或任何类型网络的群集
+通常，像这样的环境被称为生产等级或生产质量，因为任何公司因滥用集群而对公司造成的损害对于客户，公司本身或者两者都是深远的。一旦损害风险变得足够高，无论实际风险如何，都需要确保集群的完整性。
+
+要为您的环境正确配置安装，您必须：
+
+了解群集的安全上下文
+选择你应该适用于你的头盔安装的最佳实践
+以下假定您有一个Kubernetes配置文件（一个kubeconfig文件），或者有一个用于访问群集。
+
+了解群集的安全上下文
+helm init将Tiller安装到kube-system名称空间中的集群中，而不应用任何RBAC规则。这适用于本地开发和其他私人场景，因为它可以让您立即生产。它还使您能够继续使用没有基于角色的访问控制（RBAC）支持的现有Kubernetes群集来运行Helm，直到您可以将工作负载移动到更新的Kubernetes版本。
+
+在确保分蘖安装时，需要考虑四个主要方面：
+
+基于角色的访问控制或RBAC
+Tiller的gRPC端点及Helm的使用情况
+分蘖发布信息
+头盔图表
+RBAC
+Kubernetes的最新版本采用基于角色的访问控制（或RBAC）系统（与现代操作系统一样），以帮助缓解证书被滥用或存在错误时可能造成的损害。即使在身份被劫持的情况下，身份也只有这么多的权限才能进入受控空间。这有效地增加了一层安全性，以限制使用该身份进行攻击的范围。
+
+Helm和Tiller旨在安装，删除和修改可以包含许多服务交互在一起的逻辑应用程序。因此，它的实用性通常涉及整个集群的操作，在多租户集群中意味着必须非常小心才能访问整个集群的Tiller安装以防止不正确的活动。
+
+特定用户和团队 - 开发人员，操作员，系统和网络管理员 - 需要他们自己的群集部分，以便他们可以使用Helm和Tiller，而不会冒着集群其他部分的风险。这意味着使用启用了RBAC的Kubernetes集群，并配置Tiller以强制执行它们。有关在Kubernetes中使用RBAC的更多信息，请参阅使用RBAC授权。
+
+分蘖和用户权限
+当前形式的Tiller不提供将用户凭据映射到Kubernetes内的特定权限的方法。当Tiller在集群内部运行时，它将使用其服务帐户的权限运行。如果没有服务帐户名称提供给Tiller，它将使用该名称空间的默认服务帐户运行。这意味着该服务器上的所有Tiller操作均使用Tiller窗格的凭据和权限执行。
+
+为了恰当地限制Tiller本身的功能，标准Kubernetes RBAC机制必须附加到Tiller上，包括Roles和RoleBindings，它们明确限制了Tiller实例可以安装什么以及在哪里安装。
+
+这种情况在未来可能会改变。尽管社区有几种方法可以解决这个问题，但在采用客户权利而不是Tiller权利的情况下采取行动时，取决于Pod身份工作组的结果，该工作组已经承担了解决任务的任务一般问题。
+
+Tiller gRPC端点和TLS
+在默认安装中，Tiller提供的gRPC端点在集群内部（不在集群外部）可用，不需要应用认证配置。如果不应用身份验证，集群中的任何进程都可以使用gRPC端点在集群内执行操作。在本地或安全的专用群集中，这可以实现快速使用并且是正常的。（当在集群外部运行时，Helm通过Kubernetes API服务器进行身份验证以达到Tiller，利用现有的Kubernetes身份验证支持。）
+
+共享和生产群集 - 大多数情况下 - 应至少使用Helm 2.7.2，并为每个Tiller gRPC端点配置TLS，以确保群集内gRPC端点的使用仅适用于该端点的正确身份验证身份。这样做可以在任意数量的名称空间中部署任意数量的Tiller实例，但不可能对任何gRPC端点进行未经验证的使用。最后，美国Helm init可以--tiller-tls-verify选择在启用TLS的情况下安装Tiller并验证远程证书，所有其他Helm命令都应该使用该--tls选项。
+
+有关正确配置Tiller并使用TLS配置的Helm的正确步骤的更多信息，请参阅Helm和Tiller之间的使用SSL。
+
+当Helm客户端从群集外部连接时，Helm客户端和API服务器之间的安全性由Kubernetes本身管理。你可能想确保这个链接是安全的。请注意，如果您使用上面建议的TLS配置，则即使Kubernetes API服务器也无法访问客户端和Tiller之间的未加密消息。
+
+分蘖释放信息
+由于历史原因，Tiller将其发布信息存储在ConfigMaps中。我们建议将默认设置更改为“秘密”。
+
+秘密是Kubernetes接受的机制，用于保存被认为是敏感的配置数据。尽管秘密本身并不提供很多保护，但Kubernetes集群管理软件经常将它们与其他对象区别开来。因此，我们建议使用秘密来存储发布。
+
+启用此功能目前需要--storage=secret在分蘖部署部署中设置标志。这需要直接修改部署或使用helm init --override=...，因为当前没有helm init标志可供您执行此操作。有关更多信息，请参阅使用-override。
+
+关于图表的思考
+由于Helm的相对寿命，Helm chart生态系统的发展并没有直接关系到整个集群的控制，特别是在开发人员空间，这是完全合理的。但是，图表是一种不仅可以安装您可能已经验证或可能未验证的容器的包，但它也可以安装到多个名称空间中。
+
+与所有共享软件一样，在受控或共享的环境中，您必须在安装之前验证自己安装的所有软件。如果您已经通过TLS获得了Tiller，并且已经安装了Tiller，并且只有一个或部分名称空间的权限，某些图表可能无法安装 - 但在这些环境中，这正是您想要的。如果您需要使用图表，您可能必须与创建者一起工作或自行修改它，以便在应用了适当的RBAC规则的多播集群中安全地使用它。该helm template命令在本地呈现图表并显示输出。
+
+一旦审核，您可以使用Helm的出处工具来确保您使用的图表的出处和完整性。
+
+gRPC工具和安全分蘖配置
+许多非常有用的工具直接使用gRPC接口，并且已经针对默认安装构建 - 它提供了集群范围的访问 - 一旦应用了安全配置就可能失败。RBAC策略由您或集群运营商控制，并且可以针对该工具进行调整，或者可以将该工具配置为在应用于Tiller的特定RBAC策略的约束范围内正常工作。如果gRPC端点受到保护，则可能需要执行相同的操作：为了使用特定的Tiller实例，这些工具需要自己的安全TLS配置。RBAC策略和gRPC工具一起配置的安全gRPC端点组合使您能够按照自己的需要控制群集环境。
+
+保护头盔和舵柄的最佳实践
+以下指导原则重申了保护Helm和Tiller并正确使用它们的最佳做法。
+
+创建一个启用了RBAC的集群
+配置每个Tiller gRPC端点以使用单独的TLS证书
+发布信息应该是Kubernetes秘密
+为每个用户，团队或其他具有--service-account标志，角色和RoleBindings的组织实体安装一个Tiller
+使用--tiller-tls-verify带有helm init和--tls其他Helm命令的标志来强制验证
+如果遵循这些步骤，则示例helm init命令可能如下所示：
+
+$ helm init \
+--tiller-tls \
+--tiller-tls-verify \
+--tiller-tls-ca-cert=ca.pem \
+--tiller-tls-cert=cert.pem \
+--tiller-tls-key=key.pem \
+--service-account=accountname
+此命令将启动Tiller，通过gRPC进行强身份验证，并且已应用RBAC策略的服务帐户。
