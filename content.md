@@ -1,6 +1,3 @@
-# helm-doc-zh-cn
-Try to translate the helm official doc to Chinese version
-
 - 用户指南
   - [快速入门](quickstart/quickstart-zh_cn.md)
   - [安装](quickstart/install-zh_cn.md)
