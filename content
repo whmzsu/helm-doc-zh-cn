@@ -1,0 +1,31 @@
+用户指南
+  quickstart.md
+  install.md
+  kubernetes_distros.md
+  install_faq.md
+  using_helm.md
+  plugins.md
+  rbac.md
+  securing_installation.md
+Helm命令参考
+
+Charts
+  charts.md
+  charts_hooks.md
+  charts_tips_and_tricks.md
+  charts_repository.md
+开发模板
+
+最佳实践
+
+相关项目和文档
+
+Kubernetes Helm 架构
+
+开发指南
+
+项目历史
+
+术语表
+
+何处寻找Charts
