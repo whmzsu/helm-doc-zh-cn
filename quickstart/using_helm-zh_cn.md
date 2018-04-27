@@ -5,11 +5,11 @@
 
 ## 三大概念
 
-A *Chart*是一个Helm包。它包含在Kubernetes集群内部运行应用程序，工具或服务所需的所有资源定义。把它想像为一个自制软件，一个Apt dpkg或一个Yum RPM文件的Kubernetes环境里面的等价物。
+A *Chart* 是一个Helm包。它包含在Kubernetes集群内部运行应用程序，工具或服务所需的所有资源定义。把它想像为一个自制软件，一个Apt dpkg或一个Yum RPM文件的Kubernetes环境里面的等价物。
 
-A *Repository*是Charts收集和共享的地方。它就像Perl的[CPAN archive](http://www.cpan.org)或Fedora软件包repo[Fedora Package Database](https://admin.fedoraproject.org/pkgdb/)，是在Kubernetes里的软件包。
+A *Repository* 是Charts收集和共享的地方。它就像Perl的[CPAN archive](http://www.cpan.org)或Fedora软件包repo[Fedora Package Database](https://admin.fedoraproject.org/pkgdb/)。
 
-A *Release*是处于Kubernetes集群中运行的Chart的一个实例。一个chart通常可以多次安装到同一个群集中。每次安装时，都会创建一个新 _release_ 。比如像一个MySQL chart。如果希望在群集中运行两个数据库，则可以安装该chart两次。每个都有自己的 _release_，每个 _release_ 都有自己的 _release name_。
+A *Release* 是处于Kubernetes集群中运行的Chart的一个实例。一个chart通常可以多次安装到同一个群集中。每次安装时，都会创建一个新 _release_ 。比如像一个MySQL chart。如果希望在群集中运行两个数据库，则可以安装该chart两次。每个都有自己的 _release_，每个 _release_ 都有自己的 _release name_。
 
 有了这些概念，我们现在可以这样解释Helm：
 
@@ -93,11 +93,11 @@ To connect to your database run the following command:
    kubectl run happy-panda-mariadb-client --rm --tty -i --image bitnami/mariadb --command -- mysql -h happy-panda-mariadb
 ```
 
-当mariadb chart已安装。请注意，安装chart会创建一个新 _release_ 对象。上面的release被命名 为`happy-panda`。（如果你想使用你自己的release名称，只需使用 --name 参数 配合helm install。）
+当mariadb chart已安装，请注意，安装chart会创建一个新 _release_ 对象。上面的release被命名 为`happy-panda`。（如果你想使用你自己的release名称，只需使用 --name 参数 配合helm install。）
 
 在安装过程中，`helm`客户端将打印有关创建哪些资源的有用信息，release的状态以及是否可以或应该采取其他的配置步骤。
 
-Helm不会等到所有资源都运行。许多charts需要大小超过600M的Docker 镜像，并且可能需要很长时间才能安装到群集中。
+Helm不会一直等到所有资源都运行才退出。许多charts需要大小超过600M的Docker 镜像，并且可能需要很长时间才能安装到群集中。
 
 要跟踪release状态或重新读取配置信息，可以使用`helm status`：
 
@@ -259,7 +259,7 @@ helm install命令可以从多个来源安装：
 ## 'helm upgrade' and 'helm rollback'：升级版本和失败时恢复
 当新版本的chart发布时，或者当你想要更改release配置时，可以使用`helm upgrade` 命令。
 
-升级需要现有版本并根据提供的信息进行升级。由于Kubernetes chart可能很大而且很复杂，因此Helm会尝试执行最小侵入式升级。它只会更新自上次发布以来发生更改的内容。
+升级需要已有的release并根据提供的信息进行升级。由于Kubernetes chart可能很大而且很复杂，因此Helm会尝试执行最小侵入式升级。它只会更新自上次发布以来发生更改的内容。
 
 ```console
 $ helm upgrade -f panda.yaml happy-panda stable/mariadb
@@ -300,7 +300,7 @@ $ helm rollback happy-panda 1
 - `--timeout`：等待Kubernetes命令完成的超时时间值（秒），默认值为300（5分钟）
 - `--wait`：等待所有Pod都处于就绪状态，PVC绑定完，将release标记为成功之前，Deployments有最小（Desired-maxUnavailable）Pod处于就绪状态，并且服务具有IP地址（如果是`LoadBalancer`，则为Ingress ）。它会等待 `--timeout`的值。如果达到超时，release将被标记为 FAILED。注意：在部署replicas设置为1 maxUnavailable且未设置为0，作为滚动更新策略的一部分的情况下， `--wait`它将返回就绪状态，因为它已满足就绪状态下的最小Pod。
 - `--no-hooks`：这会跳过命令的运行钩子
-- `recreate-pods`（仅适用于upgrade和rollback）：此参数将导致重新创建所有pod（属于deployment的pod除外）
+- `--recreate-pods`（仅适用于upgrade和rollback）：此参数将导致重新创建所有pod（属于deployment的pod除外）
 
 ## 'helm delete'：删除Release
 
@@ -396,6 +396,7 @@ $ helm install ./deis-workflow-0.1.0.tgz
 4. chart应该只包含存在于单个命名空间中的资源。
 5. 不建议将多个Tillers配置为在相同的命名空间中管理资源。
 ## 总结
+
 本章介绍了helm客户端的基本使用模式，包括搜索，安装，升级和删除。它也涵盖类似有用的工具命令如`helm status`，`helm get`和 `helm repo`。
 
 有关这些命令的更多信息，请查看Helm的内置帮助：`helm help`。
