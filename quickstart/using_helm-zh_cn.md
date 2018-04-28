@@ -1,4 +1,4 @@
-# 使用Helm
+# 使用
 本指南讲述使用Helm（和Tiller）来管理Kubernetes群集上的软件包的基础知识。前提是假定你已经安装了Helm客户端和Tiller服务端（通常通过helm init）。
 
 如果只是想运行一些简单命令，可以从[快速入门指南](quickstart-zh_cn.md)开始。本章将介绍Helm命令的具体内容，并解释如何使用Helm。

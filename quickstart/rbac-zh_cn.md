@@ -1,4 +1,4 @@
-# 基于角色的访问控制
+# RBAC-基于角色的访问控制
 
 在Kubernetes中，最佳的做法是，为特定的应用程序的服务帐户授予角色,确保应用程序在指定的范围内运行。要详细了解服务帐户权限请阅读[官方Kubernetes文档](https://kubernetes.io/docs/admin/authorization/rbac/#service-account-permissions).
 
