@@ -1,4 +1,4 @@
-- 用户指南
+# 用户指南
   - [快速入门](quickstart/quickstart-zh_cn.md)
   - [安装](quickstart/install-zh_cn.md)
   - [Kubernetes发行版](quickstart/kubernetes_distros-zh_cn.md)
