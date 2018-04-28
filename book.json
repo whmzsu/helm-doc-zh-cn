@@ -15,7 +15,6 @@
         "github-buttons@2.1.0",
         "favicon@^0.0.2",
         "tbfed-pagefooter@^0.0.1",
-        "3-ba",
         "theme-default",
         "-highlight", "prism", "prism-themes"
     ],
@@ -27,9 +26,17 @@
             "caption": "图片 - _CAPTION_"
         },
         "github-buttons": {
-            "repo": "rootsongjc/kubernetes-handbook",
+            "repo": "whmzsu/helm-doc-zh-cn",
             "types": ["star"],
             "size": "small"
+        },
+        "github": {
+            "url": "https://github.com/whmzsu/helm-doc-zh-cn"
+        },
+        "editlink": {
+           "base": "https://github.com/whmzsu/helm-doc-zh-cn/edit/master/content",
+           "label": "Edit This Page",
+           "multilingual": false
         },
         "tbfed-pagefooter": {
             "copyright": "Copyright © Mingo 2017-2018",
