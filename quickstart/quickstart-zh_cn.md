@@ -58,13 +58,13 @@ $ helm repo update               ＃确保我们获得最新的chart列表
 $ helm install stable / mysql
 Released smile-penguin
 ```
-在上面的例子中，stable/mysql 已经安装，安装版本的实例的名字是smiling-penguin。通过运行`helm inspect stable/mysql`可以简单了解该MySQL chart的功能。
+在上面的例子中，stable/mysql 已经安装，安装版本的release的名字是smiling-penguin。通过运行`helm inspect stable/mysql`可以简单了解该MySQL chart的功能。
 
-无论何时安装chart，都会创建一个新实例版本。所以一个chart可以多次安装到同一个群集中。而且每个都可以独立管理和升级。
+无论何时安装chart，都会创建一个新release版本。所以一个chart可以多次安装到同一个群集中。而且每个都可以独立管理和升级。
 
 `helm install`命令功能非常丰富，具有很多强大功能。要了解更多信息，请查看[使用Helm指南](using_helm-zh_cn.md)
 
-## 了解安装的实例
+## 了解安装的release
 很容易通过如下命令查看已使用Helm安装的内容：
 
 ```console
@@ -73,15 +73,15 @@ NAME             VERSION   UPDATED                   STATUS    CHART
 smiling-penguin  1         Wed Sep 28 12:59:46 2016  DEPLOYED  mysql-0.1.0
 ```
 
-## 卸载安装的实例
-要卸载安装的实例，请使用以下`helm delete`命令：
+## 卸载安装的release
+要卸载安装的release，请使用以下`helm delete`命令：
 
 ```console
 $ helm delete smiling-penguin
 Removed smiling-penguin
 ```
 
-smiling-penguin实例将从Kubernetes 卸载，但仍然可以查询有关该实例的信息：
+smiling-penguin release将从Kubernetes 卸载，但仍然可以查询有关该release的信息：
 
 ```console
 $ helm status smiling-penguin
@@ -89,7 +89,7 @@ Status: DELETED
 ...
 ```
 
-由于Helm在删除它们之后也会跟踪实例，因此可以审核群集的历史记录，甚至可以取消删除动作（使用`helm rollback`）。
+由于Helm在删除它们之后也会跟踪release，因此可以审核群集的历史记录，甚至可以取消删除动作（使用`helm rollback`）。
 
 ## 阅读帮助文本
 要了解有关Helm命令的更多信息，请使用helm help或键入一个后跟该-h标志的命令：

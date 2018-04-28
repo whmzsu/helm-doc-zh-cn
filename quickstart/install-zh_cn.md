@@ -138,7 +138,7 @@ Client: &version.Version{SemVer:"v2.0.0-alpha.4", GitCommit:"db...", GitTreeStat
 Server: &version.Version{SemVer:"v2.0.0-alpha.4", GitCommit:"a5...", GitTreeState:"dirty"}
 ```
 
-注意，即使在本地运行，Tiller也会将安装的实例配置存储在Kubernetes内的ConfigMaps中。
+注意，即使在本地运行，Tiller也会将安装的release配置存储在Kubernetes内的ConfigMaps中。
 
 ## 升级Tiller
 
@@ -270,7 +270,7 @@ Tiller安装被跳过，manifest以JSON格式输出到stdout。
 ```
 ### 存储后端
 
-默认情况下，tiller将安装实例信息存储在其运行的名称空间中的ConfigMaps中。从Helm 2.7.0开始，现在有一个Secrets用于存储安装实例信息的beta存储后端。添加了这个功能是为和Kubernetes的加密Secret一起，保护chart的安全性。
+默认情况下，tiller将安装release信息存储在其运行的名称空间中的ConfigMaps中。从Helm 2.7.0开始，现在有一个Secrets用于存储安装release信息的beta存储后端。添加了这个功能是为和Kubernetes的加密Secret一起，保护chart的安全性。
 
 要启用secrets后端，需要使用以下选项启动Tiller：
 
