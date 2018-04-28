@@ -1,8 +1,8 @@
 # 安装Helm
 
-Helm有两个部分：Helm客户端（helm）和Helm服务器（Tiller）。本指南介绍如何安装客户端，然后继续演示两种安装服务器的方式。
+Helm有两个部分：Helm客户端（helm）和Helm服务器（Tiller）。本指南介绍如何安装客户端，然后继续演示两种安装服务端的方法。
 
-**重要提示**：如果你负责的群集是在受控的环境，尤其是在共享资源时，强烈建议使用安全配置安装Tiller。有关指导，请参阅[安全Helm安装](securing_installation.md)。
+**重要提示**：如果你负责的群集是在受控的环境，尤其是在共享资源时，强烈建议使用安全配置安装Tiller。有关指导，请参阅[安全Helm安装](securing_installation-zh_cn.md)。
 
 ## 安装Helm客户端
 
@@ -85,7 +85,7 @@ $ make bootstrap build
 
 Helm的服务器端部分Tiller通常运行在Kubernetes集群内部。但是对于开发，它也可以在本地运行，并配置为与远程Kubernetes群集通信。
 
-### 简易群集内安装
+### 快捷群集内安装
 
 安装`tiller`到群集中最简单的方法就是运行 `helm init`。这将验证`helm`本地环境设置是否正确（并在必要时进行设置）。然后它会连接到`kubectl`默认连接的任何集群（`kubectl config view`）。一旦连接，它将安装`tiller`到 `kube-system`命名空间中。
 
@@ -280,8 +280,8 @@ helm init --override 'spec.template.spec.containers[0].command'='{/tiller,--stor
 
 目前，如果您想从默认后端切换到secrets后端，必须自行为此进行迁移配置信息。当这个后端从beta版本毕业时，将会有更正式的移徙方法。
 
-## 结论
+## 总结
 
-在大多数情况下，安装和获取预先构建的helm二进制代码及`helm init`一样简单。这格文档提供而了一些用例给那些想要用Helm做更复杂的事情的人。
+在大多数情况下，安装和获取预先构建的helm二进制代码及`helm init`一样简单。这个文档提供而了一些用例给那些想要用Helm做更复杂的事情的人。
 
 一旦成功安装了Helm Client和Tiller，可以继续下一步使用Helm来管理charts。
