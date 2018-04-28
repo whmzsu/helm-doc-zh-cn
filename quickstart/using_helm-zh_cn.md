@@ -397,7 +397,7 @@ $ helm install ./deis-workflow-0.1.0.tgz
 5. 不建议将多个Tillers配置为在相同的命名空间中管理资源。
 ## 总结
 
-本章介绍了helm客户端的基本使用模式，包括搜索，安装，升级和删除。它也涵盖类似有用的工具命令如`helm status`，`helm get`和 `helm repo`。
+本章介绍了helm客户端的基本使用模式，包括搜索，安装，升级和删除。它也涵盖了有用的工具命令类似如`helm status`，`helm get`和 `helm repo`。
 
 有关这些命令的更多信息，请查看Helm的内置帮助：`helm help`。
 

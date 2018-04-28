@@ -176,9 +176,9 @@ Tiller和Helm必须协商一个通用版本，以确保他们可以安全地进�
 
 我正在尝试删除某些东西。
 
-**问：当我删除Tiller deployment时，为何所有安装的实例信息还在集群里？**
+**问：当我删除Tiller deployment时，为何所有安装的release信息还在集群里？**
 
-安装实例信息存储在kube-system名称空间内的ConfigMaps中。需要手动删除它们以删除记录或使用helm delete --purge。
+安装release信息存储在kube-system名称空间内的ConfigMaps中。需要手动删除它们以删除记录或使用helm delete --purge。
 
 问：我想删除我的本地Helm。它的所有文件在哪里？
 
