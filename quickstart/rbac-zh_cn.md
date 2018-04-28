@@ -5,7 +5,7 @@
 Bitnami写了一个在集群中配置RBAC的[指导](https://docs.bitnami.com/kubernetes/how-to/configure-rbac-in-your-kubernetes-cluster/)，可让你了解RBAC基础知识。
 
 本指南面向希望对Helm限制如下权限的用户:
-1. Tiller的将资源安装到特定namespace能力
+1. Tiller将资源安装到特定namespace能力
 2. 授权Helm客户端对Tiller实例的访问
 
 ## Tiller和基于角色的访问控制
