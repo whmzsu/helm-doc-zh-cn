@@ -79,17 +79,17 @@ nginx-1.2.3.tgz
 
 在管理chart tepo库中的chart时，有时需要弃用chart。`Chart.yaml`的d`eprecated`字段可用于将chart标记为已弃用。如果存储库中最新版本的chart标记为已弃用，则整个chart被视为已弃用。chart名称稍后可以通过发布未标记为已弃用的较新版本来重新使用。废弃chart的工作流程根据[kubernetes/charts](https://github.com/kubernetes/charts) 项目的工作流程如下：
 
-- 更新chart的`Chart.yaml`以将chart标记为启用，并且更新版本
-- 在chart Repository中发布新的chart版本
-- 从源代码库中删除chart（例如git）
+-   更新chart的`Chart.yaml`以将chart标记为启用，并且更新版本
+-   在chart Repository中发布新的chart版本
+-   从源代码库中删除chart（例如git）
 
 ## Chart许可证文件，自述文件和说明文件
 chart还可以包含描述chart的安装，配置，使用和许可证的文件。chart的自述文件应由Markdown（README.md）语法格式化，并且通常应包含：
 
-- chart提供的应用程序或服务的描述
-- 运行chart的任何前提条件或要求
-- 选项`values.yaml`和默认值的说明
-- 任何其他可能与安装或配置chart相关的信息
+-   chart提供的应用程序或服务的描述
+-   运行chart的任何前提条件或要求
+-   选项`values.yaml`和默认值的说明
+-   任何其他可能与安装或配置chart相关的信息
 
 chart还可以包含一个简短的纯文本`templates/NOTES.txt`文件，在安装后以及查看版本状态时将打印出来。此文件将作为模板[template](#templates-and-values)进行评估 ，并可用于显示使用说明，后续步骤或任何其他与发布chart相关的信息。例如，可以提供用于连接到数据库或访问Web UI的指令。由于运行时，该文件被打印到标准输出 `helm install`或`helm status`，建议保持内容简短并把更多细节指向自述文件。
 
@@ -115,9 +115,9 @@ dependencies:
     repository: http://another.example.com/charts
 ```
 
-- 该name字段是chart的名称。
-- version字段是chart的版本。
-- repository字段是chart repo的完整URL。请注意，还必须使用helm repo add添加该repo到本地才能使用。
+-   该name字段是chart的名称。
+-   version字段是chart的版本。
+-   repository字段是chart repo的完整URL。请注意，还必须使用helm repo add添加该repo到本地才能使用。
 
 有了依赖关系文件，你可以通过运行`helm dependency update` ，它会使用你的依赖关系文件将所有指定的chart下载到你的`charts/`目录中。
 
@@ -232,10 +232,10 @@ helm install --set tags.front-end=true --set subchart2.enabled=false
 
 ##### `tags`和`conditions`解析
 
-* **Conditions (设置 values) 会覆盖tags配置.**。第一个存在的condition路径生效，后续该chart的condition路径将被忽略。
-* 如果chart的某tag的任一tag的值为true，那么该tag的值为true，并启用这个chart。
-* Tags 和 conditions值必须在顶级父级的值中进行设置。
-* `tags:`值中的关键字必须是顶级关键字。目前不支持全局和嵌套`tags:`表格。
+*   **Conditions (设置 values) 会覆盖tags配置.**。第一个存在的condition路径生效，后续该chart的condition路径将被忽略。
+*   如果chart的某tag的任一tag的值为true，那么该tag的值为true，并启用这个chart。
+*   Tags 和 conditions值必须在顶级父级的值中进行设置。
+*   `tags:`值中的关键字必须是顶级关键字。目前不支持全局和嵌套`tags:`表格。
 
 #### 通过requirements.yaml导入子值
 
@@ -360,30 +360,30 @@ wordpress:
 
 假设名为“A”的chart创建以下Kubernetes对象
 
-- namespace "A-Namespace"
-- statefulset "A-StatefulSet"
-- service "A-Service"
+-   namespace "A-Namespace"
+-   statefulset "A-StatefulSet"
+-   service "A-Service"
 
 此外，A依赖于创建对象的chart B.
 
-- namespace "B-Namespace"
-- replicaset "B-ReplicaSet"
-- service "B-Service"
+-   namespace "B-Namespace"
+-   replicaset "B-ReplicaSet"
+-   service "B-Service"
 
 安装/升级chart A后，会创建/修改单个Helm版本。该版本将按以下顺序创建/更新所有上述Kubernetes对象：
 
-- A-Namespace
-- B-Namespace
-- A-StatefulSet
-- B-ReplicaSet
-- A-Service
-- B-Service
+-   A-Namespace
+-   B-Namespace
+-   A-StatefulSet
+-   B-ReplicaSet
+-   A-Service
+-   B-Service
 
 这是因为当Helm安装/升级charts时，charts中的Kubernetes对象及其所有依赖项都是如下
 
-- 聚合成一个单一的集合; 然后
-- 按类型排序，然后按名称排序; 接着
-- 按该顺序创建/更新。
+-   聚合成一个单一的集合; 然后
+-   按类型排序，然后按名称排序; 接着
+-   按该顺序创建/更新。
 
 因此，单个release是使用charts及其依赖关系创建的所有对象。
 
@@ -396,8 +396,8 @@ Helm chart模板是用Go模板语言[Go template language](https://golang.org/pk
 
 模板的值有两种提供方法：
 
-- chart开发人员可能会在chart内部提供一个values.yaml文件。该文件可以包含默认值。
-- chart用户可能会提供一个包含值的YAML文件。这可以通过命令行提供`helm install -f`。
+-   chart开发人员可能会在chart内部提供一个values.yaml文件。该文件可以包含默认值。
+-   chart用户可能会提供一个包含值的YAML文件。这可以通过命令行提供`helm install -f`。
 
 当用户提供自定义值时，这些值将覆盖chart中v`alues.yaml`文件中的值。
 
@@ -433,12 +433,12 @@ spec:
               value: {{default "minio" .Values.storage}}
 ```
 
-上面的示例基于https://github.com/deis/charts，是Kubernetes replication controller的模板。它可以使用以下四个模板值（通常在values.yaml文件中定义 ）：
+上面的示例基于[此网址](https://github.com/deis/charts)，是Kubernetes replication controller的模板。它可以使用以下四个模板值（通常在values.yaml文件中定义 ）：
 
-- imageRegistry：Docker镜像的源。
-- dockerTag：docker镜像的标签。
-- pullPolicy：Kubernetes镜像拉取策略。
-- storage：存储后端，其默认设置为 `"minio"`
+-   imageRegistry：Docker镜像的源。
+-   dockerTag：docker镜像的标签。
+-   pullPolicy：Kubernetes镜像拉取策略。
+-   storage：存储后端，其默认设置为 `"minio"`
 
 所有这些值都由模板作者定义。Helm不需要或指定参数。
 
@@ -450,18 +450,18 @@ spec:
 
 以下值是预定义的，可用于每个模板，并且不能被覆盖。与所有值一样，名称区分大小写。
 
-- `Release.Name`：release的名称（不是chart）
-- `Release.Time`：chart版本上次更新的时间。这将匹配`Last Released`发布对象上的时间。
-- `Release.Namespace`：chart release发布的namespace。
-- `Release.Service`：进行发布的服务。通常是Tiller。
-- `Release.IsUpgrade`：如果当前操作是升级或回滚，则设置为true。
-- `Release.IsInstall`：如果当前操作是安装，则设置为true。
-- `Release.Revision`：版本号。它从1开始，并随着每个helm upgrade增加。
-- `Chart`：`Chart.yaml`的内容。chart版本可以从`Chart.Version`和`维护人员 `Chart.Maintainers`一起获得。
-- `Files`：包含chart中所有非特殊文件的map-like对象。不会允许你访问模板，但会让你访问存在的其他文件（除非它们被排除使用`.helmignore`）。可以使用`{{index .Files "file.name"}}`或使用`{{.Files.Get name}}`或 `{{.Files.GetString name}}`功能来访问文件。也可以使用`{{.Files.GetBytes}}`访问该文件的内容，`[]byte`
-- Capabilities：包含有关Kubernetes版本信息的map-like对象（`{{.Capabilities.KubeVersion}}`，Tiller（`{{.Capabilities.TillerVersion}}`和支持的Kubernetes API版本（`{{.Capabilities.APIVersions.Has "batch/v1"`）
+-   `Release.Name`：release的名称（不是chart）
+-   `Release.Time`：chart版本上次更新的时间。这将匹配`Last Released`发布对象上的时间。
+-   `Release.Namespace`：chart release发布的namespace。
+-   `Release.Service`：进行发布的服务。通常是Tiller。
+-   `Release.IsUpgrade`：如果当前操作是升级或回滚，则设置为true。
+-   `Release.IsInstall`：如果当前操作是安装，则设置为true。
+-   `Release.Revision`：版本号。它从1开始，并随着每个helm upgrade增加。
+-   `Chart`：`Chart.yaml`的内容。chart版本可以从`Chart.Version`和维护人员 `Chart.Maintainers`一起获得。
+-   `Files`：包含chart中所有非特殊文件的map-like对象。不会允许你访问模板，但会让你访问存在的其他文件（除非它们被排除使用`.helmignore`）。可以使用`{{index .Files "file.name"}}`或使用`{{.Files.Get name}}`或 `{{.Files.GetString name}}`功能来访问文件。也可以使用`{{.Files.GetBytes}}`访问该文件的内容`[byte]`
+-   Capabilities：包含有关Kubernetes版本信息的map-like对象（`{{.Capabilities.KubeVersion}}`，Tiller（`{{.Capabilities.TillerVersion}}`和支持的Kubernetes API版本（`{{.Capabilities.APIVersions.Has "batch/v1"}}`）
 
-** 注意：** 任何未知的Chart.yaml字段将被删除。它们不会在chart对象内部被访问。因此，Chart.yaml不能用于将任意结构化的数据传递到模板中。values文件可以用于传递。
+**注意:** 任何未知的Chart.yaml字段将被删除。它们不会在chart对象内部被访问。因此，Chart.yaml不能用于将任意结构化的数据传递到模板中。values文件可以用于传递。
 
 ### 值values文件
 
@@ -606,9 +606,9 @@ apache:
 ### 参考
 当涉及到编写模板和values文件时，有几个标准参考可以帮助你。
 
-- [Go templates](https://godoc.org/text/template)
-- [Extra template functions](https://godoc.org/github.com/Masterminds/sprig)
-- [The YAML format](http://yaml.org/spec/)
+-   [Go templates](https://godoc.org/text/template)
+-   [Extra template functions](https://godoc.org/github.com/Masterminds/sprig)
+-   [The YAML format](http://yaml.org/spec/)
 
 ## 使用Helm管理chart
 
@@ -652,7 +652,7 @@ repo库的主要特征是存在一个名为的特殊文件`index.yaml`，它具�
 
 起始chart只是普通的chart，位于$HELM_HOME/starters。作为chart开发人员，可以创作专门设计用作起始的chart。记住这些chart时应考虑以下因素：
 
-- `Chart.yaml`将被生成器覆盖。
-- 用户将期望修改这样的chart内容，因此文档应该指出用户如何做到这一点。
-- 所有匹配项<CHARTNAME>将被替换为指定的chart名称，以便起始chart可用作模板。
-- 目前添加chart的唯一方法是手动将其复制到`$HELM_HOME/starters`。在chart的文档中，你需要解释该过程。
+-   `Chart.yaml`将被生成器覆盖。
+-   用户将期望修改这样的chart内容，因此文档应该指出用户如何做到这一点。
+-   所有匹配项<CHARTNAME>将被替换为指定的chart名称，以便起始chart可用作模板。
+-   目前添加chart的唯一方法是手动将其复制到`$HELM_HOME/starters`。在chart的文档中，你需要解释该过程。
