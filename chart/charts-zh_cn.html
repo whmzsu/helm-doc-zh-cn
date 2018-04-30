@@ -319,6 +319,21 @@
             
         </li>
     
+        <li class="chapter " data-level="4.3" data-path="charts_tips_and_tricks-zh_cn.html">
+            
+                <a href="charts_tips_and_tricks-zh_cn.html">
+            
+                    
+                        <b>4.3.</b>
+                    
+                    提示和技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
 
     
         
@@ -781,7 +796,7 @@ tags:
 <p>&#x6CE8;&#x610F;&#x53EA;&#x6709;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x5B57;&#x6BB5;&#x88AB;&#x8986;&#x76D6;&#x4E86;&#xFF0C;&#x5176;&#x4ED6;&#x7684;&#x4E0D;&#x53D8;&#x3002;</p>
 <p><strong>&#x6CE8;&#xFF1A;</strong>&#x5305;&#x542B;&#x5728;chart&#x5185;&#x7684;&#x9ED8;&#x8BA4;values&#x6587;&#x4EF6;&#x5FC5;&#x987B;&#x547D;&#x540D; <code>values.yaml</code>&#x3002;&#x4F46;&#x662F;&#x5728;&#x547D;&#x4EE4;&#x884C;&#x4E0A;&#x6307;&#x5B9A;&#x7684;&#x6587;&#x4EF6;&#x53EF;&#x4EE5;&#x88AB;&#x547D;&#x540D;&#x4E3A;&#x4EFB;&#x4F55;&#x540D;&#x79F0;&#x3002;</p>
 <p><strong>&#x6CE8;&#xFF1A;</strong>&#x5982;&#x679C;&#x5728;helm install&#x6216;helm upgrade&#x4F7F;&#x7528;<code>--set</code>&#xFF0C;&#x5219;&#x8FD9;&#x4E9B;&#x503C;&#x4EC5;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x8F6C;&#x6362;&#x4E3A;YAML&#x3002;</p>
-<p><strong>&#x6CE8;&#x610F;&#xFF1A;</strong>&#x5982;&#x679C;values&#x6587;&#x4EF6;&#x4E2D;&#x5B58;&#x5728;&#x4EFB;&#x4F55;&#x5FC5;&#x9700;&#x7684;&#x6761;&#x76EE;&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&apos;required&apos;&#x529F;&#x80FD;<a href="charts_tips_and_tricks-zh_cn.md">&apos;required&apos; function</a>&#x5728;chart&#x6A21;&#x677F;&#x4E2D;&#x58F0;&#x660E;&#x5B83;&#x4EEC;</p>
+<p><strong>&#x6CE8;&#x610F;&#xFF1A;</strong>&#x5982;&#x679C;values&#x6587;&#x4EF6;&#x4E2D;&#x5B58;&#x5728;&#x4EFB;&#x4F55;&#x5FC5;&#x9700;&#x7684;&#x6761;&#x76EE;&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&apos;required&apos;&#x529F;&#x80FD;<a href="charts_tips_and_tricks-zh_cn.html">&apos;required&apos; function</a>&#x5728;chart&#x6A21;&#x677F;&#x4E2D;&#x58F0;&#x660E;&#x5B83;&#x4EEC;</p>
 <p>&#x7136;&#x540E;&#x53EF;&#x4EE5;&#x5728;&#x6A21;&#x677F;&#x5185;&#x90E8;&#x8BBF;&#x95EE;&#x4EFB;&#x4F55;&#x8FD9;&#x4E9B;<code>.Values</code>&#x5BF9;&#x8C61;&#x503C; &#xFF1A;</p>
 <pre class="language-"><code class="lang-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> ReplicationController
@@ -825,7 +840,6 @@ tags:
 <p>&#x503C;&#x662F;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x9650;&#x5236;&#x7684;&#xFF0C;&#x4F46;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x5DF2;&#x88AB;&#x4FEE;&#x526A;&#x3002;&#x56E0;&#x6B64;&#x5BF9;&#x4E8E;WordPresschart&#x6765;&#x8BF4;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;MySQL&#x5BC6;&#x7801;&#x5B57;&#x6BB5;<code>.Values.mysql.password</code>&#x3002;&#x4F46;&#x662F;&#x5BF9;&#x4E8E;MySQL chart&#x6765;&#x8BF4;&#xFF0C;&#x8FD9;&#x4E9B;&#x503C;&#x7684;&#x8303;&#x56F4;&#x5DF2;&#x7ECF;&#x51CF;&#x5C0F;&#x4E86;&#xFF0C;&#x5E76;&#x4E14;&#x5220;&#x9664;&#x4E86;&#x540D;namespace&#x524D;&#x7F00;&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x4F1A;&#x5C06;&#x5BC6;&#x7801;&#x5B57;&#x6BB5;&#x7B80;&#x5355;&#x5730;&#x89C6;&#x4E3A; <code>.Values.password</code>&#x3002;</p>
 <h4 id="&#x5168;&#x5C40;&#x503C;">&#x5168;&#x5C40;&#x503C;</h4>
 <p>&#x4ECE;2.0.0-Alpha.2&#x5F00;&#x59CB;&#xFF0C;Helm&#x652F;&#x6301;&#x7279;&#x6B8A;&#x7684;&#x201C;&#x5168;&#x5C40;&#x201D;&#x503C;&#x3002;&#x8003;&#x8651;&#x524D;&#x9762;&#x4F8B;&#x5B50;&#x7684;&#x8FD9;&#x4E2A;&#x4FEE;&#x6539;&#x7248;&#x672C;&#xFF1A;</p>
-<p>&#x6807;&#x9898;&#xFF1A;&#x201C;&#x6211;&#x7684;WordPress&#x7F51;&#x7AD9;&#x201D;  &#xFF03;&#x53D1;&#x9001;&#x5230;WordPress&#x6A21;&#x677F;</p>
 <pre class="language-"><code class="lang-yaml"><span class="token key atrule">title</span><span class="token punctuation">:</span> <span class="token string">&quot;My WordPress Site&quot;</span> <span class="token comment" spellcheck="true"># Sent to the WordPress template</span>
 
 <span class="token key atrule">global</span><span class="token punctuation">:</span>
@@ -896,7 +910,7 @@ No issues found
 <li>&#x76EE;&#x524D;&#x6DFB;&#x52A0;chart&#x7684;&#x552F;&#x4E00;&#x65B9;&#x6CD5;&#x662F;&#x624B;&#x52A8;&#x5C06;&#x5176;&#x590D;&#x5236;&#x5230;<code>$HELM_HOME/starters</code>&#x3002;&#x5728;chart&#x7684;&#x6587;&#x6863;&#x4E2D;&#xFF0C;&#x4F60;&#x9700;&#x8981;&#x89E3;&#x91CA;&#x8BE5;&#x8FC7;&#x7A0B;&#x3002;</li>
 </ul>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; Mingo 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
-2018-04-30 21:49:13
+2018-04-30 21:56:50
 </span></footer>
                                 
                                 </section>
@@ -940,7 +954,7 @@ No issues found
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Charts","level":"4.1","depth":1,"next":{"title":"Hooks","level":"4.2","depth":1,"path":"chart/charts_hooks-zh_cn.md","ref":"chart/charts_hooks-zh_cn.md","articles":[]},"previous":{"title":"安全安装","level":"2.8","depth":1,"path":"quickstart/securing_installation-zh_cn.md","ref":"quickstart/securing_installation-zh_cn.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","theme-default","-highlight","prism","prism-themes"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © Mingo 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prism-themes/themes/prism-ghcolors.css"]},"github":{"url":"https://github.com/whmzsu/helm-doc-zh-cn"},"editlink":{"label":"Edit This Page","multilingual":false,"base":"https://github.com/whmzsu/helm-doc-zh-cn/edit/master/content"},"splitter":{},"codesnippet":{},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"whmzsu/helm-doc-zh-cn","types":["star"],"size":"small"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"Mingo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[]},"title":"Helm用户指南","language":"zh-hans","gitbook":"*","description":"Helm用户指南|Helm User Guide|Mingo|吴洪明"},"file":{"path":"chart/charts-zh_cn.md","mtime":"2018-04-30T13:49:13.237Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-04-30T13:50:50.833Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Charts","level":"4.1","depth":1,"next":{"title":"Hooks","level":"4.2","depth":1,"path":"chart/charts_hooks-zh_cn.md","ref":"chart/charts_hooks-zh_cn.md","articles":[]},"previous":{"title":"安全安装","level":"2.8","depth":1,"path":"quickstart/securing_installation-zh_cn.md","ref":"quickstart/securing_installation-zh_cn.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","theme-default","-highlight","prism","prism-themes","livereload"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © Mingo 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prism-themes/themes/prism-ghcolors.css"]},"github":{"url":"https://github.com/whmzsu/helm-doc-zh-cn"},"editlink":{"label":"Edit This Page","multilingual":false,"base":"https://github.com/whmzsu/helm-doc-zh-cn/edit/master/content"},"livereload":{},"splitter":{},"codesnippet":{},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"whmzsu/helm-doc-zh-cn","types":["star"],"size":"small"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"Mingo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[]},"title":"Helm用户指南","language":"zh-hans","gitbook":"*","description":"Helm用户指南|Helm User Guide|Mingo|吴洪明"},"file":{"path":"chart/charts-zh_cn.md","mtime":"2018-04-30T13:56:50.055Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-04-30T14:38:52.009Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -979,6 +993,10 @@ No issues found
     
         
         <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
         
     
         
