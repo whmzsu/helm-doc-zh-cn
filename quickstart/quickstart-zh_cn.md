@@ -12,7 +12,7 @@
 - 必须已安装Kubernetes。对于Helm的最新版本，我们推荐最新的Kubernetes稳定版本，在大多数情况下它是次新版本。
 - 应该有一个本地配置好的`kubectl`。
 
-主意：1.6之前的Kubernetes版本对于基于角色的访问控制（RBAC），要么有限制，或者不支持。
+**注意：**1.6之前的Kubernetes版本对于基于角色的访问控制（RBAC），要么有限制，或者不支持。
 
 Helm将通过Kubernetes配置文件（通常是`$HOME/.kube/config`）来确定在哪里安装Tiller 。这个配置文件也是kubectl使用的文件。
 
