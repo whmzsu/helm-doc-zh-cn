@@ -432,8 +432,8 @@
 <p>&#x53EF;&#x4EE5;&#x5728;&#x914D;&#x7F6E;Helm&#x65F6;&#x4F7F;&#x7528;<code>--service-account <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>NAME</span><span class="token punctuation">&gt;</span></span></code>&#x53C2;&#x6570;&#x5C06;&#x670D;&#x52A1;&#x5E10;&#x6237;&#x6DFB;&#x52A0;&#x5230;Tiller &#x3002;&#x524D;&#x63D0;&#x6761;&#x4EF6;&#x662F;&#x5FC5;&#x987B;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x89D2;&#x8272;&#x7ED1;&#x5B9A;&#xFF0C;&#x6765;&#x6307;&#x5B9A;&#x9884;&#x5148;&#x8BBE;&#x7F6E;&#x7684;&#x89D2;&#x8272;<a href="https://kubernetes.io/docs/admin/authorization/rbac/#role-and-clusterrole" target="_blank">role</a>&#x548C;&#x670D;&#x52A1;&#x5E10;&#x6237;<a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/" target="_blank">service account</a> &#x540D;&#x79F0;&#x3002;</p>
 <p>&#x5728;&#x524D;&#x63D0;&#x6761;&#x4EF6;&#x4E0B;&#xFF0C;&#x5E76;&#x4E14;&#x6709;&#x4E86;&#x4E00;&#x4E2A;&#x5177;&#x6709;&#x6B63;&#x786E;&#x6743;&#x9650;&#x7684;&#x670D;&#x52A1;&#x5E10;&#x6237;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x50CF;&#x8FD9;&#x6837;&#x8FD0;&#x884C;&#x4E00;&#x4E2A;&#x547D;&#x4EE4;&#x6765;&#x521D;&#x59CB;&#x5316;Tiller&#xFF1A; <code>helm init --service-account <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>NAME</span><span class="token punctuation">&gt;</span></span></code></p>
 <h3 id="example-&#x670D;&#x52A1;&#x8D26;&#x6237;&#x5E26;&#x6709;cluster-admin-&#x89D2;&#x8272;&#x6743;&#x9650;">Example: &#x670D;&#x52A1;&#x8D26;&#x6237;&#x5E26;&#x6709;cluster-admin &#x89D2;&#x8272;&#x6743;&#x9650;</h3>
-<pre class="language-"><code class="lang-console">$ kubectl create serviceaccount tiller --namespace kube-system
-serviceaccount &quot;tiller&quot; created
+<pre class="language-"><code class="lang-bash">$ kubectl create serviceaccount tiller --namespace kube-system
+serviceaccount <span class="token string">&quot;tiller&quot;</span> created
 </code></pre>
 <p>&#x6587;&#x4EF6; <code>rbac-config.yaml</code>:</p>
 <pre class="language-"><code class="lang-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
@@ -456,17 +456,17 @@ serviceaccount &quot;tiller&quot; created
     <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kube<span class="token punctuation">-</span>system
 </code></pre>
 <p><em>Note: cluster-admin&#x89D2;&#x8272;&#x662F;&#x5728;Kubernetes&#x96C6;&#x7FA4;&#x4E2D;&#x9ED8;&#x8BA4;&#x521B;&#x5EFA;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x4E0D;&#x5FC5;&#x518D;&#x663E;&#x5F0F;&#x5730;&#x5B9A;&#x4E49;&#x5B83;&#x3002;.</em></p>
-<pre class="language-"><code class="lang-console">$ kubectl create -f rbac-config.yaml
-serviceaccount &quot;tiller&quot; created
-clusterrolebinding &quot;tiller&quot; created
+<pre class="language-"><code class="lang-bash">$ kubectl create -f rbac-config.yaml
+serviceaccount <span class="token string">&quot;tiller&quot;</span> created
+clusterrolebinding <span class="token string">&quot;tiller&quot;</span> created
 $ helm init --service-account tiller
 </code></pre>
 <h3 id="&#x5728;&#x7279;&#x5B9A;namespace&#x4E2D;&#x90E8;&#x7F72;tiller&#xFF0C;&#x5E76;&#x4EC5;&#x9650;&#x4E8E;&#x5728;&#x8BE5;namespace&#x4E2D;&#x90E8;&#x7F72;&#x8D44;&#x6E90;">&#x5728;&#x7279;&#x5B9A;namespace&#x4E2D;&#x90E8;&#x7F72;Tiller&#xFF0C;&#x5E76;&#x4EC5;&#x9650;&#x4E8E;&#x5728;&#x8BE5;namespace&#x4E2D;&#x90E8;&#x7F72;&#x8D44;&#x6E90;</h3>
 <p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x8BA9;Tiller&#x7BA1;&#x7406;&#x8BBF;&#x95EE;&#x6574;&#x4E2A;&#x96C6;&#x7FA4;&#x3002;&#x5F53;&#x7136;&#xFF0C;Tiller&#x6B63;&#x5E38;&#x5DE5;&#x4F5C;&#x5E76;&#x4E0D;&#x4E00;&#x5B9A;&#x8981;&#x4E3A;&#x5B83;&#x8BBE;&#x7F6E;&#x96C6;&#x7FA4;&#x7BA1;&#x7406;&#x5458;&#x8BBF;&#x95EE;&#x6743;&#x9650;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;Role&#x548C;RoleBinding&#x6765;&#x5C06;Tiller&#x7684;&#x8303;&#x56F4;&#x9650;&#x5236;&#x4E3A;&#x7279;&#x5B9A;&#x7684;namespace&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x6307;&#x5B9A;ClusterRole&#x6216;ClusterRoleBinding&#x3002;</p>
-<pre class="language-"><code class="lang-console">$ kubectl create namespace tiller-world
-namespace &quot;tiller-world&quot; created
+<pre class="language-"><code class="lang-bash">$ kubectl create namespace tiller-world
+namespace <span class="token string">&quot;tiller-world&quot;</span> created
 $ kubectl create serviceaccount tiller --namespace tiller-world
-serviceaccount &quot;tiller&quot; created
+serviceaccount <span class="token string">&quot;tiller&quot;</span> created
 </code></pre>
 <p>&#x5B9A;&#x4E49;&#x5141;&#x8BB8;Tiller&#x7BA1;&#x7406;namespace <code>tiller-world</code> &#x4E2D;&#x6240;&#x6709;&#x8D44;&#x6E90;&#x7684;&#x89D2;&#x8272; &#xFF0C;&#x6587;&#x4EF6;<code>role-tiller.yaml</code>:</p>
 <pre class="language-"><code class="lang-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> Role
@@ -479,8 +479,8 @@ serviceaccount &quot;tiller&quot; created
   <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&quot;*&quot;</span><span class="token punctuation">]</span>
   <span class="token key atrule">verbs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&quot;*&quot;</span><span class="token punctuation">]</span>
 </code></pre>
-<pre class="language-"><code class="lang-console">$ kubectl create -f role-tiller.yaml
-role &quot;tiller-manager&quot; created
+<pre class="language-"><code class="lang-bash">$ kubectl create -f role-tiller.yaml
+role <span class="token string">&quot;tiller-manager&quot;</span> created
 </code></pre>
 <p>&#x6587;&#x4EF6; <code>rolebinding-tiller.yaml</code>,</p>
 <pre class="language-"><code class="lang-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> RoleBinding
@@ -497,34 +497,34 @@ role &quot;tiller-manager&quot; created
   <span class="token key atrule">name</span><span class="token punctuation">:</span> tiller<span class="token punctuation">-</span>manager
   <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io
 </code></pre>
-<pre class="language-"><code class="lang-console">$ kubectl create -f rolebinding-tiller.yaml
-rolebinding &quot;tiller-binding&quot; created
+<pre class="language-"><code class="lang-bash">$ kubectl create -f rolebinding-tiller.yaml
+rolebinding <span class="token string">&quot;tiller-binding&quot;</span> created
 </code></pre>
 <p>&#x4E4B;&#x540E;&#xFF0C;&#x8FD0;&#x884C;<code>helm init</code>&#x6765;&#x5728;<code>tiller-world</code> namespace&#x4E2D;&#x5B89;&#x88C5;Tiller &#x3002;</p>
-<pre class="language-"><code class="lang-console">$ helm init --service-account tiller --tiller-namespace tiller-world
-$HELM_HOME has been configured at /Users/awesome-user/.helm.
+<pre class="language-"><code class="lang-bash">$ helm init --service-account tiller --tiller-namespace tiller-world
+<span class="token variable">$HELM_HOME</span> has been configured at /Users/awesome-user/.helm.
 
-Tiller (the Helm server side component) has been installed into your Kubernetes Cluster.
-Happy Helming!
+Tiller <span class="token punctuation">(</span>the Helm server side component<span class="token punctuation">)</span> has been installed into your Kubernetes Cluster.
+Happy Helming<span class="token operator">!</span>
 
-$ helm install nginx --tiller-namespace tiller-world --namespace tiller-world
+$ helm <span class="token function">install</span> nginx --tiller-namespace tiller-world --namespace tiller-world
 NAME:   wayfaring-yak
 LAST DEPLOYED: Mon Aug  7 16:00:16 2017
 NAMESPACE: tiller-world
 STATUS: DEPLOYED
 
 RESOURCES:
-==&gt; v1/Pod
+<span class="token operator">==</span><span class="token operator">&gt;</span> v1/Pod
 NAME                  READY  STATUS             RESTARTS  AGE
 wayfaring-yak-alpine  0/1    ContainerCreating  0         0s
 </code></pre>
 <h3 id="example-&#x5728;&#x4E00;&#x4E2A;namespace&#x4E2D;&#x90E8;&#x7F72;tiller&#xFF0C;&#x5E76;&#x9650;&#x5236;&#x5B83;&#x5728;&#x53E6;&#x4E00;&#x4E2A;namespace&#x90E8;&#x7F72;&#x8D44;&#x6E90;">Example: &#x5728;&#x4E00;&#x4E2A;namespace&#x4E2D;&#x90E8;&#x7F72;Tiller&#xFF0C;&#x5E76;&#x9650;&#x5236;&#x5B83;&#x5728;&#x53E6;&#x4E00;&#x4E2A;namespace&#x90E8;&#x7F72;&#x8D44;&#x6E90;</h3>
 <p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x8BA9;Tiller&#x7BA1;&#x7406;&#x5B83;&#x90E8;&#x7F72;&#x6240;&#x5728;&#x7684;namespace&#x3002;&#x73B0;&#x5728;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x9650;&#x5236;Tiller&#x7684;&#x8303;&#x56F4;&#xFF0C;&#x5C06;&#x8D44;&#x6E90;&#x90E8;&#x7F72;&#x5728;&#x4E0D;&#x540C;&#x7684;namespace&#x4E2D;&#xFF01;</p>
 <p>&#x4E0B;&#x9762;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x5728;<code>myorg-system</code> namespace&#x4E2D;&#x5B89;&#x88C5;Tiller&#xFF0C;&#x5E76;&#x5141;&#x8BB8;Tiller&#x5728;<code>myorg-users</code> namespace&#x4E2D;&#x90E8;&#x7F72;&#x8D44;&#x6E90;&#x3002;</p>
-<pre class="language-"><code class="lang-console">$ kubectl create namespace myorg-system
-namespace &quot;myorg-system&quot; created
+<pre class="language-"><code class="lang-bash">$ kubectl create namespace myorg-system
+namespace <span class="token string">&quot;myorg-system&quot;</span> created
 $ kubectl create serviceaccount tiller --namespace myorg-system
-serviceaccount &quot;tiller&quot; created
+serviceaccount <span class="token string">&quot;tiller&quot;</span> created
 </code></pre>
 <p>&#x5728;<code>role-tiller.yaml</code>&#x4E2D;&#xFF0C;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A;&#x5141;&#x8BB8;Tiller&#x7BA1;&#x7406;&#x6240;&#x6709;<code>myorg-users</code>&#x8D44;&#x6E90;&#x7684;&#x89D2;&#x8272;&#xFF1A;</p>
 <pre class="language-"><code class="lang-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> Role
@@ -537,8 +537,8 @@ serviceaccount &quot;tiller&quot; created
   <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&quot;*&quot;</span><span class="token punctuation">]</span>
   <span class="token key atrule">verbs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&quot;*&quot;</span><span class="token punctuation">]</span>
 </code></pre>
-<pre class="language-"><code class="lang-console">$ kubectl create -f role-tiller.yaml
-role &quot;tiller-manager&quot; created
+<pre class="language-"><code class="lang-bash">$ kubectl create -f role-tiller.yaml
+role <span class="token string">&quot;tiller-manager&quot;</span> created
 </code></pre>
 <p>&#x5C06; service account &#x4E0E;&#x90A3;&#x4E2A;role&#x7ED1;&#x5B9A;. <code>rolebinding-tiller.yaml</code>,</p>
 <pre class="language-"><code class="lang-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> RoleBinding
@@ -555,8 +555,8 @@ role &quot;tiller-manager&quot; created
   <span class="token key atrule">name</span><span class="token punctuation">:</span> tiller<span class="token punctuation">-</span>manager
   <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io
 </code></pre>
-<pre class="language-"><code class="lang-console">$ kubectl create -f rolebinding-tiller.yaml
-rolebinding &quot;tiller-binding&quot; created
+<pre class="language-"><code class="lang-bash">$ kubectl create -f rolebinding-tiller.yaml
+rolebinding <span class="token string">&quot;tiller-binding&quot;</span> created
 </code></pre>
 <p>&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x6388;&#x4E88;Tiller&#x8BBF;&#x95EE;&#x6743;&#x9650;&#x6765;&#x8BFB;&#x53D6;<code>myorg-system</code>&#x4E2D;&#x7684;configmaps&#xFF0C;&#x4EE5;&#x4FBF;&#x5B83;&#x53EF;&#x4EE5;&#x5B58;&#x50A8;release&#x4FE1;&#x606F;&#x3002;&#x5982; <code>role-tiller-myorg-system.yaml</code>:</p>
 <pre class="language-"><code class="lang-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> Role
@@ -569,8 +569,8 @@ rolebinding &quot;tiller-binding&quot; created
   <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&quot;configmaps&quot;</span><span class="token punctuation">]</span>
   <span class="token key atrule">verbs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&quot;*&quot;</span><span class="token punctuation">]</span>
 </code></pre>
-<pre class="language-"><code class="lang-console">$ kubectl create -f role-tiller-myorg-system.yaml
-role &quot;tiller-manager&quot; created
+<pre class="language-"><code class="lang-bash">$ kubectl create -f role-tiller-myorg-system.yaml
+role <span class="token string">&quot;tiller-manager&quot;</span> created
 </code></pre>
 <p>&#x76F8;&#x5E94;&#x7684;role &#x7ED1;&#x5B9A;. &#x5982; <code>rolebinding-tiller-myorg-system.yaml</code>:</p>
 <pre class="language-"><code class="lang-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> RoleBinding
@@ -587,8 +587,8 @@ role &quot;tiller-manager&quot; created
   <span class="token key atrule">name</span><span class="token punctuation">:</span> tiller<span class="token punctuation">-</span>manager
   <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io
 </code></pre>
-<pre class="language-"><code class="lang-console">$ kubectl create -f rolebinding-tiller-myorg-system.yaml
-rolebinding &quot;tiller-binding&quot; created
+<pre class="language-"><code class="lang-bash">$ kubectl create -f rolebinding-tiller-myorg-system.yaml
+rolebinding <span class="token string">&quot;tiller-binding&quot;</span> created
 </code></pre>
 <h2 id="helm-&#x548C;&#x57FA;&#x4E8E;&#x89D2;&#x8272;&#x7684;&#x8BBF;&#x95EE;&#x63A7;&#x5236;">Helm &#x548C;&#x57FA;&#x4E8E;&#x89D2;&#x8272;&#x7684;&#x8BBF;&#x95EE;&#x63A7;&#x5236;</h2>
 <p>&#x5728;pod&#x4E2D;&#x8FD0;&#x884C;Helm&#x5BA2;&#x6237;&#x7AEF;&#x65F6;&#xFF0C;&#x4E3A;&#x4E86;&#x8BA9;Helm&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;Tiller&#x5B9E;&#x4F8B;&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#xFF0C;&#x9700;&#x8981;&#x6388;&#x4E88;&#x67D0;&#x4E9B;&#x7279;&#x6743;&#x3002;&#x5177;&#x4F53;&#x6765;&#x8BF4;&#xFF0C;Helm&#x5BA2;&#x6237;&#x7AEF;&#x9700;&#x8981;&#x80FD;&#x591F;&#x521B;&#x5EFA;pods&#xFF0C;&#x8F6C;&#x53D1;&#x7AEF;&#x53E3;&#x5E76;&#x80FD;&#x591F;&#x5728;Tiller&#x8FD0;&#x884C;&#x7684;namespace&#x4E2D;&#x5217;&#x51FA;pod&#xFF08;&#x8FD9;&#x6837;&#x5B83;&#x624D;&#x53EF;&#x4EE5;&#x627E;&#x5230;Tiller&#xFF09;&#x3002;</p>
@@ -634,13 +634,13 @@ rolebinding &quot;tiller-binding&quot; created
   <span class="token key atrule">name</span><span class="token punctuation">:</span> helm
   <span class="token key atrule">namespace</span><span class="token punctuation">:</span> helm<span class="token punctuation">-</span>world
 </code></pre>
-<pre class="language-"><code class="lang-console">$ kubectl create -f helm-user.yaml
-serviceaccount &quot;helm&quot; created
-role &quot;tiller-user&quot; created
-rolebinding &quot;tiller-user-binding&quot; created
+<pre class="language-"><code class="lang-bash">$ kubectl create -f helm-user.yaml
+serviceaccount <span class="token string">&quot;helm&quot;</span> created
+role <span class="token string">&quot;tiller-user&quot;</span> created
+rolebinding <span class="token string">&quot;tiller-user-binding&quot;</span> created
 </code></pre>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; Mingo 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
-2018-04-28 22:58:50
+2018-04-30 18:43:39
 </span></footer>
                                 
                                 </section>
@@ -684,7 +684,7 @@ rolebinding &quot;tiller-user-binding&quot; created
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"RBAC","level":"2.7","depth":1,"next":{"title":"安全安装","level":"2.8","depth":1,"path":"quickstart/securing_installation-zh_cn.md","ref":"quickstart/securing_installation-zh_cn.md","articles":[]},"previous":{"title":"插件","level":"2.6","depth":1,"path":"quickstart/plugins-zh_cn.md","ref":"quickstart/plugins-zh_cn.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","theme-default","-highlight","prism","prism-themes"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © Mingo 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prism-themes/themes/prism-ghcolors.css"]},"github":{"url":"https://github.com/whmzsu/helm-doc-zh-cn"},"editlink":{"label":"Edit This Page","multilingual":false,"base":"https://github.com/whmzsu/helm-doc-zh-cn/edit/master/content"},"splitter":{},"codesnippet":{},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"whmzsu/helm-doc-zh-cn","types":["star"],"size":"small"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"Mingo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[]},"title":"Helm用户指南","language":"zh-hans","gitbook":"*","description":"Helm用户指南|Helm User Guide|Mingo|吴洪明"},"file":{"path":"quickstart/rbac-zh_cn.md","mtime":"2018-04-28T14:58:50.881Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-04-30T10:32:28.396Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"RBAC","level":"2.7","depth":1,"next":{"title":"安全安装","level":"2.8","depth":1,"path":"quickstart/securing_installation-zh_cn.md","ref":"quickstart/securing_installation-zh_cn.md","articles":[]},"previous":{"title":"插件","level":"2.6","depth":1,"path":"quickstart/plugins-zh_cn.md","ref":"quickstart/plugins-zh_cn.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","theme-default","-highlight","prism","prism-themes"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © Mingo 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prism-themes/themes/prism-ghcolors.css"]},"github":{"url":"https://github.com/whmzsu/helm-doc-zh-cn"},"editlink":{"label":"Edit This Page","multilingual":false,"base":"https://github.com/whmzsu/helm-doc-zh-cn/edit/master/content"},"splitter":{},"codesnippet":{},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"whmzsu/helm-doc-zh-cn","types":["star"],"size":"small"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"Mingo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[]},"title":"Helm用户指南","language":"zh-hans","gitbook":"*","description":"Helm用户指南|Helm User Guide|Mingo|吴洪明"},"file":{"path":"quickstart/rbac-zh_cn.md","mtime":"2018-04-30T10:43:39.998Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-04-30T10:47:17.389Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
