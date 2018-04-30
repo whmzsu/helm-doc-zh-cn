@@ -390,6 +390,7 @@ wordpress:
 Kubernetes类型的安装顺序由kind_sorter.go中的枚举InstallOrder给出（[the Helm source file](https://github.com/kubernetes/helm/blob/master/pkg/tiller/kind_sorter.go#L26))）。
 
 ## 模板Templates和值Values
+
 Helm chart模板是用Go模板语言[Go template language](https://golang.org/pkg/text/template/)编写的 ，其中添加了来自Sprig库[from the Sprig library](https://github.com/Masterminds/sprig)的50个左右的附加模板函数以及一些其他专用函数[specialized functions](charts_tips_and_tricks.md)。
 
 所有模板文件都存储在chart的templates/文件夹中。当Helm渲染charts时，它将通过模板引擎传递该目录中的每个文件。
@@ -402,7 +403,8 @@ Helm chart模板是用Go模板语言[Go template language](https://golang.org/pk
 当用户提供自定义值时，这些值将覆盖chart中v`alues.yaml`文件中的值。
 
 ### 模板文件
-模板文件遵循用于编写Go模板的标准约定（请参阅文本/模板Go包文档 以了解详细信息）。示例模板文件可能如下所示：
+
+模板文件遵循用于编写Go模板的标准约定（请参阅文[the text/template Go package documentation](https://golang.org/pkg/text/template/) 以了解详细信息）。示例模板文件可能如下所示：
 
 ```yaml
 apiVersion: v1
@@ -450,13 +452,13 @@ spec:
 
 以下值是预定义的，可用于每个模板，并且不能被覆盖。与所有值一样，名称区分大小写。
 
--   `Release.Name`：release的名称（不是chart）
+-   `Release.Name`：release的名称（不是chart的）
 -   `Release.Time`：chart版本上次更新的时间。这将匹配`Last Released`发布对象上的时间。
 -   `Release.Namespace`：chart release发布的namespace。
--   `Release.Service`：进行发布的服务。通常是Tiller。
+-   `Release.Service`：处理release的服务。通常是Tiller。
 -   `Release.IsUpgrade`：如果当前操作是升级或回滚，则设置为true。
 -   `Release.IsInstall`：如果当前操作是安装，则设置为true。
--   `Release.Revision`：版本号。它从1开始，并随着每个helm upgrade增加。
+-   `Release.Revision`：版本号。它从1开始，并随着每个`helm upgrade`增加。
 -   `Chart`：`Chart.yaml`的内容。chart版本可以从`Chart.Version`和维护人员 `Chart.Maintainers`一起获得。
 -   `Files`：包含chart中所有非特殊文件的map-like对象。不会允许你访问模板，但会让你访问存在的其他文件（除非它们被排除使用`.helmignore`）。可以使用index .Files "file.name"或使用.Files.Get name或 .Files.GetString name功能来访问文件。也可以使用.Files.GetBytes访问该文件的内容`[byte]`
 -   Capabilities：包含有关Kubernetes版本信息的map-like对象（.Capabilities.KubeVersion)，Tiller（.Capabilities.TillerVersion)和支持的Kubernetes API版本（.Capabilities.APIVersions.Has "batch/v1"）
