@@ -17,7 +17,7 @@ Bitnami写了一个在集群中配置RBAC的[指导](https://docs.bitnami.com/ku
 
 ### Example: 服务账户带有cluster-admin 角色权限
 
-```console
+```bash
 $ kubectl create serviceaccount tiller --namespace kube-system
 serviceaccount "tiller" created
 ```
@@ -47,7 +47,7 @@ subjects:
 
 _Note: cluster-admin角色是在Kubernetes集群中默认创建的，因此不必再显式地定义它。._
 
-```console
+```bash
 $ kubectl create -f rbac-config.yaml
 serviceaccount "tiller" created
 clusterrolebinding "tiller" created
@@ -58,7 +58,7 @@ $ helm init --service-account tiller
 
 在上面的例子中，我们让Tiller管理访问整个集群。当然，Tiller正常工作并不一定要为它设置集群管理员访问权限。我们可以指定Role和RoleBinding来将Tiller的范围限制为特定的namespace，而不是指定ClusterRole或ClusterRoleBinding。
 
-```console
+```bash
 $ kubectl create namespace tiller-world
 namespace "tiller-world" created
 $ kubectl create serviceaccount tiller --namespace tiller-world
@@ -79,7 +79,7 @@ rules:
   verbs: ["*"]
 ```
 
-```console
+```bash
 $ kubectl create -f role-tiller.yaml
 role "tiller-manager" created
 ```
@@ -102,14 +102,14 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-```console
+```bash
 $ kubectl create -f rolebinding-tiller.yaml
 rolebinding "tiller-binding" created
 ```
 
 之后，运行`helm init`来在`tiller-world` namespace中安装Tiller 。
 
-```console
+```bash
 $ helm init --service-account tiller --tiller-namespace tiller-world
 $HELM_HOME has been configured at /Users/awesome-user/.helm.
 
@@ -134,7 +134,7 @@ wayfaring-yak-alpine  0/1    ContainerCreating  0         0s
 
 下面例子中，让我们在`myorg-system` namespace中安装Tiller，并允许Tiller在`myorg-users` namespace中部署资源。
 
-```console
+```bash
 $ kubectl create namespace myorg-system
 namespace "myorg-system" created
 $ kubectl create serviceaccount tiller --namespace myorg-system
@@ -155,7 +155,7 @@ rules:
   verbs: ["*"]
 ```
 
-```console
+```bash
 $ kubectl create -f role-tiller.yaml
 role "tiller-manager" created
 ```
@@ -178,7 +178,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-```console
+```bash
 $ kubectl create -f rolebinding-tiller.yaml
 rolebinding "tiller-binding" created
 ```
@@ -196,7 +196,7 @@ rules:
   verbs: ["*"]
 ```
 
-```console
+```bash
 $ kubectl create -f role-tiller-myorg-system.yaml
 role "tiller-manager" created
 ```
@@ -219,7 +219,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-```console
+```bash
 $ kubectl create -f rolebinding-tiller-myorg-system.yaml
 rolebinding "tiller-binding" created
 ```
@@ -275,7 +275,7 @@ subjects:
   namespace: helm-world
 ```
 
-```console
+```bash
 $ kubectl create -f helm-user.yaml
 serviceaccount "helm" created
 role "tiller-user" created

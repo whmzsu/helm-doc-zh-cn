@@ -68,7 +68,7 @@ curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
 
 你必须有一个安装Go工作环境 。
 
-```console
+```bash
 $ cd $GOPATH
 $ mkdir -p src/k8s.io
 $ cd src/k8s.io
@@ -108,7 +108,7 @@ Canary 镜像是从master分支建立的。他们可能不稳定，但他们为�
 
 安装Canary 镜像最简单的方法是helm init与 --canary-image参数一起使用：
 
-```console
+```bash
 $ helm init --canary-image
 ```
 
@@ -122,7 +122,7 @@ $ helm init --canary-image
 
 一旦tiller构建部署完成，只需启动它：
 
-```console
+```bash
 $ bin/tiller
 Tiller running on :44134
 ```
@@ -131,7 +131,7 @@ Tiller running on :44134
 
 必须告知helm连接到这个新的本地Tiller主机，而不是连接到群集中的一个。有两种方法可以做到这一点。第一种是在命令行上指定`--host`选项。第二个是设置`$HELM_HOST`环境变量。
 
-```console
+```bash
 $ export HELM_HOST=localhost:44134
 $ helm version # Should connect to localhost.
 Client: &version.Version{SemVer:"v2.0.0-alpha.4", GitCommit:"db...", GitTreeState:"dirty"}
@@ -146,7 +146,7 @@ Server: &version.Version{SemVer:"v2.0.0-alpha.4", GitCommit:"a5...", GitTreeStat
 
 对于旧版本的Helm或手动升级，可以使用`kubectl`修改Tiller容器镜像：
 
-```console
+```bash
 $ export TILLER_TAG=v2.0.0-beta.1        # Or whatever version you want
 $ kubectl --namespace=kube-system set image deployments/tiller-deploy tiller=gcr.io/kubernetes-helm/tiller:$TILLER_TAG
 deployment "tiller-deploy" image updated
@@ -160,7 +160,7 @@ deployment "tiller-deploy" image updated
 
 然后可以从客户端重新安装Tiller：
 
-```console
+```bash
 $ helm init
 ```
 
@@ -274,7 +274,7 @@ Tiller安装被跳过，manifest以JSON格式输出到stdout。
 
 要启用secrets后端，需要使用以下选项启动Tiller：
 
-```shell
+```bash
 helm init --override 'spec.template.spec.containers[0].command'='{/tiller,--storage=secret}'
 ```
 

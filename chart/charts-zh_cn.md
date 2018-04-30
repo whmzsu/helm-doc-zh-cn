@@ -121,7 +121,7 @@ dependencies:
 
 有了依赖关系文件，你可以通过运行`helm dependency update` ，它会使用你的依赖关系文件将所有指定的chart下载到你的`charts/`目录中。
 
-```console
+```bash
 $ helm dep up foochart
 Hang tight while we grab the latest from your chart repositories...
 ...Successfully got an update from the "local" chart repository
@@ -476,7 +476,7 @@ storage: "s3"
 
 values文件是YAML格式的。chart可能包含一个默认 values.yaml文件。Helm install命令允许用户通过提供额外的YAML值来覆盖值：
 
-```console
+```bash
 $ helm install --values=myvals.yaml wordpress
 ```
 
@@ -616,21 +616,21 @@ apache:
 
 它可以为你创建一个新的chart：
 
-```console
+```bash
 $ helm create mychart
 Created mychart/
 ```
 
 编辑完chart后，`helm`可以将其打包到chart压缩包中：
 
-```console
+```bash
 $ helm package mychart
 Archived mychart-0.1.-.tgz
 ```
 
 您可以用`helm`来帮助查找chart格式或信息的问题：
 
-```console
+```bash
 $ helm lint mychart
 No issues found
 ```

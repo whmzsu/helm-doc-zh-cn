@@ -138,7 +138,7 @@ To connect to your database run the following command:
 
 要查看chart上可配置的选项，请使用`helm inspect values`：
 
-```console
+```bash
 helm inspect values stable/mariadb
 Fetched stable/mariadb-0.3.0.tgz to /Users/mattbutcher/Code/Go/src/k8s.io/helm/mariadb-0.3.0.tgz
 ## Bitnami MariaDB image version
@@ -172,7 +172,7 @@ imageTag: 10.1.14-r3
 
 然后，可以在YAML格式的文件中覆盖任何这些设置，然后在安装过程中传递该文件。
 
-```console
+```bash
 $ echo '{mariadbUser: user0, mariadbDatabase: user0db}' > config.yaml
 $ helm install -f config.yaml stable/mariadb
 ```
@@ -261,7 +261,7 @@ helm install命令可以从多个来源安装：
 
 升级需要已有的release并根据提供的信息进行升级。由于Kubernetes chart可能很大而且很复杂，因此Helm会尝试执行最小侵入式升级。它只会更新自上次发布以来发生更改的内容。
 
-```console
+```bash
 $ helm upgrade -f panda.yaml happy-panda stable/mariadb
 Fetched stable/mariadb-0.3.0.tgz to /Users/mattbutcher/Code/Go/src/k8s.io/helm/mariadb-0.3.0.tgz
 happy-panda has been upgraded. Happy Helming!
@@ -279,7 +279,7 @@ mariadbUser: user1
 
 我们可以使用`helm get values`看看这个新设置是否生效。
 
-```console
+```bash
 $ helm get values happy-panda
 mariadbUser: user1
 ```
@@ -288,7 +288,7 @@ mariadbUser: user1
 
 现在，如果在发布过程中某些事情没有按计划进行，那么使用回滚到以前的版本很容易`helm rollback [RELEASE] [REVISION]`。
 
-```console
+```bash
 $ helm rollback happy-panda 1
 ```
 
@@ -323,7 +323,7 @@ inky-cat       	1      	Wed Sep 28 12:59:46 2016       	DEPLOYED       	alpine-0
 尽快如此，Helm总是保留记录发生了什么。需要查看已删除的版本？`helm list --deleted` 可显示这些内容，并`helm list --all`显示了所有release（已删除和当前部署的，以及失败的版本）：
 
 
-```console
+```bash
 ⇒  helm list --all
 NAME           	VERSION	UPDATED                        	STATUS         	CHART
 happy-panda   	2      	Wed Sep 28 12:47:54 2016       	DELETED        	mariadb-0.3.0
@@ -341,7 +341,7 @@ kindred-angelf 	2      	Tue Sep 27 16:16:10 2016       	DELETED        	alpine-0
 
 可以使用helm repo list以下命令查看配置了哪些repo：
 
-```console
+```bash
 $ helm repo list
 NAME           	URL
 stable         	https://kubernetes-charts.storage.googleapis.com
@@ -351,7 +351,7 @@ mumoshu        	https://mumoshu.github.io/charts
 
 新的repo可以通过`helm repo add`添加：
 
-```console
+```bash
 $ helm repo add dev https://example.com/dev-charts
 ```
 
@@ -360,7 +360,7 @@ $ helm repo add dev https://example.com/dev-charts
 ## 创建你自己的charts
 该chart开发指南[Chart Development Guide](charts.md) 介绍了如何开发自己的charts。也可以通过使用以下helm create 命令快速入门：
 
-```console
+```bash
 $ helm create deis-workflow
 Creating deis-workflow
 ```
@@ -371,14 +371,14 @@ Creating deis-workflow
 
 当将chart打包分发时，可以运行以下 helm package命令：
 
-```console
+```bash
 $ helm package deis-workflow
 deis-workflow-0.1.0.tgz
 ```
 
 现在可以通过`helm install`以下方式轻松安装该chart：
 
-```console
+```bash
 $ helm install ./deis-workflow-0.1.0.tgz
 ...
 ```
