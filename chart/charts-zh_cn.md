@@ -273,7 +273,7 @@ exports:
 myint: 99
 
 ```
-请注意，父键data不包含在父母的最终值中。如果您需要指定父键，请使用'child-parent'格式。
+请注意，父键data不包含在父chart的最终值中。如果需要指定父键，请使用'child-parent'格式。
 
 #### 使用child-parent格式
 
@@ -458,8 +458,8 @@ spec:
 -   `Release.IsInstall`：如果当前操作是安装，则设置为true。
 -   `Release.Revision`：版本号。它从1开始，并随着每个helm upgrade增加。
 -   `Chart`：`Chart.yaml`的内容。chart版本可以从`Chart.Version`和维护人员 `Chart.Maintainers`一起获得。
--   `Files`：包含chart中所有非特殊文件的map-like对象。不会允许你访问模板，但会让你访问存在的其他文件（除非它们被排除使用`.helmignore`）。可以使用`{{index .Files "file.name"}}`或使用`{{.Files.Get name}}`或 `{{.Files.GetString name}}`功能来访问文件。也可以使用`{{.Files.GetBytes}}`访问该文件的内容`[byte]`
--   Capabilities：包含有关Kubernetes版本信息的map-like对象（`{{.Capabilities.KubeVersion}}`，Tiller（`{{.Capabilities.TillerVersion}}`和支持的Kubernetes API版本（`{{.Capabilities.APIVersions.Has "batch/v1"}}`）
+-   `Files`：包含chart中所有非特殊文件的map-like对象。不会允许你访问模板，但会让你访问存在的其他文件（除非它们被排除使用`.helmignore`）。可以使用\{\{index .Files "file.name"\}\}或使用\{\{.Files.Get name\}\}或 \{\{.Files.GetString name\}\}功能来访问文件。也可以使用\{\{.Files.GetBytes\}\}访问该文件的内容`[byte]`
+-   Capabilities：包含有关Kubernetes版本信息的map-like对象（\{\{.Capabilities.KubeVersion\}\}，Tiller（\{\{.Capabilities.TillerVersion\}\}和支持的Kubernetes API版本（\{\{.Capabilities.APIVersions.Has "batch/v1"\}\}）
 
 **注意:** 任何未知的Chart.yaml字段将被删除。它们不会在chart对象内部被访问。因此，Chart.yaml不能用于将任意结构化的数据传递到模板中。values文件可以用于传递。
 
@@ -576,7 +576,7 @@ apache:
 
 上面添加了一个global区块，值`app: MyWordPress`。此值可供所有chart使用`.Values.global.app`。
 
-比如，该mysql模板可以访问`app`如`{{.Values.global.app}}`，apache chart也同样的。上面的values文件是这样高效重新生成的：
+比如，该mysql模板可以访问`app`如\{\{.Values.global.app\}\}，apache chart也同样的。上面的values文件是这样高效重新生成的：
 
 
 ```yaml
