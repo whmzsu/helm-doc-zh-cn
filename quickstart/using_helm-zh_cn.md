@@ -13,7 +13,7 @@ A *Release* 是处于Kubernetes集群中运行的Chart的一个实例。一个ch
 
 有了这些概念，我们现在可以这样解释Helm：
 
-Helm将 _charts_ 安装到Kubernetes中，每个安装创建一个新 _release_ 。要找到新的chart，可以搜索Helm图表 存储库 _repositories_。
+Helm将 _charts_ 安装到Kubernetes中，每个安装创建一个新 _release_ 。要找到新的chart，可以搜索Helm charts 存储库 _repositories_。
 
 ## 'helm search':查找Charts
 
