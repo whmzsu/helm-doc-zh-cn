@@ -560,7 +560,6 @@ apache:
 
 从2.0.0-Alpha.2开始，Helm支持特殊的“全局”值。考虑前面例子的这个修改版本：
 
-标题：“我的WordPress网站”  ＃发送到WordPress模板
 
 ```yaml
 title: "My WordPress Site" # Sent to the WordPress template

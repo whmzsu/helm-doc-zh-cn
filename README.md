@@ -26,6 +26,7 @@
 
 - [Charts](chart/charts-zh_cn.md)
 - [Hooks](chart/charts_hooks-zh_cn.md)
+- [提示和技巧](chart/charts_tips_and_tricks-zh_cn.md)
 
 ### 开发模板
 ### 最佳实践
