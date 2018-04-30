@@ -24,7 +24,7 @@ Helm插件模型部分建模在​​Git的插件模型上。为此，有时可�
 
 使用 `$ helm plugin install <path|url>`命令安装插件。可以将路径设置为本地文件系统上的插件或远程VCS repo的URL。`helm plugin install`命令克隆或复制该插件的路径/URL到给定的`$(helm home)/plugins`
 
-```console
+```bash
 $ helm plugin install https://github.com/technosophos/helm-template
 ```
 

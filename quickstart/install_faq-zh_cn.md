@@ -30,7 +30,7 @@
 
 设置`$HELM_HOME`环境变量，然后运行`helm init`：
 
-```console
+```bash
 export HELM_HOME=/some/path
 helm init --client-only
 ```

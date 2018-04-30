@@ -18,7 +18,7 @@ Helm将通过Kubernetes配置文件（通常是`$HOME/.kube/config`）来确定�
 
 要找出Tiller将安装到哪个集群，可以运行 `kubectl config current-context`或`kubectl cluster-info`。
 
-```console
+```bash
 $ kubectl config current-context
 my-cluster
 ```
@@ -39,7 +39,7 @@ my-cluster
 ## 初始化Helm并安装Tiller
 有了Helm安装文件，就可以初始化本地CLI，并将Tiller安装到Kubernetes集群中：
 
-```console
+```bash
 $ helm init
 ```
 这会将Tiller安装到对应的Kubernetes群集中,集群同`kubectl config current-context`。
@@ -53,7 +53,7 @@ $ helm init
 ## 安装示例Chart
 要安装一个chart，您可以运行`helm install`命令。Helm有几种方法来查找和安装chart，但最简单的方法是使用其中一个官方`stable`稳定版本的chart。
 
-```console
+```bash
 $ helm repo update               ＃确保我们获得最新的chart列表
 $ helm install stable / mysql
 Released smile-penguin
@@ -67,7 +67,7 @@ Released smile-penguin
 ## 了解安装的release
 很容易通过如下命令查看已使用Helm安装的内容：
 
-```console
+```bash
 $ helm ls
 NAME             VERSION   UPDATED                   STATUS    CHART
 smiling-penguin  1         Wed Sep 28 12:59:46 2016  DEPLOYED  mysql-0.1.0
@@ -76,14 +76,14 @@ smiling-penguin  1         Wed Sep 28 12:59:46 2016  DEPLOYED  mysql-0.1.0
 ## 卸载安装的release
 要卸载安装的release，请使用以下`helm delete`命令：
 
-```console
+```bash
 $ helm delete smiling-penguin
 Removed smiling-penguin
 ```
 
 smiling-penguin release将从Kubernetes 卸载，但仍然可以查询有关该release的信息：
 
-```console
+```bash
 $ helm status smiling-penguin
 Status: DELETED
 ...
@@ -94,6 +94,6 @@ Status: DELETED
 ## 阅读帮助文本
 要了解有关Helm命令的更多信息，请使用helm help或键入一个后跟该-h标志的命令：
 
-```console
+```bash
 $ helm get -h
 ```
