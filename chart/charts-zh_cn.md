@@ -273,7 +273,7 @@ exports:
 myint: 99
 
 ```
-请注意，父键data不包含在父母的最终值中。如果您需要指定父键，请使用'child-parent'格式。
+请注意，父键data不包含在父chart的最终值中。如果需要指定父键，请使用'child-parent'格式。
 
 #### 使用child-parent格式
 
