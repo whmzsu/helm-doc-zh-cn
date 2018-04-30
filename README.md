@@ -21,6 +21,10 @@
 
 ### Helm命令参考
 ### Charts
+
+- [Charts](chart/charts-zh_cn.md)
+- [Hooks](chart/charts_hooks-zh_cn.md)
+
 ### 开发模板
 ### 最佳实践
 ### 相关项目和文档
