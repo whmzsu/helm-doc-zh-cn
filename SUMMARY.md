@@ -21,8 +21,8 @@
 - [Hooks](chart/charts_hooks-zh_cn.md)
 - [提示和技巧](chart/charts_tips_and_tricks-zh_cn.md)
 - [存储库repository](chart/chart_repository-zh_cn.md)
-; - [同步repository](cchart/hart_repository_sync_example-zh_cn.md)
-; - [验证出处和完整性](chart/provenance-zh_cn.md)
+- [同步repository](chart/chart_repository_sync_example-zh_cn.md)
+- [验证出处和完整性](chart/provenance-zh_cn.md)
 ; - [测试](chart/chart_tests-zh_cn.md)
 ; - [Repository FAQ](chart/chart_repository_faq-zh_cn.md)
 
