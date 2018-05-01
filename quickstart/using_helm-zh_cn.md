@@ -19,7 +19,7 @@ Helm将 _charts_ 安装到Kubernetes中，每个安装创建一个新 _release_ 
 
 首次安装Helm时，它已预配置为与官方Kubernetes chart 存储库repo。该repo包含许多精心策划和维护的charts。此charts repo默认以stable命名。
 
-您可以通过运行`helm search`查看哪些charts可用：
+可以通过运行`helm search`查看哪些charts可用：
 
 ```
 $ helm search

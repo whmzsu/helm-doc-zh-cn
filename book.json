@@ -9,6 +9,7 @@
         "splitter",
         "page-toc-button",
         "image-captions",
+        "3-ba",
         "editlink",
         "back-to-top-button",
         "-lunr", "-search", "search-plus",
@@ -19,6 +20,9 @@
         "-highlight", "prism", "prism-themes"
     ],
     "pluginsConfig": {
+        "3-ba": {
+            "token": "4c047edc6924037f9f149230b592da80"
+        },
         "theme-default": {
             "showLevel": true
         },
@@ -34,12 +38,12 @@
             "url": "https://github.com/whmzsu/helm-doc-zh-cn"
         },
         "editlink": {
-           "base": "https://github.com/whmzsu/helm-doc-zh-cn/edit/master/content",
-           "label": "Edit This Page",
+           "base": "https://github.com/whmzsu/helm-doc-zh-cn/blob/master/",
+           "label": "编辑本页",
            "multilingual": false
         },
         "tbfed-pagefooter": {
-            "copyright": "Copyright © Mingo 2017-2018",
+            "copyright": "Copyright © Mingo(whmzsu@gmail.com) 2017-2018",
             "modify_label": "Updated at ",
             "modify_format": "YYYY-MM-DD HH:mm:ss"
         },

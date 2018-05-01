@@ -43,7 +43,7 @@ helm init --client-only
 
 **问：如何在集群上手动安装Tiller？**
 
-答：Tiller是作为Kubernetes deployment安装的。您可以通过运行`helm init --dry-run --debug`获取manifest，然后通过kubectl手动安装 。建议不要删除或更改该deployment中的标签labels，因为它们有时支持脚本和工具需要用到。
+答：Tiller是作为Kubernetes deployment安装的。可以通过运行`helm init --dry-run --debug`获取manifest，然后通过kubectl手动安装 。建议不要删除或更改该deployment中的标签labels，因为它们有时支持脚本和工具需要用到。
 
 **问：为什么安装Tiller期间报错误Error response from daemon: target is unknown？**
 
@@ -64,11 +64,11 @@ Error: transport is closing
 
 答：这通常表明Kubernetes未设置为允许端口转发。
 
-通常情况下，缺少的部分是socat。如果您正在运行CoreOS，我们被告知它可能在安装时配置错误。CoreOS团队建议阅读以下内容：
+通常情况下，缺少的部分是socat。如果正在运行CoreOS，我们被告知它可能在安装时配置错误。CoreOS团队建议阅读以下内容：
 
 https://coreos.com/kubernetes/docs/latest/kubelet-wrapper.html
 
-以下是一些解决的问题案例，可以帮助您开始使用：
+以下是一些解决的问题案例，可以帮助开始使用：
 
 - https://github.com/kubernetes/helm/issues/1371
 - https://github.com/kubernetes/helm/issues/966

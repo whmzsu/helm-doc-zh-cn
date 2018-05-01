@@ -1,4 +1,4 @@
-# hart开发Tips和Tricks
+# Chart开发Tips和Tricks
 本指南涵盖了Helm chart开发人员在构建生产级质量的chart时学到的一些提示和技巧。
 
 ## 了解模板函数

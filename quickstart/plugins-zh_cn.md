@@ -30,7 +30,7 @@ $ helm plugin install https://github.com/technosophos/helm-template
 
 如果你有一个插件tar分发版，只需将插件解压到 $(helm home)/plugins目录中即可。
 
-您也可以通过直接从URL安装tarball插件`helm plugin install` http://domain/path/to/plugin.tar.gz
+也可以通过直接从URL安装tarball插件`helm plugin install` http://domain/path/to/plugin.tar.gz
 
 ## 构建插件
 
