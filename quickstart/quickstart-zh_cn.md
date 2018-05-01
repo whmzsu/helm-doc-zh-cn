@@ -51,7 +51,7 @@ $ helm init
 默认情况下，安装Tiller时，没有启用身份验证。要了解有关为Tiller配置增强TLS身份验证的更多信息，请参阅 [Tiller TLS指南](tiller_ssl-zh_cn.md)。
 
 ## 安装示例Chart
-要安装一个chart，您可以运行`helm install`命令。Helm有几种方法来查找和安装chart，但最简单的方法是使用其中一个官方`stable`稳定版本的chart。
+要安装一个chart，可以运行`helm install`命令。Helm有几种方法来查找和安装chart，但最简单的方法是使用其中一个官方`stable`稳定版本的chart。
 
 ```bash
 $ helm repo update               ＃确保我们获得最新的chart列表

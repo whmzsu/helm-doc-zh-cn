@@ -352,7 +352,7 @@ wordpress:
 
 上面的示例显示了WordPress chart如何通过在其`charts/``目录中包含这些charts来表示它对Apache和MySQL的依赖关系。
 
-**提示：** 将依赖项放入您的charts/目录，请使用` helm fetch`命令
+**提示：** 将依赖项放入charts/目录，请使用` helm fetch`命令
 
 ### 使用依赖关系的操作方面影响
 
@@ -560,7 +560,6 @@ apache:
 
 从2.0.0-Alpha.2开始，Helm支持特殊的“全局”值。考虑前面例子的这个修改版本：
 
-标题：“我的WordPress网站”  ＃发送到WordPress模板
 
 ```yaml
 title: "My WordPress Site" # Sent to the WordPress template
@@ -630,7 +629,7 @@ $ helm package mychart
 Archived mychart-0.1.-.tgz
 ```
 
-您可以用`helm`来帮助查找chart格式或信息的问题：
+可以用`helm`来帮助查找chart格式或信息的问题：
 
 ```bash
 $ helm lint mychart

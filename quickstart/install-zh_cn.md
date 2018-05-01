@@ -104,7 +104,7 @@ Helm的服务器端部分Tiller通常运行在Kubernetes集群内部。但是对
 
 ### 安装Tiller金丝雀版本
 
-Canary 镜像是从master分支建立的。他们可能不稳定，但他们为您提供测试最新功能的机会。
+Canary 镜像是从master分支建立的。他们可能不稳定，但他们提供测试最新功能的机会。
 
 安装Canary 镜像最简单的方法是helm init与 --canary-image参数一起使用：
 
@@ -112,7 +112,7 @@ Canary 镜像是从master分支建立的。他们可能不稳定，但他们为�
 $ helm init --canary-image
 ```
 
-这将使用最近构建的容器镜像。您可以随时使用` kubectl`删除`kube-system`名称空间中的Tiller deployment来卸载Tiller。
+这将使用最近构建的容器镜像。可以随时使用` kubectl`删除`kube-system`名称空间中的Tiller deployment来卸载Tiller。
 
 ### 本地运行Tiller
 
@@ -278,7 +278,7 @@ Tiller安装被跳过，manifest以JSON格式输出到stdout。
 helm init --override 'spec.template.spec.containers[0].command'='{/tiller,--storage=secret}'
 ```
 
-目前，如果您想从默认后端切换到secrets后端，必须自行为此进行迁移配置信息。当这个后端从beta版本毕业时，将会有更正式的移徙方法。
+目前，如果想从默认后端切换到secrets后端，必须自行为此进行迁移配置信息。当这个后端从beta版本毕业时，将会有更正式的移徙方法。
 
 ## 总结
 
