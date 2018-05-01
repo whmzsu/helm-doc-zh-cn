@@ -27,8 +27,8 @@
 - [Repository FAQ](chart/chart_repository_faq-zh_cn.md)
 
 ### 开发chart模板
-;- [介绍](chart_template_guide/index-zh_cn.md)
-;- [](getting_started-zh_cn.md)
+- [介绍](chart_template_guide/index-zh_cn.md)
+;- [](chart_template_guide/getting_started-zh_cn.md)
 ;-[](chart_template_guide/builtin_objects-zh_cn.md)
 ;-[](chart_template_guide/values_files-zh_cn.md)
 ;-[](chart_template_guide/functions_and_pipelines-zh_cn.md)
