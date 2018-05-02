@@ -27,7 +27,7 @@ mychart/
 
 对于本指南，我们将创建一个名为mychart的简单chart，然后我们将在chart内部创建一些模板。
 
-```console
+```bash
 $ helm create mychart
 Creating mychart
 ```
@@ -46,7 +46,7 @@ Creating mychart
 而我们要做的就是...... 全部删除它们！这样我们就可以从头开始学习我们的教程。实际上，我们将创建自己的NOTES.txt和_helpers.tpl。
 
 
-```console
+```bash
 $ rm -rf mychart/templates/*.*
 ```
 
@@ -78,7 +78,7 @@ data:
 
 有了这个简单的模板，我们现在有一个可安装的chart。我们可以像这样安装它：
 
-```console
+```bash
 $ helm install ./mychart
 NAME: full-coral
 LAST DEPLOYED: Tue Nov  1 17:36:01 2016
@@ -95,7 +95,7 @@ mychart-configmap   1         1m
 
 $ helm获得清单全珊瑚
 
-```console
+```bash
 $ helm get manifest full-coral
 
 ---
@@ -143,7 +143,7 @@ Release前面的前一个小圆点表示我们从这个范围的最上面的name
 
 现在，当我们安装我们的资源时，我们会立即看到使用这个模板指令的结果：
 
-```console
+```bash
 $ helm install ./mychart
 NAME: clunky-serval
 LAST DEPLOYED: Tue Nov  1 17:45:37 2016
@@ -162,7 +162,7 @@ clunky-serval-configmap   1         1m
 
 现在，我们看过了基础的模板：YAML文件嵌入了模板指令，通过{{和}}。在下一部分中，我们将深入研究模板。但在继续之前，有一个快速技巧可以使构建模板更快：当您想测试模板渲染，但实际上没有安装任何东西时，可以使用`helm install --debug --dry-run ./mychart`。这会将图表发送到Tiller服务器，它将渲染模板。但不是安装chart，它会将渲染模板返回，以便可以看到输出：
 
-```console
+```bash
 $ helm install --debug --dry-run ./mychart
 SERVER: "localhost:44134"
 CHART PATH: /Users/mattbutcher/Code/Go/src/k8s.io/helm/_scratch/mychart

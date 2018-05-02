@@ -14,7 +14,7 @@
 - `Release.IsUpgrade`：如果当前操作是升级或回滚，则将其设置为`true`。
 - `Release.IsInstall`：如果当前操作是安装，则设置为`true`。
 - `Values`：从`values.yaml`文件和用户提供的文件传入模板的值。默认情况下，Values是空的。
-- `Chart`：`Chart.yaml`文件的内容。任何数据Chart.yaml将在这里访问。例如{{.Chart.Name}}-{{.Chart.Version}}将打印出来mychart-0.1.0。chart指南中[Charts Guide](https://github.com/kubernetes/helm/blob/master/docs/charts.md#the-chartyaml-file)列出了可用字段
+- `Chart`：`Chart.yaml`文件的内容。任何数据Chart.yaml将在这里访问。例如\{\{.Chart.Name\}\}-\{\{.Chart.Version\}\}将打印出来mychart-0.1.0。chart指南中[Charts Guide](https://github.com/kubernetes/helm/blob/master/docs/charts.md#the-chartyaml-file)列出了可用字段
 - `Files`：这提供对chart中所有非特殊文件的访问。虽然无法使用它来访问模板，但可以使用它来访问chart中的其他文件。请参阅"访问文件"部分。
 - `Files.Get`是一个按名称获取文件的函数（`.Files.Get config.ini`）
 - `Files.GetBytes`是将文件内容作为字节数组而不是字符串获取的函数。这对于像图片这样的东西很有用。
