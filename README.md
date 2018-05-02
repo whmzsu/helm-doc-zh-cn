@@ -34,6 +34,11 @@
 - [Repository FAQ](chart/chart_repository_faq-zh_cn.md)
 
 ### 开发模板
+
+- [介绍](chart_template_guide/index-zh_cn.md)
+- [快速入门](chart_template_guide/getting_started-zh_cn.md)
+- [内置对象](chart_template_guide/builtin_objects-zh_cn.md)
+
 ### 最佳实践
 ### 相关项目和文档
 ### Kubernetes Helm 架构

@@ -28,8 +28,8 @@
 
 ### 开发chart模板
 - [介绍](chart_template_guide/index-zh_cn.md)
-;- [](chart_template_guide/getting_started-zh_cn.md)
-;-[](chart_template_guide/builtin_objects-zh_cn.md)
+- [](chart_template_guide/getting_started-zh_cn.md)
+- [](chart_template_guide/builtin_objects-zh_cn.md)
 ;-[](chart_template_guide/values_files-zh_cn.md)
 ;-[](chart_template_guide/functions_and_pipelines-zh_cn.md)
 ;-[](chart_template_guide/control_structures-zh_cn.md)
