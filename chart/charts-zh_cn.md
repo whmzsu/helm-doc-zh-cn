@@ -170,7 +170,7 @@ dependencies:
 
 在上面的例子中，我们将得到parentchart的3个依赖关系
 
-```
+```bash
 subchart
 new-subchart-1
 new-subchart-2
@@ -188,7 +188,7 @@ Condition - condition 字段包含一个或多个YAML路径（用逗号分隔）
 
 Tags - 标签字段是与此chart关联的YAML标签列表。在顶级父级的值中，可以通过指定标签和布尔值来启用或禁用所有带有标签的chart。
 
-````
+```bash
 # parentchart/requirements.yaml
 dependencies:
       - name: subchart1
@@ -206,8 +206,8 @@ dependencies:
         tags:
           - back-end
           - subchart2
-````
-````
+```
+```bash
 # parentchart/values.yaml
 
 subchart1:
@@ -215,7 +215,7 @@ subchart1:
 tags:
   front-end: false
   back-end: true
-````
+```
 
 在上面的示例中，所有带有标签的`front-end的`charts都将被禁用，但由于 `subchart1.enabled`的值在父项值中为“真”，因此条件将覆盖该 `front-end`标签，`subchart1`会启用。
 
@@ -225,10 +225,10 @@ tags:
 
 `--set`参数可使用来更改tag和conditions值。
 
-````
+```bash
 helm install --set tags.front-end=true --set subchart2.enabled=false
 
-````
+```
 
 ##### `tags`和`conditions`解析
 
@@ -336,7 +336,7 @@ myimports:
 
 例如，如果WordPress chart依赖于Apache chart，则在WordPress chart的`charts/`目录中提供（正确版本的）Apache chart：
 
-```
+```bash
 wordpress:
   Chart.yaml
   requirements.yaml
@@ -350,7 +350,7 @@ wordpress:
       # ...
 ```
 
-上面的示例显示了WordPress chart如何通过在其`charts/``目录中包含这些charts来表示它对Apache和MySQL的依赖关系。
+上面的示例显示了WordPress chart如何通过在其`charts/`目录中包含这些charts来表示它对Apache和MySQL的依赖关系。
 
 **提示：** 将依赖项放入charts/目录，请使用` helm fetch`命令
 
@@ -499,11 +499,11 @@ storage: "gcs"
 
 注意只有最后一个字段被覆盖了，其他的不变。
 
-**注：**包含在chart内的默认values文件必须命名 `values.yaml`。但是在命令行上指定的文件可以被命名为任何名称。
+**注：** 包含在chart内的默认values文件必须命名 `values.yaml`。但是在命令行上指定的文件可以被命名为任何名称。
 
-**注：**如果在helm install或helm upgrade使用`--set`，则这些值仅在客户端转换为YAML。
+**注：** 如果在helm install或helm upgrade使用`--set`，则这些值仅在客户端转换为YAML。
 
-**注意：**如果values文件中存在任何必需的条目，则可以使用'required'功能['required' function](charts_tips_and_tricks-zh_cn.md)在chart模板中声明它们
+**注意：** 如果values文件中存在任何必需的条目，则可以使用'required'功能['required' function](charts_tips_and_tricks-zh_cn.md)在chart模板中声明它们
 
 然后可以在模板内部访问任何这些`.Values`对象值 ：
 

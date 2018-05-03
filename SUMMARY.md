@@ -27,7 +27,35 @@
 - [Repository FAQ](chart/chart_repository_faq-zh_cn.md)
 
 ### 开发chart模板
+
+- [介绍](chart_template_guide/index-zh_cn.md)
+- [入门](chart_template_guide/getting_started-zh_cn.md)
+- [内置对象](chart_template_guide/builtin_objects-zh_cn.md)
+- [Values文件](chart_template_guide/values_files-zh_cn.md)
+- [函数和管道](chart_template_guide/functions_and_pipelines-zh_cn.md)
+;-[](chart_template_guide/control_structures-zh_cn.md)
+;-[](chart_template_guide/variables-zh_cn.md)
+;-[](chart_template_guide/named_templates-zh_cn.md)
+;-[](chart_template_guide/accessing_files-zh_cn.md)
+;-[](chart_template_guide/notes_files-zh_cn.md)
+;-[](chart_template_guide/subcharts_and_globals-zh_cn.md)
+;-[](chart_template_guide/debugging-zh_cn.md)
+;-[](chart_template_guide/wrapping_up-zh_cn.md)
+;-[](chart_template_guide/yaml_techniques-zh_cn.md)
+;-[](chart_template_guide/data_types-zh_cn.md)
+
 ### chart最佳实践
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+
 ### 相关项目和文档
 ### Kubernetes Helm 架构
 ### 开发指南
