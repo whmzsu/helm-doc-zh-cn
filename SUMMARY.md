@@ -32,7 +32,7 @@
 - [入门](chart_template_guide/getting_started-zh_cn.md)
 - [内置对象](chart_template_guide/builtin_objects-zh_cn.md)
 - [Values文件](chart_template_guide/values_files-zh_cn.md)
-;-[](chart_template_guide/functions_and_pipelines-zh_cn.md)
+- [函数和管道](chart_template_guide/functions_and_pipelines-zh_cn.md)
 ;-[](chart_template_guide/control_structures-zh_cn.md)
 ;-[](chart_template_guide/variables-zh_cn.md)
 ;-[](chart_template_guide/named_templates-zh_cn.md)
