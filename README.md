@@ -40,6 +40,8 @@
 - [内置对象](chart_template_guide/builtin_objects-zh_cn.md)
 - [Values文件](chart_template_guide/values_files-zh_cn.md)
 - [函数和管道](chart_template_guide/functions_and_pipelines-zh_cn.md)
+- [控制结构](chart_template_guide/control_structures-zh_cn.md)
+- [变量](chart_template_guide/variables-zh_cn.md)
 
 ### 最佳实践
 ### 相关项目和文档
