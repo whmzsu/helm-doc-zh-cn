@@ -64,7 +64,7 @@ Secrets是Kubernetes用于保存被认为是敏感的配置数据的可接受的
 
 与所有共享的软件一样，在受控或共享的环境中，必须在安装之前验证自己安装的所有软件。如果已经通过TLS配置安装了Tiller，并且只有一个或部分namespace的权限，某些chart可能无法安装 - 在这些环境中，这正是你想要的。如果需要使用chart，可能必须与创建者一起工作或自行修改它，以便在应用了适当的RBAC规则的多租户群集中安全地使用它。`helm template`命令在本地呈现chart并显示输出。
 
-一旦通过检查，可以使用Helm的工具来确保使用的图表的出处和完整性[ensure the provenance and integrity of charts](provenance.md)。
+一旦通过检查，可以使用Helm的工具来确保使用的chart的出处和完整性[ensure the provenance and integrity of charts](provenance.md)。
 
 ### gRPC工具和安全Tiller配置
 许多非常有用的工具直接使用gRPC接口，并且已经针对默认安装构建 - 它们提供了集群范围的访问 - 一旦应用了安全配置后就可能工作不正常。RBAC策略由你或集群运维人员控制，并且可以针对该工具进行调整，或者可以将该工具配置为，在应用于Tiller的特定RBAC策略的约束范围内来正常工作。如果gRPC端点受到保护，则可能需要执行相同的操作：为了使用特定的Tiller实例，这些工具需要自己的安全TLS配置。RBAC策略和gRPC工具一起配置的安全gRPC端点的组合，使你能够按照自己的需要控制群集环境。
