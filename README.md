@@ -42,6 +42,8 @@
 - [函数和管道](chart_template_guide/functions_and_pipelines-zh_cn.md)
 - [控制结构](chart_template_guide/control_structures-zh_cn.md)
 - [变量](chart_template_guide/variables-zh_cn.md)
+- [命名模板](chart_template_guide/named_templates-zh_cn.md)
+- [访问文件](chart_template_guide/accessing_files-zh_cn.md)
 
 ### 最佳实践
 ### 相关项目和文档
