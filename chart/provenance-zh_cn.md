@@ -193,15 +193,15 @@ Chart存储库必须能够通过特定的请求通过HTTP为provenance文件提�
 
 例如，如果软件包的基本URL是`https://example.com/charts/mychart-1.2.3.tgz`, provenance文件（如果存在）必须可以通过`https://example.com/charts/mychart-1.2.3.tgz.prov`访问。
 
-从最终用户的角度来看，`helm install --verify myrepo/mychart-1.2.3 ``应该无需额外的配置或操作即可下载chart和provenance文件。
+从最终用户的角度来看，`helm install --verify myrepo/mychart-1.2.3 `应该无需额外的配置或操作即可下载chart和provenance文件。
 
-## 确认权力和鉴权
+## 确认认证和鉴权
 
-在处理信任链系统时，能够确认签名者的权力很重要。或者，简单地说，上述系统取决于相信签名人员的事实。这反过来又意味着你需要信任签名者的公钥。
+在处理信任链系统时，能够确认签名者的认证很重要。或者，简单地说，上述系统取决于相信签名人员的事实。这反过来又意味着你需要信任签名者的公钥。
 
-Kubernetes Helm的设计决策之一是Helm项目不会将自己插入信任链中作为必要的组分。我们不希望成为所有chart签名者的“证书颁发机构”。相反，我们强烈支持分散模式，这是我们选择OpenPGP作为基础技术的原因之一。所以说到确认权威时，我们在Helm 2.0.0中对这个步骤或多或少未明确定义。
+Kubernetes Helm的设计决策之一是Helm项目不会将自己插入信任链中作为必要的组分。我们不希望成为所有chart签名者的“证书颁发机构”。相反，我们强烈支持分散模式，这是我们选择OpenPGP作为基础技术的原因之一。所以说到确认认证时，我们在Helm 2.0.0中对这个步骤或多或少未明确定义。
 
-但是，对于那些有兴趣使用rpovenance系统的人，我们有一些建议：
+但是，对于那些有兴趣使用povenance系统的人，我们有一些建议：
 
 - [Keybase](https://keybase.io) 平台提供了可靠信息的公开集中存放。
 - 可以使用Keybase存储密钥或获取其他公钥。
