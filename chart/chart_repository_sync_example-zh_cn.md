@@ -60,7 +60,7 @@ Congratulations your remote chart repository now matches the contents of fantast
 
 ## 更新chart库
 
-你可能需要保留chart库内容的本地副本，或者运行gsutil rsync将远程图表存储库的内容复制到本地目录。
+你可能需要保留chart库内容的本地副本，或者运行gsutil rsync将远程chart存储库的内容复制到本地目录。
 
 例如：
 
