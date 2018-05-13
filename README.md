@@ -45,6 +45,7 @@
 - [命名模板](chart_template_guide/named_templates-zh_cn.md)
 - [访问文件](chart_template_guide/accessing_files-zh_cn.md)
 - [notes文件](chart_template_guide/notes_files-zh_cn.md)
+- [子chart和全局值](chart_template_guide/subcharts_and_globals-zh_cn.md)
 
 ### 最佳实践
 ### 相关项目和文档
