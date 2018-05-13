@@ -11,7 +11,7 @@
 当你的YAML没有解析，但想看看生成了什么时，检索YAML的一个简单方法是注释模板中的问题部分，然后重新运行`helm install --dry-run --debug`：
 
 
-```YAML
+```yaml
 apiVersion: v1
 # some: problem section
 # {{ .Values.foo | quote }}
@@ -19,7 +19,7 @@ apiVersion: v1
 
 以上内容将被完整渲染并返回。
 
-```YAML
+```yaml
 apiVersion: v1
 # some: problem section
 #  "bar"
