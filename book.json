@@ -6,7 +6,6 @@
     "plugins": [
         "github",
         "codesnippet",
-        "autocover",
         "splitter",
         "page-toc-button",
         "image-captions",
@@ -26,20 +25,6 @@
         },
         "theme-default": {
             "showLevel": true
-        },
-        "autocover": {
-            "font": {
-                "size": null,
-                "family": "Impact",
-                "color": "#FFF"
-            },
-            "size": {
-                "w": 1800,
-                "h": 2360
-            },
-            "background": {
-                "color": "#09F"
-            }
         },
         "image-captions": {
             "caption": "图片 - _CAPTION_"
