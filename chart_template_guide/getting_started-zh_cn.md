@@ -160,7 +160,7 @@ clunky-serval-configmap   1         1m
 
 可以运行helm get manifest clunky-serval以查看整个生成的YAML。
 
-现在，我们看过了基础的模板：YAML文件嵌入了模板指令，通过{{和}}。在下一部分中，我们将深入研究模板。但在继续之前，有一个快速技巧可以使构建模板更快：当您想测试模板渲染，但实际上没有安装任何东西时，可以使用`helm install --debug --dry-run ./mychart`。这会将图表发送到Tiller服务器，它将渲染模板。但不是安装chart，它会将渲染模板返回，以便可以看到输出：
+现在，我们看过了基础的模板：YAML文件嵌入了模板指令，通过{{和}}。在下一部分中，我们将深入研究模板。但在继续之前，有一个快速技巧可以使构建模板更快：当您想测试模板渲染，但实际上没有安装任何东西时，可以使用`helm install --debug --dry-run ./mychart`。这会将chart发送到Tiller服务器，它将渲染模板。但不是安装chart，它会将渲染模板返回，以便可以看到输出：
 
 ```bash
 $ helm install --debug --dry-run ./mychart
