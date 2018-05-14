@@ -164,8 +164,8 @@ coffee: |-
 
 在编写模板时，可能会发现自己希望将文件内容注入模板。正如我们在前几章中看到的，有两种方法可以做到这一点：
 
-- 使用`{{ .Files.Get "FILENAME" }}`得到chart中的文件的内容。
-- 使用`{{ include "TEMPLATE" . }}`渲染模板，然后其内容放入chart。
+- 使用{\{ .Files.Get "FILENAME" }\}得到chart中的文件的内容。
+- 使用{\{ include "TEMPLATE" . \}}渲染模板，然后其内容放入chart。
 
 将文件插入YAML时，最好理解上面的多行规则。通常情况下，插入静态文件的最简单方法是做这样的事情：
 
@@ -280,7 +280,7 @@ coffees:
 
 所以如果我们要解码然后重新编码上面的例子，那么产生的YAML将是：
 
-```YAML
+```yaml
 coffee: yes, please
 favorite: Cappucino
 coffees:
