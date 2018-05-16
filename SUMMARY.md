@@ -41,8 +41,8 @@
 - [子chart和全局值](chart_template_guide/subcharts_and_globals-zh_cn.md)
 - [调试模板](chart_template_guide/debugging-zh_cn.md)
 - [总结](chart_template_guide/wrapping_up-zh_cn.md)
-- [Yaml技巧](chart_template_guide/yaml_techniques-zh_cn.md)
-;-[](chart_template_guide/data_types-zh_cn.md)
+- [附录1：Yaml技巧](chart_template_guide/yaml_techniques-zh_cn.md)
+- [附录2：数据类型](chart_template_guide/data_types-zh_cn.md)
 
 ### chart最佳实践
 ;
