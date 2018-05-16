@@ -45,16 +45,19 @@
 - [附录2：数据类型](chart_template_guide/data_types-zh_cn.md)
 
 ### chart最佳实践
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
+- [介绍](README-zh_cn.md）
+- [通用约定](conventions-zh_cn.md）
+- [Values](values-zh_cn.md）
+- [Templates](templates-zh_cn.md）
+- [Requirements](requirements-zh_cn.md）
+- [Labels 和 Annotations](labels-zh_cn.md）
+- [Pods and PodTemplates](pods-zh_cn.md）
+- [资源定义定制](custom_resource_definitions-zh_cn.md）
+- [RBAC](rbac-zh_cn.md）
+
+
+
+
 
 ### 相关项目和文档
 ### Kubernetes Helm 架构
