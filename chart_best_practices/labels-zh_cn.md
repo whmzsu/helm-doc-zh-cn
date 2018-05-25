@@ -20,6 +20,6 @@ Helm hook总是注释。
 -----|------|----------
 heritage|	REC	|这应该始终设置为`{{ .Release.Service }}`。它用于查找Tiller管理的所有东西。
 release| REC |这应该是`{{ .Release.Name }}`。
-chart| REC| 这应该是chart名称和版本：`{{ .Chart.Name }}`,`{{ .Chart.Version }}`。
+chart| REC| 这应该是chart名称和版本：`{{ .Chart.Name }}-{{ .Chart.Version \| replace "+" "_" }}`。
 app| REC| 这应该是应用程序名称，代表了整个应用程序。通常`{{ template "name" . }}` 用于此。这被许多Kubernetes manifests所使用，而不是Helm特有的。
 component| OPT|	这是标记片段,在应用程序中可能发挥的不同角色的常用标签。例如，`component: frontend`。
