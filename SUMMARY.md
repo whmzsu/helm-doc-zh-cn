@@ -41,20 +41,23 @@
 - [子chart和全局值](chart_template_guide/subcharts_and_globals-zh_cn.md)
 - [调试模板](chart_template_guide/debugging-zh_cn.md)
 - [总结](chart_template_guide/wrapping_up-zh_cn.md)
-- [Yaml技巧](chart_template_guide/yaml_techniques-zh_cn.md)
-;-[](chart_template_guide/data_types-zh_cn.md)
+- [附录1：Yaml技巧](chart_template_guide/yaml_techniques-zh_cn.md)
+- [附录2：数据类型](chart_template_guide/data_types-zh_cn.md)
 
 ### chart最佳实践
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
+- [介绍](chart_best_practices/README-zh_cn.md)
+- [通用约定](chart_best_practices/conventions-zh_cn.md)
+- [Values](chart_best_practices/values-zh_cn.md)
+- [Templates](chart_best_practices/templates-zh_cn.md)
+- [Requirements](chart_best_practices/requirements-zh_cn.md)
+;- [Labels 和 Annotations](chart_best_practices/labels-zh_cn.md)
+- [Pods and PodTemplates](chart_best_practices/pods-zh_cn.md)
+- [资源定义定制](chart_best_practices/custom_resource_definitions-zh_cn.md)
+- [RBAC](chart_best_practices/rbac-zh_cn.md)
+
+
+
+
 
 ### 相关项目和文档
 ### Kubernetes Helm 架构
