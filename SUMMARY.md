@@ -55,9 +55,12 @@
 - [资源定义定制](chart_best_practices/custom_resource_definitions-zh_cn.md)
 - [RBAC](chart_best_practices/rbac-zh_cn.md)
 
-### [相关项目和文档](related-zh_cn.md)
-### [Kubernetes Helm 架构](architecture-zh_cn.md)
+### 相关项目和文档
+- [相关项目和文档](related-zh_cn.md)
+### Kubernetes Helm 架构
+- [Kubernetes Helm 架构](architecture-zh_cn.md)
 ### 开发指南
-### [项目历史](history-zh_cn.md)
+### 项目历史
+- [项目历史](history-zh_cn.md)
 ### 术语表
 ### [何处寻找Charts](https://hub.kubeapps.com/)
