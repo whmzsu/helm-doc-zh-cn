@@ -61,7 +61,8 @@
 ### Kubernetes Helm 架构
 - [Kubernetes Helm 架构](architecture-zh_cn.md)
 
-### 开发指南
+### 开发者指南
+- [开发者指南](developers-zh_cn.md)
 
 ### 项目历史
 - [项目历史](history-zh_cn.md)
