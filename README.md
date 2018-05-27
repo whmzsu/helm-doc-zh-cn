@@ -80,5 +80,6 @@ pdf  电子版下载链接 https://pan.baidu.com/s/1aqED3wWl26pEiDGnyf5wow
 - [项目历史](history-zh_cn.md)
 
 ### 术语表
+- [术语表](glossary-zh_cn.md)
 
 ### [何处寻找Charts](https://hub.kubeapps.com/)
