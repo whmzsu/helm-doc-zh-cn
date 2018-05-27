@@ -58,7 +58,7 @@
 - [Values](chart_best_practices/values-zh_cn.md)
 - [Templates](chart_best_practices/templates-zh_cn.md)
 - [Requirements](chart_best_practices/requirements-zh_cn.md)
-;- [Labels 和 Annotations](chart_best_practices/labels-zh_cn.md)
+- [Labels 和 Annotations](chart_best_practices/labels-zh_cn.md)
 - [Pods and PodTemplates](chart_best_practices/pods-zh_cn.md)
 - [资源定义定制](chart_best_practices/custom_resource_definitions-zh_cn.md)
 - [RBAC](chart_best_practices/rbac-zh_cn.md)
