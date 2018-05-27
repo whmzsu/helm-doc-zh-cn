@@ -1,8 +1,10 @@
 # Helm User Guide - Helm 用户指南
 
-本指南是官方Kubernetes的github库下，helm子目录下的文档的翻译，依照 https://docs.helm.sh/ 的文档架构和组织，当前非常粗糙的翻译了一版，后续会陆续更新优化，用于给刚接触Helm这个工具的朋友一个参考。
+本指南是官方Kubernetes的github库下，helm子目录下的文档的翻译，依照 https://docs.helm.sh/ 的文档架构和组织，当前非常粗糙的翻译了一版（剩余命令参考和术语表两部分还没有翻译），后续会陆续更新优化，用于给刚接触Helm这个工具的朋友一个参考。
 
 备注：（如果有朋友知道如何更好的在gitbook里面处理花括弧-模板里的值引用，欢迎告知我）！！
+epub 电子书下载链接 https://github.com/whmzsu/helm-doc-zh-cn/releases
+pdf  电子版下载链接 https://pan.baidu.com/s/1aqED3wWl26pEiDGnyf5wow
 
 # 目录
 
