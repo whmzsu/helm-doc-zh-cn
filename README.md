@@ -23,6 +23,7 @@ pdf  电子版下载链接 https://pan.baidu.com/s/1aqED3wWl26pEiDGnyf5wow
 - [使用](quickstart/using_helm-zh_cn.md)
 - [插件](quickstart/plugins-zh_cn.md)
 - [RBAC](quickstart/rbac-zh_cn.md)
+- [使用SSL](quickstart/tiller_ssl-zh_cn.md)
 - [安全安装](quickstart/securing_installation-zh_cn.md)
 
 ### Helm命令参考

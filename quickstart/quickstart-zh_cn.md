@@ -2,11 +2,11 @@
 本指南介绍如何快速开始使用Helm。
 
 ## 前提条件
-需要以下前提条件才能正常且安全地使用Helm。
+需要准备以下前提条件才能成功且安全地使用Helm。
 
 1. 一个Kubernetes集群
 2. 确定使用哪种安装安全配置（如果有的话）
-3. 安装和配置Helm和Tiller（集群端服务）。
+3. 安装和配置Helm和集群端服务Tiller。
 
 ### 安装Kubernetes或有权访问群集
 - 必须已安装Kubernetes。对于Helm的最新版本，我们推荐最新的Kubernetes稳定版本，在大多数情况下它是次新版本。
@@ -23,7 +23,7 @@ $ kubectl config current-context
 my-cluster
 ```
 ### 了解集群配置的安全上下文
-与所有强大的工具一样，需要确保在环境里正确安装。
+与所有强大的工具一样，需要确保为你的场景正确安装它。
 
 如果你在完全控制的群集上使用Helm，如minikube或专用网络中的不考虑共享的群集，则默认安装（不采用安全配置）很合适，并且是最容易的。要在无需额外安全措施的场景下安装Helm，请参考[安装Helm](#安装Helm)，然后[初始化Helm](#初始化Helm并安装Tiller)。
 
@@ -32,7 +32,7 @@ my-cluster
 如果群集启用了基于角色的访问控制（RBAC），在继续之前配置[服务帐户(service account)和规则](rbac-zh_cn.md)。
 
 ## 安装Helm
-下载Helm客户端的二进制版本。可以使用类似工具如`homebrew`，或查看[官方版本页面](https://github.com/kubernetes/helm/releases)。
+下载Helm客户端的二进制版本。可以使用类似工具如`homebrew`，或查看[官方发布页面](https://github.com/kubernetes/helm/releases)。
 
 有关更多详细信息或其他选项，请参阅[安装指南](install-zh_cn.md)。
 
@@ -44,7 +44,7 @@ $ helm init
 ```
 这会将Tiller安装到对应的Kubernetes群集中,集群同`kubectl config current-context`。
 
-**提示：** 想要安装到不同的群集中？使用该 --kube-context 参数。
+**提示：** 想要安装到不同的群集中？使用 --kube-context 参数。
 
 **提示：** 如果要升级Tiller，请运行helm init --upgrade。
 
