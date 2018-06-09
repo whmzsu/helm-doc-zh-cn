@@ -69,7 +69,7 @@ Email Address []:tiller@example.com
 
 首先，Tiller 密钥：
 
-```console
+```bash
 $ openssl genrsa -out ./tiller.key.pem 4096
 Generating RSA private key, 4096 bit long modulus
 ..........................................................................................................................................................................................................................................................................................................................++
@@ -81,7 +81,7 @@ Verifying - Enter pass phrase for ./tiller.key.pem:
 
 接下来，生成Helm客户端的密钥：
 
-```console
+```bash
 $ openssl genrsa -out ./helm.key.pem 4096
 Generating RSA private key, 4096 bit long modulus
 .....++
@@ -96,7 +96,7 @@ Verifying - Enter pass phrase for ./helm.key.pem:
 接下来，我们需要从这些密钥创建证书。对于每个证书，这有两个步骤，创建CSR，然后创建证书。
 
 
-```console
+```bash
 $ openssl req -key tiller.key.pem -new -sha256 -out tiller.csr.pem
 Enter pass phrase for tiller.key.pem:
 You are about to be asked to enter information that will be incorporated
@@ -122,7 +122,7 @@ An optional company name []:
 
 我们为Helm客户端证书重复这一步骤：
 
-```console
+```bash
 $ openssl req -key helm.key.pem -new -sha256 -out helm.csr.pem
 # Answer the questions with your client user's info
 ```
@@ -131,7 +131,7 @@ $ openssl req -key helm.key.pem -new -sha256 -out helm.csr.pem
 
 现在我们使用我们创建的CA证书对每个CSR进行签名（调整days参数以满足你的要求）：
 
-```console
+```bash
 $ openssl x509 -req -CA ca.cert.pem -CAkey ca.key.pem -CAcreateserial -in tiller.csr.pem -out tiller.cert.pem -days 365
 Signature ok
 subject=/C=US/ST=CO/L=Boulder/O=Tiller Server/CN=tiller-server
@@ -141,7 +141,7 @@ Enter pass phrase for ca.key.pem:
 
 再次为客户证书：
 
-```console
+```bash
 $ openssl x509 -req -CA ca.cert.pem -CAkey ca.key.pem -CAcreateserial -in helm.csr.pem -out helm.cert.pem  -days 365
 ```
 
@@ -167,7 +167,7 @@ Helm全面支持创建SSL配置的部署。通过指定几个标志，`helm init
 
 要看看这将产生什么，运行这个命令：
 
-```console
+```bash
 $ helm init --dry-run --debug --tiller-tls --tiller-tls-cert ./tiller.cert.pem --tiller-tls-key ./tiller.key.pem --tiller-tls-verify --tls-ca-cert ca.cert.pem
 ```
 
@@ -179,13 +179,13 @@ $ helm init --dry-run --debug --tiller-tls --tiller-tls-cert ./tiller.cert.pem -
 
 另外，可以删除`--dry-run`和`--debug`标志。我们还建议将Tiller放入非系统namespace（`--tiller-namespace=something`）并启用服务帐户（`--service-account=somename`）。但是对于这个例子，我们将继续使用基础配置：
 
-```console
+```bash
 $ helm init --tiller-tls --tiller-tls-cert ./tiller.cert.pem --tiller-tls-key ./tiller.key.pem --tiller-tls-verify --tls-ca-cert ca.cert.pem
 ```
 
 在一两分钟内它就应该准备好了。我们可以像这样检查Tiller：
 
-```console
+```bash
 $ kubectl -n kube-system get deployment
 NAME            DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 ... other stuff
@@ -197,7 +197,7 @@ tiller-deploy   1         1         1            1           2m
 此时，运行基本的Helm命令时应该会报错：
 
 
-```console
+```bash
 $ helm ls
 Error: transport is closing
 ```
@@ -210,7 +210,7 @@ Tiller服务现在运行通过TLS保护。现在需要配置Helm客户端来执�
 
 对于快速测试，我们可以手动指定我们的配置。我们将运行一个普通的Helm命令（`helm ls`），但启用SSL/TLS。
 
-```console
+```bash
 helm ls --tls --tls-ca-cert ca.cert.pem --tls-cert helm.cert.pem --tls-key helm.key.pem
 ```
 
@@ -218,7 +218,7 @@ helm ls --tls --tls-ca-cert ca.cert.pem --tls-cert helm.cert.pem --tls-key helm.
 
 尽管如此，键入长命令很麻烦。快捷方法是将密钥，证书和CA移入`$HELM_HOME`：
 
-```console
+```bash
 $ cp ca.cert.pem $(helm home)/ca.pem
 $ cp helm.cert.pem $(helm home)/cert.pem
 $ cp helm.key.pem $(helm home)/key.pem
