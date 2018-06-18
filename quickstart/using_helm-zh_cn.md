@@ -5,11 +5,11 @@
 
 ## 三大概念
 
-A *Chart* 是一个Helm包。它包含在Kubernetes集群内部运行应用程序，工具或服务所需的所有资源定义。把它想像为一个自制软件，一个Apt dpkg或一个Yum RPM文件的Kubernetes环境里面的等价物。
+一个 *Chart* 是一个Helm包。它包含在Kubernetes集群内部运行应用程序，工具或服务所需的所有资源定义。把它想像为一个自制软件，一个Apt dpkg或一个Yum RPM文件的Kubernetes环境里面的等价物。
 
-A *Repository* 是Charts收集和共享的地方。它就像Perl的[CPAN archive](http://www.cpan.org)或Fedora软件包repo[Fedora Package Database](https://admin.fedoraproject.org/pkgdb/)。
+一个 *Repository* 是Charts收集和共享的地方。它就像Perl的[CPAN archive](http://www.cpan.org)或Fedora软件包repo[Fedora Package Database](https://admin.fedoraproject.org/pkgdb/)。
 
-A *Release* 是处于Kubernetes集群中运行的Chart的一个实例。一个chart通常可以多次安装到同一个群集中。每次安装时，都会创建一个新 _release_ 。比如像一个MySQL chart。如果希望在群集中运行两个数据库，则可以安装该chart两次。每个都有自己的 _release_，每个 _release_ 都有自己的 _release name_。
+一个 *Release* 是处于Kubernetes集群中运行的Chart的一个实例。一个chart通常可以多次安装到同一个群集中。每次安装时，都会创建一个新 _release_ 。比如像一个MySQL chart。如果希望在群集中运行两个数据库，则可以安装该chart两次。每个都有自己的 _release_，每个 _release_ 都有自己的 _release name_。
 
 有了这些概念，我们现在可以这样解释Helm：
 
@@ -17,9 +17,9 @@ Helm将 _charts_ 安装到Kubernetes中，每个安装创建一个新 _release_ 
 
 ## 'helm search':查找Charts
 
-首次安装Helm时，它已预配置为与官方Kubernetes chart 存储库repo。该repo包含许多精心策划和维护的charts。此charts repo默认以stable命名。
+首次安装Helm时，它已预配置为使用官方Kubernetes chart 存储库repo。该repo包含许多精心设计和维护的charts。此charts repo默认以stable命名。
 
-可以通过运行`helm search`查看哪些charts可用：
+可以通过运行`helm search`查看有哪些charts可用：
 
 ```
 $ helm search
@@ -31,7 +31,7 @@ stable/mysql    	0.1.0   	Chart for MySQL
 ...
 ```
 
-如果没有使用过滤，helm search显示所有可用的charts。可以通过使用过滤器进行搜索来缩小搜索结果范围：
+如果没有使用过滤条件，helm search显示所有可用的charts。可以通过使用过滤条件进行搜索来缩小搜索的结果范围：
 
 ```
 $ helm search mysql
@@ -39,7 +39,7 @@ NAME               	VERSION	DESCRIPTION
 stable/mysql  	0.1.0  	Chart for MySQL
 stable/mariadb	0.5.1  	Chart for MariaDB
 ```
-现在只会看到过滤器匹配的结果。
+现在只会看到与过滤条件匹配的结果。
 
 为什么`mariadb`在列表中？因为它的包描述与MySQL相关。我们可以使用`helm inspect chart`到这个：
 
@@ -60,6 +60,7 @@ keywords:
 搜索是找到可用软件包的好方法。一旦找到想要安装的软件包，可以使用`helm install`它来安装它。
 
 ## 'helm install'：安装一个软件包
+
 要安装新的软件包，请使用该`helm install`命令。最简单的方法，它只需要一个参数：chart的名称。
 
 ```
@@ -93,11 +94,11 @@ To connect to your database run the following command:
    kubectl run happy-panda-mariadb-client --rm --tty -i --image bitnami/mariadb --command -- mysql -h happy-panda-mariadb
 ```
 
-当mariadb chart已安装，请注意，安装chart会创建一个新 _release_ 对象。上面的release被命名 为`happy-panda`。（如果你想使用你自己的release名称，只需使用 --name 参数 配合helm install。）
+现在mariadb chart已安装，请注意，安装chart会创建一个新 _release_ 对象。上面的release被命名 为`happy-panda`。（如果你想使用你自己的release名称，只需使用 --name 参数 配合helm install。）
 
 在安装过程中，`helm`客户端将打印有关创建哪些资源的有用信息，release的状态以及是否可以或应该采取其他的配置步骤。
 
-Helm不会一直等到所有资源都运行才退出。许多charts需要大小超过600M的Docker 镜像，并且可能需要很长时间才能安装到群集中。
+Helm不会一直等到所有资源都运行才退出。许多charts需要大小超过600M的 Docker 镜像，因此可能需要很长时间才能安装到群集中。
 
 要跟踪release状态或重新读取配置信息，可以使用`helm status`：
 
@@ -130,7 +131,7 @@ To connect to your database run the following command:
    kubectl run happy-panda-mariadb-client --rm --tty -i --image bitnami/mariadb --command -- mysql -h happy-panda-mariadb
 ```
 
-以上显示了release的当前状态。
+以上显示了集群内release的当前状态。
 
 ### 在安装前自定义chart
 
@@ -170,25 +171,25 @@ imageTag: 10.1.14-r3
 # mariadbDatabase:
 ```
 
-然后，可以在YAML格式的文件中覆盖任何这些设置，然后在安装过程中传递该文件。
+然后，可以在YAML格式的文件中覆盖任何这些设置，然后在安装过程中使用该文件。
 
 ```bash
 $ echo '{mariadbUser: user0, mariadbDatabase: user0db}' > config.yaml
 $ helm install -f config.yaml stable/mariadb
 ```
 
-以上将创建一个名称为MariaDB的默认用户`user0`，并授予此用户对新创建`user0db`数据库的访问权限，其他使用该chart的默认值。
+以上将创建一个名称为MariaDB的默认用户`user0`，并授予此用户对新创建`user0db`数据库的访问权限，其他使用这个chart的默认值。
 
 在安装过程中有两种方式传递自定义配置数据：
 
 - --values（或-f）：指定一个overrides的YAML文件。可以指定多次，最右边的文件将优先使用
 - --set：在命令行上指定overrides。
 
-如果两者都使用，则将`--set`值合并到`--values`更高的优先级中。指定的override `--set`将保存在configmap中。`--set`可以通过使用特定的版本查看已经存在的值 `helm get values <release-name>`,`--set`设置的值可以通过运行helm upgrade与--reset-values 重置。
+如果两者都使用，则将`--set`值合并到`--values`更高的优先级中。指定的override `--set`将保存在configmap中。`--set`可以通过使用特定的版本查看已经存在的值 `helm get values <release-name>`,`--set`设置的值可以通过运行helm upgrade 带有 --reset-values 参数重置。
 
 #### `--set`格式和限制
 
-`--set`选项使用零个或多个name/value对。最简单的用法：--set name=value。YAML体现是：
+`--set`选项使用零个或多个name/value对。最简单的用法：--set name=value。YAML的表示是：
 
 ```yaml
 name: value
