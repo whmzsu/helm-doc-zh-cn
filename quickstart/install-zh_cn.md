@@ -1,6 +1,6 @@
 # 安装
 
-Helm有两个部分：Helm客户端（helm）和Helm服务器（Tiller）。本指南介绍如何安装客户端，然后继续演示两种安装服务端的方法。
+Helm有两个部分：Helm客户端（helm）和Helm服务端（Tiller）。本指南介绍如何安装客户端，然后继续演示两种安装服务端的方法。
 
 **重要提示**：如果你负责的群集是在受控的环境，尤其是在共享资源时，强烈建议使用安全配置安装Tiller。有关指导，请参阅[安全Helm安装](securing_installation-zh_cn.md)。
 
@@ -8,7 +8,7 @@ Helm有两个部分：Helm客户端（helm）和Helm服务器（Tiller）。本�
 
 Helm客户端可以从源代码安装，也可以从预构建的二进制版本安装。
 
-### 二进制版本
+### 从二进制版本
 
 每一个版本[release](https://github.com/kubernetes/helm/releases)Helm提供多种操作系统的二进制版本。这些二进制版本可以手动下载和安装。
 
