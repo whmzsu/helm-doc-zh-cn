@@ -248,4 +248,7 @@ $ cp helm.key.pem $(helm home)/key.pem
 
 ## 参考
 https://github.com/denji/golang-tls
-https://www.openssl.org/docs/ https://jamielinux.com/docs/openssl-certificate-authority/sign-server-and-client-certificates.html
+
+https://www.openssl.org/docs/
+
+https://jamielinux.com/docs/openssl-certificate-authority/sign-server-and-client-certificates.html
