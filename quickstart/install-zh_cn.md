@@ -282,6 +282,6 @@ helm init --override 'spec.template.spec.containers[0].command'='{/tiller,--stor
 
 ## 总结
 
-在大多数情况下，安装和获取预先构建的helm二进制代码及`helm init`一样简单。这个文档提供而了一些用例给那些想要用Helm做更复杂的事情的人。
+在大多数情况下，安装和获取预先构建的helm二进制代码和`helm init`一样简单。这个文档提供而了一些用例给那些想要用Helm做更复杂的事情的人。
 
 一旦成功安装了Helm Client和Tiller，可以继续下一步使用Helm来管理charts。

@@ -2,7 +2,7 @@
 
 Helm 2.1.0引入了客户端Helm 插件_plugin_的概念。插件是一种可以通过helm CLI 访问的工具，但它不是内置Helm代码库的一部分。
 
-现有的插件可以在相关部分[related](related.md#helm-plugins)找到或者通过搜索[Github](https://github.com/search?q=topic%3Ahelm-plugin&type=Repositories)。
+现有的插件可以在相关部分[related](../related-zh_cn.md#Helm插件)找到或者通过搜索[Github](https://github.com/search?q=topic%3Ahelm-plugin&type=Repositories)。
 
 本指南介绍了如何使用和创建插件。
 
@@ -30,7 +30,7 @@ $ helm plugin install https://github.com/technosophos/helm-template
 
 如果你有一个插件tar分发版，只需将插件解压到 $(helm home)/plugins目录中即可。
 
-也可以通过直接从URL安装tarball插件`helm plugin install` http://domain/path/to/plugin.tar.gz
+也可以通过直接从URL安装tarball插件`helm plugin install http://domain/path/to/plugin.tar.gz`
 
 ## 构建插件
 
