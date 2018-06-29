@@ -1,16 +1,16 @@
-# 同步chart库
+# 同步 chart 库
 
-**注意：**这个样例适用于于提供chart库的Google Cloud Storage（GCS）存储bucket。
+** 注意：** 这个样例适用于于提供 chart 库的 Google Cloud Storage（GCS）存储 bucket。
 
 ## 前提条件
 
-* 安装[gsutil](https://cloud.google.com/storage/docs/gsutil) 工具。**这个样例依赖于gsutil rsync功能。**
-* 确保有权访问Helm 客户端文件
-* 可选：我们建议在GCS存储桶上设置对象版本控制，以防意外删除某些内容。
+* 安装 [gsutil](https://cloud.google.com/storage/docs/gsutil) 工具。** 这个样例依赖于 gsutil rsync 功能。**
+* 确保有权访问 Helm 客户端文件
+* 可选：我们建议在 GCS 存储桶上设置对象版本控制，以防意外删除某些内容。
 
-## 设置本地chart库目录
+## 设置本地 chart 库目录
 
-像我们在[the chart repository guide](chart_repository-zh_cn.md)中一样创建一个本地目录，并将打包的chart放入该目录中。
+像我们在 [the chart repository guide](chart_repository-zh_cn.md) 中一样创建一个本地目录，并将打包的 chart 放入该目录中。
 
 例如:
 ```bash
@@ -18,19 +18,19 @@ $ mkdir fantastic-charts
 $ mv alpine-0.1.0.tgz fantastic-charts/
 ```
 
-## 生成更新的index.yaml
+## 生成更新的 index.yaml
 
-使用Helm通过将远程存储库的目录路径和url传递到`helm repo index`命令来生成更新的index.yaml文件，如下所示：
+使用 Helm 通过将远程存储库的目录路径和 url 传递到 `helm repo index` 命令来生成更新的 index.yaml 文件，如下所示：
 
 ```bash
 $ helm repo index fantastic-charts/ --url https://fantastic-charts.storage.googleapis.com
 ```
 
-这将生成一个更新的index.yaml文件并放置在`fantastic-charts/`目录中。
+这将生成一个更新的 index.yaml 文件并放置在 `fantastic-charts/` 目录中。
 
-## 同步本地和远程chart库
+## 同步本地和远程 chart 库
 
-通过运行`scripts/sync-repo.sh`并传入本地目录名称和GCS存储桶名称,将目录的内容上传到您的GCS存储桶。
+通过运行 `scripts/sync-repo.sh` 并传入本地目录名称和 GCS 存储桶名称, 将目录的内容上传到您的 GCS 存储桶。
 
 例如：
 
@@ -58,9 +58,9 @@ Congratulations your remote chart repository now matches the contents of fantast
 ```
 
 
-## 更新chart库
+## 更新 chart 库
 
-你可能需要保留chart库内容的本地副本，或者运行gsutil rsync将远程chart存储库的内容复制到本地目录。
+你可能需要保留 chart 库内容的本地副本，或者运行 gsutil rsync 将远程 chart 存储库的内容复制到本地目录。
 
 例如：
 
@@ -82,6 +82,6 @@ Downloading file://local-dir/index.yaml:                              346 B/346 
 
 有用的网址：
 
-* 文档[gsutil rsync](https://cloud.google.com/storage/docs/gsutil/commands/rsync#description)
-* [Chart库指南](chart_repository-zh_cn.md)
+* 文档 [gsutil rsync](https://cloud.google.com/storage/docs/gsutil/commands/rsync#description)
+* [Chart 库指南](chart_repository-zh_cn.md)
 * 文档[object versioning and concurrency control](https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#overview)

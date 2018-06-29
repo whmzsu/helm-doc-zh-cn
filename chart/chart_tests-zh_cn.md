@@ -1,28 +1,28 @@
-# Chart测试
+# Chart 测试
 
-一个chart包含许多一起工作的Kubernetes资源和组件。作为chart作者，可能需要编写一些测试来验证chart在安装时是否按预期工作。这些测试还有助于chart消费者了解chart应该做什么。
+一个 chart 包含许多一起工作的 Kubernetes 资源和组件。作为 chart 作者，可能需要编写一些测试来验证 chart 在安装时是否按预期工作。这些测试还有助于 chart 消费者了解 chart 应该做什么。
 
-**测试**在Helm chart中的templates/目录，是一个pod定义，指定一个给定的命令来运行容器。容器应该成功退出（exit 0），测试被认为是成功的。该pod定义必须包含helm测试hook注释之一：`helm.sh/hook: test-success`或`helm.sh/hook: test-failure`。
+** 测试 ** 在 Helm chart 中的 templates / 目录，是一个 pod 定义，指定一个给定的命令来运行容器。容器应该成功退出（exit 0），测试被认为是成功的。该 pod 定义必须包含 helm 测试 hook 注释之一：`helm.sh/hook: test-success` 或 `helm.sh/hook: test-failure`。
 
 示例测试：
 
-- 验证来自values.yaml文件的配置是否正确注入。
+- 验证来自 values.yaml 文件的配置是否正确注入。
 - 确保用户名和密码正常工作
 - 确保不正确的用户名和密码不起作用
 - 断言服务已启动并正确进行负载平衡
 - 等等
 
-可以使用该helm test <RELEASE_NAME>命令在release中运行Helm中的预定义测试。对于chart使用者来说，这是一种很好的方式来检查他们发布的chart（或应用程序）是否按预期工作。
+可以使用该 helm test <RELEASE_NAME> 命令在 release 中运行 Helm 中的预定义测试。对于 chart 使用者来说，这是一种很好的方式来检查他们发布的 chart（或应用程序）是否按预期工作。
 
-## Helm测试hook的分解
+## Helm 测试 hook 的分解
 
-在Helm中，有两个测试hook：`test-success`和`test-failure`.
+在 Helm 中，有两个测试 hook：`test-success` 和 `test-failure`.
 
-`test-success`表示测试pod应该成功完成。换句话说，容器中的容器应该exit 0. `test-failure`是一种断言测试容器不能成功完成的方式。如果pod中的容器未exit 0，则表示成功。
+`test-success` 表示测试 pod 应该成功完成。换句话说，容器中的容器应该 exit 0. `test-failure` 是一种断言测试容器不能成功完成的方式。如果 pod 中的容器未 exit 0，则表示成功。
 
 ## 示例测试
 
-下面是一个示例mariadb chart中helm测试pod定义的示例：
+下面是一个示例 mariadb chart 中 helm 测试 pod 定义的示例：
 
 ```
 mariadb/
@@ -34,7 +34,7 @@ mariadb/
   templates/tests/test-mariadb-connection.yaml
 ```
 
-在`wordpress/templates/tests/test-mariadb-connection.yaml`中：
+在 `wordpress/templates/tests/test-mariadb-connection.yaml` 中：
 
 ```
 apiVersion: v1
@@ -65,7 +65,7 @@ spec:
   restartPolicy: Never
 ```
 
-## 在release上运行测试套件的步骤
+## 在 release 上运行测试套件的步骤
 
 1. `$ helm install mariadb`
 ```
@@ -82,5 +82,5 @@ SUCCESS: quirky-walrus-credentials-test
 ```
 
 ## 注意
-- 可以在单个yaml文件中定义尽可能多的测试，也可以在templates/目录中的多个yaml文件中进行分布测试
+- 可以在单个 yaml 文件中定义尽可能多的测试，也可以在 templates / 目录中的多个 yaml 文件中进行分布测试
 - 提倡将测试套件嵌入到一个`tests/`目录下，比如`<chart-name>/templates/tests/`以便实现更多隔离
