@@ -143,4 +143,4 @@ hook 权重可以是正数或负数，但必须表示为字符串。当 Tiller �
 * 出于某种原因，可能有必要将成功的 hook 资源保留在 kubernetes 中。
 * 同时，在 helm release 升级之前进行手动资源删除是不可取的。
 
-`"helm.sh/hook-delete-policy": "before-hook-creation"` 在hook中的注释，如果在新的hook启动前有一个hook的话，会使Tiller将以前的release中的hook删除，，而这个hook同时它可能正在被其他一个策略使用。
+`"helm.sh/hook-delete-policy": "before-hook-creation"` 在hook中的注释，如果在新的hook启动前有一个hook的话，会使Tiller将以前的release中的hook删除，而这个hook同时它可能正在被其他一个策略使用。

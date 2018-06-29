@@ -64,7 +64,7 @@ pdf  电子版下载链接 https://pan.baidu.com/s/1aqED3wWl26pEiDGnyf5wow
 - [Templates](chart_best_practices/templates-zh_cn.md)
 - [Requirements](chart_best_practices/requirements-zh_cn.md)
 - [Labels 和 Annotations](chart_best_practices/labels-zh_cn.md)
-- [Pods and PodTemplates](chart_best_practices/pods-zh_cn.md)
+- [Pods 和 PodTemplates](chart_best_practices/pods-zh_cn.md)
 - [资源定义定制](chart_best_practices/custom_resource_definitions-zh_cn.md)
 - [RBAC](chart_best_practices/rbac-zh_cn.md)
 
@@ -83,4 +83,4 @@ pdf  电子版下载链接 https://pan.baidu.com/s/1aqED3wWl26pEiDGnyf5wow
 ### 术语表
 - [术语表](glossary-zh_cn.md)
 
-### [何处寻找Charts](https://hub.kubeapps.com/)
+### [何处寻找 Charts](https://hub.kubeapps.com/)

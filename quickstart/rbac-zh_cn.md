@@ -228,7 +228,7 @@ rolebinding "tiller-binding" created
 
 在 pod 中运行 Helm 客户端时，为了让 Helm 客户端与 Tiller 实例进行通信，需要授予某些特权。具体来说，Helm 客户端需要能够创建 pods，转发端口并能够在 Tiller 运行的 namespace 中列出 pod（这样它才可以找到 Tiller）。
 
-### Example: 在一个 namespace 中部署 helm，与在另一个 namespace 中与 Tiller 交互
+### Example: 在一个 namespace 中部署 Helm，与在另一个 namespace 中与 Tiller 交互
 
 在这个例子中，我们将假设 Tiller 在名为 `tiller-world` 的 namespace 中运行，并且 Helm 客户端在 `helm-world` 的 namespace 中运行。默认情况下，Tiller 在 `kube-system` namespace 中运行。
 

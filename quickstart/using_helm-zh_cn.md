@@ -233,13 +233,13 @@ servers:
     host: example
 ```
 
-有时候你需要在 `--set` 行中使用特殊字符。可以使用反斜杠来转义字符; --set name=value1\,value2 会变成：
+有时候你需要在 `--set` 行中使用特殊字符。可以使用反斜杠来转义字符; --set name="value1\,value2" 会变成：
 
 ```yaml
 name: "value1,value2"
 ```
 
-同样，也可以转义点序列，这可能在 chart 中使用 `toYaml` 函数解析注释，标签和节点选择器时派上用场 。--set nodeSelector."kubernetes\.io/role"=master 变为的语法 ：
+同样，也可以转义点序列，这可能在 chart 中使用 `toYaml` 函数解析注释，标签和节点选择器时派上用场 。--set nodeSelector."kubernetes\.io/role"=master 的语法变为：
 
 ```yaml
 nodeSelector:
