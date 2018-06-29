@@ -4,9 +4,7 @@
 
 备注：（如果有朋友知道如何更好的在 gitbook 里面处理花括弧 - 模板里的值引用，欢迎告知我）！！
 
-epub 电子书下载链接 https://github.com/whmzsu/helm-doc-zh-cn/releases
-
-pdf  电子版下载链接 https://pan.baidu.com/s/1aqED3wWl26pEiDGnyf5wow
+电子书下载链接 https://github.com/whmzsu/helm-doc-zh-cn/releases
 
 # 目录
 
