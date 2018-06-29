@@ -1,6 +1,6 @@
 # 相关项目和文档
-Helm社区已经制作了许多关于Helm的额外工具，插件和文档。我们喜欢听到这些项目。如果有任何想要添加到此列表中的内容，请[issue](https://github.com/kubernetes/helm/issues)
-或[pull request](https://github.com/kubernetes/helm/pulls)。
+Helm 社区已经制作了许多关于 Helm 的额外工具，插件和文档。我们喜欢听到这些项目。如果有任何想要添加到此列表中的内容，请 [issue](https://github.com/kubernetes/helm/issues)
+或 [pull request](https://github.com/kubernetes/helm/pulls)。
 
 ## 文章，博客，操作方法和额外文档
 - [Using Helm to Deploy to Kubernetes](https://daemonza.github.io/2017/02/20/using-helm-to-deploy-to-kubernetes/)
@@ -21,7 +21,7 @@ Helm社区已经制作了许多关于Helm的额外工具，插件和文档。我
 - [Helm with Michelle Noorali and Matthew Butcher](https://gcppodcast.com/post/episode-50-helm-with-michelle-noorali-and-matthew-butcher/): The official Google CloudPlatform Podcast interviews Michelle and Matt about Helm.
 
 
-## Helm插件
+## Helm 插件
 
 - [helm-tiller](https://github.com/adamreese/helm-tiller) - Additional commands to work with Tiller
 - [Technosophos's Helm Plugins](https://github.com/technosophos/helm-plugins) - Plugins for GitHub, Keybase, and GPG
@@ -48,7 +48,7 @@ tag on their plugin repositories.
 
 
 ## 其他工具
-分布在Helm或Tiller之上的工具。
+分布在 Helm 或 Tiller 之上的工具。
 
 - [AppsCode Swift](https://github.com/appscode/swift) - Ajax friendly Helm Tiller Proxy using [grpc-gateway](https://github.com/grpc-ecosystem/grpc-gateway)
 - [Quay App Registry](https://coreos.com/blog/quay-application-registry-for-kubernetes.html) - Open Kubernetes application registry, including a Helm access client
@@ -69,9 +69,9 @@ tag on their plugin repositories.
 - [Helm.NET](https://github.com/qmfrederik/helm) - A .NET client for Tiller's API
 - [Codefresh](https://codefresh.io) - Kubernetes native CI/CD and management platform with UI dashboards for managing Helm charts and releases
 
-## 集成Helm
+## 集成 Helm
 
-包含Helm支持的平台，发行版和服务。
+包含 Helm 支持的平台，发行版和服务。
 
 - [Kubernetic](https://kubernetic.com/) - Kubernetes Desktop Client
 - [Cabin](http://www.skippbox.com/cabin/) - Mobile App for Managing Kubernetes
@@ -81,6 +81,6 @@ tag on their plugin repositories.
 
 ## 杂项
 
-为chart作者和Helm用户抓取有用的东西
+为 chart 作者和 Helm 用户抓取有用的东西
 
 - [Await](https://github.com/saltside/await) - Docker image to "await" different conditions--especially useful for init containers. [More Info](http://blog.slashdeploy.com/2017/02/16/introducing-await/)
