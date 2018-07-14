@@ -55,7 +55,7 @@ $ helm init
 
 ```bash
 $ helm repo update               ＃确保我们获得最新的 chart 清单
-$ helm install stable / mysql
+$ helm install stable/mysql
 Released smile-penguin
 ```
 在上面的例子中，stable/mysql 已经安装，安装版本的 release 的名字是 smiling-penguin。通过运行 `helm inspect stable/mysql` 可以简单了解这个 MySQL chart 的功能。
