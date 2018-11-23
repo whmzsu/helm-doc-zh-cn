@@ -93,6 +93,11 @@ $ make bootstrap build
 
 Helm 的服务器端部分 Tiller 通常运行在 Kubernetes 集群内部。但是对于开发，它也可以在本地运行，并配置为与远程 Kubernetes 群集通信。
 
+### Special Note for RBAC Users
+
+Most cloud providers enable a feature called Role-Based Access Control - RBAC for short. If your cloud provider enables this feature, you will need to create a service account for Tiller with the right roles and permissions to access resources.
+Check the [Kubernetes Distribution Guide](kubernetes_distros-zh_cn.md) to see if there's any further points of interest on using Helm with your cloud provider. Also check out the guide on [Tiller and Role-Based Access Control](rbac-zh_cn.md) for more information on how to run Tiller in an RBAC-enabled Kubernetes cluster.
+
 ### 快捷群集内安装
 
 安装 `tiller` 到群集中最简单的方法就是运行 `helm init`。这将验证 `helm` 本地环境设置是否正确（并在必要时进行设置）。然后它会连接到 `kubectl` 默认连接的任何集群（`kubectl config view`）。一旦连接，它将安装 `tiller` 到 `kube-system` 命名空间中。
