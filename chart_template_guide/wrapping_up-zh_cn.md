@@ -12,8 +12,10 @@
 - 在 Go 模板 [Go template docs](https://godoc.org/text/template) 文档详细解释模板语法。
 - Schelm 工具 [Schelm tool](https://github.com/databus23/schelm) 是用于调试 chart 一个很好的帮手工具。
 
-有时候，问几个问题, 并从经验丰富的开发人员那里获得答案会更容易。最好的地方是在 Kubernetes `#Helm`Slack 频道：
+有时候，问几个问题, 并从经验丰富的开发人员那里获得答案会更容易。最好的地方是在 [Kubernetes Slack](https://kubernetes.slack.com) Helm 频道：
 
-- [Kubernetes Slack](https://slack.k8s.io/): `#helm`
+- [#helm-users](https://kubernetes.slack.com/messages/helm-users)
+- [#helm-dev](https://kubernetes.slack.com/messages/helm-dev)
+- [#charts](https://kubernetes.slack.com/messages/charts)
 
-最后，如果在本文中发现错误或遗漏，想要推荐一些新内容或希望参与，请访问Helm项目[The Helm Project](https://github.com/kubernetes/helm)。
+最后，如果在本文中发现错误或遗漏，想要推荐一些新内容或希望参与，请访问Helm项目[The Helm Project](https://github.com/helm)。

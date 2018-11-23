@@ -2,7 +2,7 @@
 
 Helm 有两个部分：Helm 客户端（helm）和 Helm 服务端（Tiller）。本指南介绍如何安装客户端，然后继续演示两种安装服务端的方法。
 
-** 重要提示 **：如果你负责的群集是在受控的环境，尤其是在共享资源时，强烈建议使用安全配置安装 Tiller。有关指导，请参阅 [安全 Helm 安装](securing_installation-zh_cn.md)。
+** 重要提示 ** ：如果你负责的群集是在受控的环境，尤其是在共享资源时，强烈建议使用安全配置安装 Tiller。有关指导，请参阅 [安全 Helm 安装](securing_installation-zh_cn.md)。
 
 ## 安装 Helm 客户端
 
@@ -10,13 +10,21 @@ Helm 客户端可以从源代码安装，也可以从预构建的二进制版本
 
 ### 从二进制版本
 
-每一个版本 [release](https://github.com/kubernetes/helm/releases)Helm 提供多种操作系统的二进制版本。这些二进制版本可以手动下载和安装。
+每一个版本 [release](https://github.com/helm/releases)Helm 提供多种操作系统的二进制版本。这些二进制版本可以手动下载和安装。
 
-1. 下载你 [想要的版本](https://github.com/kubernetes/helm/releases)
+1. 下载你 [想要的版本](https://github.com/helm/releases)
 2. 解压缩（`tar -zxvf helm-v2.0.0-linux-amd64.tgz`）
 3. `helm` 在解压后的目录中找到二进制文件，并将其移动到所需的位置（`mv linux-amd64/helm /usr/local/bin/helm`）
 
 到这里，你应该可以运行客户端了：`helm help`。
+
+### 通过 Snap (Linux)
+
+Snap package 维护站点 [Snapcrafters](https://github.com/snapcrafters/helm).
+
+```
+$ sudo snap install helm
+```
 
 ### 通过 homebrew（macOS）
 
@@ -42,13 +50,13 @@ Helm 现在有一个安装 shell 脚本，将自动获取最新版本的 Helm �
 可以获取该脚本，然后在本地执行它。这种方法也有文档指导，以便可以在运行之前仔细阅读并理解它在做什么。
 
 ```
-$ curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
+$ curl https://raw.githubusercontent.com/helm/master/scripts/get > get_helm.sh
 $ chmod 700 get_helm.sh
 $ ./get_helm.sh
 ```
 
 ```
-curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
+curl https://raw.githubusercontent.com/helm/master/scripts/get | bash
 ```
 也可以做到这一点。
 
@@ -72,7 +80,7 @@ curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
 $ cd $GOPATH
 $ mkdir -p src/k8s.io
 $ cd src/k8s.io
-$ git clone https://github.com/kubernetes/helm.git
+$ git clone https://github.com/helm.git
 $ cd helm
 $ make bootstrap build
 ```
@@ -97,8 +105,10 @@ Helm 的服务器端部分 Tiller 通常运行在 Kubernetes 集群内部。但�
 - `--tiller-image` 安装特定的镜像（版本）
 - `--kube-context` 使用安装到特定群集
 - `--tiller-namespace` 用一个特定的命名空间 (namespace) 安装
+- `--service-account` 使用 Service Account 安装  [RBAC enabled clusters](securing_installation-zh_cn.md#rbac))
+- `--automount-service-account false` 不适用 service account 安装
 
-一旦安装了 Tiller，运行 helm version 会显示客户端和服务器版本。（如果它仅显示客户端版本， helm 则无法连接到服务器, 使用 `kubectl` 查看是否有任何 tiller Pod 正在运行。）
+一旦安装了 Tiller，运行 `helm version` 会显示客户端和服务器版本。（如果它仅显示客户端版本， helm 则无法连接到服务器, 使用 `kubectl` 查看是否有任何 tiller Pod 正在运行。）
 
 除非设置 `--tiller-namespace` 或 `TILLER_NAMESPACE` 参数，否则 Helm 将在命名空间 `kube-system` 中查找 Tiller 。
 

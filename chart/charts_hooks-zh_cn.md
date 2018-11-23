@@ -67,9 +67,9 @@ kind: Job
 metadata:
   name: "{{.Release.Name}}"
   labels:
-    heritage: {{.Release.Service | quote }}
-    release: {{.Release.Name | quote }}
-    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    app.kubernetes.io/managed-by: {{.Release.Service | quote}}
+    app.kubernetes.io/instance: {{.Release.Name | quote}}
+    helm.sh/chart: "{{.Chart.Name}}-{{.Chart.Version}}"
   annotations:
     # This is what defines this resource as a hook. Without this line, the
     # job is considered part of the release.
@@ -81,15 +81,15 @@ spec:
     metadata:
       name: "{{.Release.Name}}"
       labels:
-        heritage: {{.Release.Service | quote }}
-        release: {{.Release.Name | quote }}
-        chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+      app.kubernetes.io/managed-by: {{.Release.Service | quote}}
+      app.kubernetes.io/instance: {{.Release.Name | quote}}
+      helm.sh/chart: "{{.Chart.Name}}-{{.Chart.Version}}"
     spec:
       restartPolicy: Never
       containers:
       - name: post-install-job
         image: "alpine:3.3"
-        command: ["/bin/sleep","{{default "10" .Values.sleepyTime}}"]
+        command: ["/bin/sleep","{{default"10".Values.sleepyTime}}"]
 
 ```
 
@@ -119,7 +119,7 @@ spec:
     "helm.sh/hook-weight": "5"
 ```
 
-hook 权重可以是正数或负数，但必须表示为字符串。当 Tiller 开始执行一个特定类型的 hook 的执行周期时，它会按升序对这些 hook 进行排序。
+hook 权重可以是正数或负数，但必须表示为字符串。当 Tiller 开始执行一个特定类型的 hook (例： `pre-install` hooks  `post-install` hooks, 等等) 执行周期时，它会按升序对这些 hook 进行排序。
 
 还可以定义确定何时删除相应的 hook 资源的策略。hook 删除策略使用以下注释来定义：
 

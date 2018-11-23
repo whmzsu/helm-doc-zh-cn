@@ -66,10 +66,10 @@ keywords:
 ```
 $ helm install stable/mariadb
 Fetched stable/mariadb-0.3.0 to /Users/mattbutcher/Code/Go/src/k8s.io/helm/mariadb-0.3.0.tgz
-happy-panda
-Last Deployed: Wed Sep 28 12:32:28 2016
-Namespace: default
-Status: DEPLOYED
+NAME: happy-panda
+LAST DEPLOYED: Wed Sep 28 12:32:28 2016
+NAMESPACE: default
+STATUS: DEPLOYED
 
 Resources:
 ==> extensions/Deployment
@@ -183,7 +183,7 @@ $ helm install -f config.yaml stable/mariadb
 在安装过程中有两种方式传递自定义配置数据：
 
 - --values（或 - f）：指定一个 overrides 的 YAML 文件。可以指定多次，最右边的文件将优先使用
-- --set：在命令行上指定 overrides。
+- --set  (也包括 `--set-string` 和 `--set-file`): ：在命令行上指定 overrides。
 
 如果两者都使用，则将 `--set` 值合并到 `--values` 更高的优先级中。指定的 override `--set` 将保存在 configmap 中。`--set` 可以通过使用特定的版本查看已经存在的值 `helm get values <release-name>`,`--set` 设置的值可以通过运行 helm upgrade 带有 --reset-values 参数重置。
 
@@ -233,7 +233,7 @@ servers:
     host: example
 ```
 
-有时候你需要在 `--set` 行中使用特殊字符。可以使用反斜杠来转义字符; --set name="value1\,value2" 会变成：
+有时候你需要在 `--set` 行中使用特殊字符。可以使用反斜杠来转义字符; `--set name="value1\,value2"` 会变成：
 
 ```yaml
 name: "value1,value2"
@@ -247,6 +247,29 @@ nodeSelector:
 ```
 
 使用深层嵌套的数据结构可能很难用 `--set` 表达。鼓励 chart 设计师在设计 values.yaml 文件格式时考虑 `--set` 使用情况。
+
+Helm 会使用 `--set` 将指定的某些值转换为整数。例如，`--set foo = true`Helm 会将 `true` 强制转换为 int64 值。如果你想要一个字符串，请使用 `--set` 的变体名为 `--set-string`。 `--set-string foo = true` 会设置字符串值为 `"true"`。
+
+`--set-file key = filepath` 是 `--set` 的另一种变体。 它读取文件并将其内容用作值。 它的一个示例用例是将多行文本注入值而不处理 YAML 中的缩进。 假设您要创建一个 [brigade](https://github.com/Azure/brigade) 项目，其中包含包含 5 行 JavaScript 代码的特定值，您可以编写一个 `values.yaml`，如：
+
+```yaml
+defaultScript: |
+  const {events, Job} = require("brigadier")
+  function run(e, project) {
+    console.log("hello default script")
+  }
+  events.on("run", run)
+```
+
+嵌入在 YAML 中，这使你更难以使用支持编写代码的 IDE 功能和测试框架等。 因此，你可以使用 `-set-file defaultScript = brigade.js` 替代，`brigade.js` 包含：
+
+```javascript
+const {events, Job} = require("brigadier")
+function run(e, project) {
+  console.log("hello default script")
+}
+events.on("run", run)
+```
 
 ### 更多的安装方法
 helm install 命令可以从多个来源安装：

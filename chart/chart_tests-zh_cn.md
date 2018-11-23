@@ -22,10 +22,10 @@
 
 ## 示例测试
 
-下面是一个示例 mariadb chart 中 helm 测试 pod 定义的示例：
+下面是一个示例 WordPress chart 中 helm 测试 pod 定义的示例。这个测试验证了 mariadb 的连接和登录：
 
 ```
-mariadb/
+wordpress/
   Chart.yaml
   README.md
   values.yaml
@@ -40,26 +40,26 @@ mariadb/
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ .Release.Name }}-credentials-test"
+  name: "{{.Release.Name}}-credentials-test"
   annotations:
     "helm.sh/hook": test-success
 spec:
   containers:
-  - name: {{ .Release.Name }}-credentials-test
-    image: {{ .Values.image }}
+  - name: {{.Release.Name}}-credentials-test
+    image: {{.Values.image}}
     env:
       - name: MARIADB_HOST
-        value: {{ template "mariadb.fullname" . }}
+        value: {{template "mariadb.fullname" .}}
       - name: MARIADB_PORT
         value: "3306"
       - name: WORDPRESS_DATABASE_NAME
-        value: {{ default "" .Values.mariadb.mariadbDatabase | quote }}
+        value: {{default "" .Values.mariadb.mariadbDatabase | quote}}
       - name: WORDPRESS_DATABASE_USER
-        value: {{ default "" .Values.mariadb.mariadbUser | quote }}
+        value: {{default "" .Values.mariadb.mariadbUser | quote}}
       - name: WORDPRESS_DATABASE_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: {{ template "mariadb.fullname" . }}
+            name: {{template "mariadb.fullname" .}}
             key: mariadb-password
     command: ["sh", "-c", "mysql --host=$MARIADB_HOST --port=$MARIADB_PORT --user=$WORDPRESS_DATABASE_USER --password=$WORDPRESS_DATABASE_PASSWORD"]
   restartPolicy: Never
@@ -67,7 +67,7 @@ spec:
 
 ## 在 release 上运行测试套件的步骤
 
-1. `$ helm install mariadb`
+1. `$ helm install wordpress`
 ```
 NAME:   quirky-walrus
 LAST DEPLOYED: Mon Feb 13 13:50:43 2017

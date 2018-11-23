@@ -2,7 +2,7 @@
 
 本节跟踪安装或开始使用 Helm 时遇到的一些经常遇到的问题。
 
-** 欢迎你的帮助 ** 来更好的提供此文档。要添加，更正或删除信息，提出问题 [issue](https://github.com/kubernetes/helm/issues) 或向我们发送 PR 请求。
+** 欢迎你的帮助 ** 来更好的提供此文档。要添加，更正或删除信息，提出问题 [issue](https://github.com/helm/helm/issues) 或向我们发送 PR 请求。
 
 ## 下载
 
@@ -163,7 +163,7 @@ Tiller 中的崩溃几乎总是由于未能与 Kubernetes API 服务器进行协
 
 Tiller 和 Helm 必须协商一个通用版本，以确保他们可以安全地进行通信而不会违反 API 假设。该错误意味着版本差异太大而无法安全地继续。通常，需要为此手动升级 Tiller。
 
-该安装指南 [Installation Guide](install.md) 大约有安全 Helm 升级和 Tiller 权威信息。
+该安装指南 [Installation Guide](install-zh_cn.md) 有关于安全 Helm 升级和 Tiller 的详细信息。
 
 版本号的规则如下：
 

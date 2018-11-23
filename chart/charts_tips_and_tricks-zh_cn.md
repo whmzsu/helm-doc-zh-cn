@@ -5,7 +5,7 @@
 
 Helm 使用 Go 模板 [Go templates](https://godoc.org/text/template) 来模板化你的资源文件。虽然 Go 提供了几个内置函数，但我们添加了许多其他函数。
 
-首先，我们在 Sprig 库 [Sprig library](https://godoc.org/github.com/Masterminds/sprig) 中添加了几乎所有的功能 。出于安全原因，我们删除了两个：`env` 和 `expandenv`（这会让 chart 作者访问 Tiller 的环境）。
+首先，我们在 Sprig 库 [Sprig library](https://godoc.org/github.com/Masterminds/sprig) 中添加了几乎所有的函数 。出于安全原因，我们删除了两个：`env` 和 `expandenv`（这会让 chart 作者访问 Tiller 的环境）。
 
 我们还添加了两个特殊的模板函数：`include` 和 `required`。`include` 函数允许引入另一个模板，然后将结果传递给其他模板函数。
 
@@ -20,7 +20,7 @@ value: {{include "mytpl" . | lower | quote}}
 下面的 `required` 函数示例声明了. Values.who 的条目是必需的，并且在缺少该条目时将显示错误消息：
 
 ```yaml
-value: {{required "A valid .Values.who entry required!" .Values.who }}
+value: {{required "A valid .Values.who entry required!" .Values.who}}
 ```
 
 ## 引用字符串，不要引用整数
@@ -28,13 +28,13 @@ value: {{required "A valid .Values.who entry required!" .Values.who }}
 当使用字符串数据时，引用字符串比把它们留为空白字符更安全：
 
 ```
-name: {{.Values.MyName | quote }}
+name: {{.Values.MyName | quote}}
 ```
 
 但是，使用整数时 _不要引用值_。在很多情况下，这可能会导致 Kubernetes 内部的解析错误。
 
 ```
-port: {{ .Values.Port }}
+port: {{.Values.Port}}
 ```
 
 这种做法不适用于预期为字符串的 env 变量值，即使它们表示为整数：
@@ -54,7 +54,7 @@ Go 提供了一种使用内置 `template` 指令将一个模板包含在另一�
 为了能够包含模板，然后对该模板的输出执行操作，Helm 有一个特殊的 `include` 函数：
 
 ```
-{{ include "toYaml" $value | indent 2 }}
+{{include "toYaml" $value | indent 2}}
 ```
 
 上面包含一个名为的模板 toYaml，传递它 $value 的值，然后将该模板的输出传递给该 indent 函数。
@@ -70,11 +70,49 @@ Go 提供了一种设置模板选项以控制 map 使用 map 中不存在的键�
 例如：
 
 ```
-{{ required "A valid foo is required!" .Values.foo }}
+{{required "A valid foo is required!" .Values.foo}}
 ```
 
 上面将在定义. Values.foo 时渲染模板，但在未定义. Values.foo 时无法渲染并报错退出。
+## 使用'tpl' 函数
 
+`tpl` 函数允许开发人员将字符串计算为模板内的模板。
+这对于将模板字符串作为值传递给 chart 或渲染外部配置文件很有用。
+
+语法: `{{tpl TEMPLATE_STRING VALUES}}`
+
+样例:
+
+```yaml
+# values
+template: "{{.Values.name}}"
+name: "Tom"
+
+# template
+{{tpl .Values.template .}}
+
+# output
+Tom
+```
+
+渲染一个外部配置文件:
+
+```yaml
+# external configuration file conf/app.conf
+firstName={{.Values.firstName}}
+lastName={{.Values.lastName}}
+
+# values
+firstName: Peter
+lastName: Parker
+
+# template
+{{tpl (.Files.Get "conf/app.conf") . }}
+
+# output
+firstName=Peter
+lastName=Parker
+```
 ## 创建镜像拉取的 Secrets
 
 镜像拉的 secrets 实质上是注册，用户名和密码的组合。在正在部署的应用程序中可能需要它们，但要创建它们需要多次运行 base64。我们可以编写一个帮助程序模板来组合 Docker 配置文件，以用作 Secret 的有效载体。这里是一个例子：
@@ -90,9 +128,9 @@ imageCredentials:
 
 然后我们定义我们的帮助模板如下：
 ```
-{{- define "imagePullSecret" }}
+{{- define "imagePullSecret"}}
 {{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" .Values.imageCredentials.registry (printf "%s:%s" .Values.imageCredentials.username .Values.imageCredentials.password | b64enc) | b64enc }}
-{{- end }}
+{{- end}}
 ```
 最后，我们在更大的模板中使用助手模板来创建 Secret manifest：
 
@@ -103,7 +141,7 @@ metadata:
   name: myregistrykey
 type: kubernetes.io/dockerconfigjson
 data:
-  .dockerconfigjson: {{ template "imagePullSecret" . }}
+  .dockerconfigjson: {{template "imagePullSecret" .}}
 ```
 
 ## ConfigMaps 或 Secrets 更改时自动 Roll Deployments
@@ -118,7 +156,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/config: {{include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
 [...]
 ```
 
@@ -144,7 +182,7 @@ metadata:
 
 有时候你想在 chart 中创建一些可重用的部分，无论它们是块还是模板部分。通常，将这些文件保存在自己的文件中会更整洁。
 
-在 `templates/` 目录中，任何以下划线 “_” 开头的文件都不会输出 Kubernetesmanifest 文件。另按照惯例，辅助模板和 partials 被放置在一个 _helpers.tpl 文件中。
+在 `templates/` 目录中，任何以下划线 "-" 开头的文件都不会输出 Kubernetesmanifest 文件。另按照惯例，辅助模板和 partials 被放置在一个 `_helpers.tpl` 文件中。
 
 ## 具有许多依赖关系的复杂 chart
 

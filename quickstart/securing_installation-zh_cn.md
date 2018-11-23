@@ -30,7 +30,7 @@ helm init 将 Tiller 安装到 kube-system 名称空间中的集群中，而不�
 4. Helm harts
 
 ### RBAC
-Kubernetes 的最新版本采用基于角色的访问控制（或 RBAC）系统（与现代操作系统一样），以帮助缓解证书被滥用或存在错误时可能造成的损害。即使在身份被劫持的情况下，这个身份在受控空间也只有这么多的权限。这有效地增加了一层安全性，以限制使用该身份进行攻击的范围。
+Kubernetes 的最新版本采用基于角色的访问控制（[RBAC] (https://en.wikipedia.org/wiki/Role-based_access_control) ）系统（与现代操作系统一样），以帮助缓解证书被滥用或存在错误时可能造成的损害。即使在身份被劫持的情况下，这个身份在受控空间也只有这么多的权限。这有效地增加了一层安全性，以限制使用该身份进行攻击的范围。
 
 Helm 和 Tiller 在安装，删除和修改逻辑应用程序时，可以包含许多服务交互。因此，它的使用通常涉及整个集群的操作，在多租户集群中意味着 Tiller 安装必须非常小心才能访问整个集群，以防止不正确的安全活动。
 
@@ -50,14 +50,14 @@ Helm 和 Tiller 在安装，删除和修改逻辑应用程序时，可以包含�
 
 有关正确配置并使用 TLS 的 Tiller 和 Helm 的正确步骤的更多信息，请参阅 Helm 和 Tiller 使用 SSL[Using SSL between Helm and Tiller](tiller_ssl.md)。
 
-当 Helm 客户端从群集外部连接时，Helm 客户端和 API 服务器之间的安全性由 Kubernetes 本身管理。你可能需要确保这个链接是安全的。请注意，如果使用上面建议的 TLS 配置，则 Kubernetes API 服务器也无法访问客户端和 Tiller 之间的未加密消息。
+当 Helm 客户端从群集外部连接时，Helm 客户端和 API 服务器之间的安全性由 Kubernetes 本身管理。你可能需要确保这个链接是安全的。请注意，如果使用上面建议的 TLS 配置，则 Kubernetes API 服务器也无法访问客户端和 Tiller 之间的加密消息。
 
 ### Tiller Release 信息
 由于历史原因，Tiller 将其 release 信息存储在 ConfigMaps 中。我们建议将默认设置更改为 Secrets。
 
 Secrets 是 Kubernetes 用于保存被认为是敏感的配置数据的可接受的方法。尽管 secrets 本身并不提供很多保护，但 Kubernetes 集群管理软件经常将它们与其他对象区别开来。因此，我们建议使用 secrets 来存储 release 信息。
 
-启用此功能目前需要在 Tiller 部署时设置参数 `--storage=secret`。这需要直接修改 deployment 或使用 `helm init --override=...`，因为当前没有 helm init 参数可供执行此操作。有关更多信息，请参阅 [Using --override](install.md#using---override)。
+启用此功能目前需要在 Tiller 部署时设置参数 `--storage=secret`。这需要直接修改 deployment 或使用 `helm init --override 'spec.template.spec.containers[0].command'='{/tiller,--storage=secret}'`，因为当前没有 helm init 参数可供执行此操作。
 
 ### 关于 chart
 由于 Helm 的相对生命周期，Helm chart 生态系统的发展并没有考虑到整个集群的控制，这在开发人员来说，是完全合理的。但是，chart 是一种不仅可以安装可能已经验证或可能未验证的容器的包，它也可以安装到多个 namespace 中。
@@ -82,6 +82,7 @@ Secrets 是 Kubernetes 用于保存被认为是敏感的配置数据的可接受
 
 ```bash
 $ helm init \
+--override 'spec.template.spec.containers[0].command'='{/tiller,--storage=secret}' \
 --tiller-tls \
 --tiller-tls-verify \
 --tiller-tls-cert=cert.pem \
@@ -90,4 +91,4 @@ $ helm init \
 --service-account=accountname
 ```
 
-此命令将通过gRPC进行强身份验证，并应用RBAC策略的服务帐户安装启动Tiller。
+此命令将通过gRPC进行强身份验证，release信息存储在Kubernetes Secret，并使用RBAC策略的服务帐户安装启动Tiller。

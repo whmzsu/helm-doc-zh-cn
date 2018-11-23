@@ -67,7 +67,7 @@ nginx-1.2.3.tgz
 
 更复杂的 SemVer 2 命名也是支持的，例如 version: 1.2.3-alpha.1+ef365。但非 SemVer 命名是明确禁止的。
 
-** 注意 **：虽然 Helm Classic 和 Deployment Manager 在 chart 方面都非常适合 GitHub，但 Kubernetes Helm 并不依赖或需要 GitHub 甚至 Git。因此，它不使用 Git SHA 进行版本控制。
+** 注意 ** ：虽然 Helm Classic 和 Deployment Manager 在 chart 方面都非常适合 GitHub，但 Kubernetes Helm 并不依赖或需要 GitHub 甚至 Git。因此，它不使用 Git SHA 进行版本控制。
 
 许多 Helm 工具都使用 `Chart.yaml` 的 v`ersion` 字段，其中包括 CLI 和 Tiller 服务。在生成包时，helm package 命令将使用它在 Chart.yaml 中的版本名作为包名。系统假定 chart 包名称中的版本号与 `Chart.yaml` 中的版本号相匹配。不符合这个情况会导致错误。
 
@@ -387,7 +387,7 @@ wordpress:
 
 因此，单个 release 是使用 charts 及其依赖关系创建的所有对象。
 
-Kubernetes 类型的安装顺序由 kind_sorter.go 中的枚举 InstallOrder 给出（[the Helm source file](https://github.com/kubernetes/helm/blob/master/pkg/tiller/kind_sorter.go#L26))）。
+Kubernetes 类型的安装顺序由 kind_sorter.go 中的枚举 InstallOrder 给出（[the Helm source file](https://github.com/helm/blob/master/pkg/tiller/kind_sorter.go#L26))）。
 
 ## 模板 Templates 和值 Values
 
@@ -413,15 +413,15 @@ metadata:
   name: deis-database
   namespace: deis
   labels:
-    heritage: deis
+    app.kubernetes.io/managed-by: deis
 spec:
   replicas: 1
   selector:
-    app: deis-database
+    app.kubernetes.io/name: deis-database
   template:
     metadata:
       labels:
-        app: deis-database
+        app.kubernetes.io/name: deis-database
     spec:
       serviceAccount: deis-database
       containers:
@@ -514,15 +514,15 @@ metadata:
   name: deis-database
   namespace: deis
   labels:
-    heritage: deis
+    app.kubernetes.io/managed-by: deis
 spec:
   replicas: 1
   selector:
-    app: deis-database
+    app.kubernetes.io/name: deis-database
   template:
     metadata:
       labels:
-        app: deis-database
+        app.kubernetes.io/name: deis-database
     spec:
       serviceAccount: deis-database
       containers:
@@ -655,5 +655,5 @@ repo 库的主要特征是存在一个名为的特殊文件 `index.yaml`，它�
 
 -   `Chart.yaml` 将被生成器覆盖。
 -   用户将期望修改这样的 chart 内容，因此文档应该指出用户如何做到这一点。
--   所有匹配项 <CHARTNAME> 将被替换为指定的 chart 名称，以便起始 chart 可用作模板。
+-   所有 templates 目录下的匹配项 `<CHARTNAME>` 将被替换为指定的 chart 名称，以便起始 chart 可用作模板。另外, `values.yaml` 的 `<CHARTNAME>` 也会被替换.
 -   目前添加chart的唯一方法是手动将其复制到`$HELM_HOME/starters`。在chart的文档中，你需要解释该过程。

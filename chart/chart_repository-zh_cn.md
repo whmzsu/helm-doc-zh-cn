@@ -13,7 +13,7 @@
 
 chart 库是带有一个 index.yaml 文件和任意个打包 cahrt 的 HTTP 服务器。当准备好分享 chart 时，首选方法是将其上传到 chart 库。
 
-** 注意：** 对于 Helm 2.0.0，chart 库没有任何内部认证。 在 GitHub 中有一个跟踪进度的问题 [issue tracking progress](https://github.com/kubernetes/helm/issues/1038)。
+** 注意：** 对于 Helm 2.0.0，chart 库没有任何内部认证。 在 GitHub 中有一个跟踪进度的问题 [issue tracking progress](https://github.com/helm/issues/1038)。
 
 由于 chart 库可以是任何可以提供 YAML 和 tar 文件并可以回答 GET 请求的 HTTP 服务器，因此当托管自己的 chart 库时，很多选择。例如，可以使用 Google 云端存储（GCS）存储桶，Amazon S3 存储桶，Github Pages，甚至可以创建自己的 Web 服务器。
 
@@ -52,7 +52,7 @@ entries:
       home: https://k8s.io/helm
       name: alpine
       sources:
-      - https://github.com/kubernetes/helm
+      - https://github.com/helm
       urls:
       - https://technosophos.github.io/tscharts/alpine-0.2.0.tgz
       version: 0.2.0
@@ -62,7 +62,7 @@ entries:
       home: https://k8s.io/helm
       name: alpine
       sources:
-      - https://github.com/kubernetes/helm
+      - https://github.com/helm
       urls:
       - https://technosophos.github.io/tscharts/alpine-0.1.0.tgz
       version: 0.1.0

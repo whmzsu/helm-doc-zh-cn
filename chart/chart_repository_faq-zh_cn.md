@@ -2,7 +2,7 @@
 
 本节跟踪使用 chart 库时的一些常遇到的问题。
 
-我们很欢迎你的帮助来改进这个文档。要添加，更正或删除信息，提出问题或向我们发送 PR。
+我们很欢迎你的帮助来改进这个文档。要添加，更正或删除信息，提出问题[file an issue](https://github.com/helm/helm/issues)或向我们发送 PR。
 
 ## Fetching
 

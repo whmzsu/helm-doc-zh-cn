@@ -10,7 +10,7 @@ Helm 已经过测试并且已知可以与 minikube 一起使用。它不需要�
 通过配置 Hyperkube scripts/local-cluster.sh 已知可以工作。对于原始的 Hyperkube，可能需要进行一些手动配置。
 
 ## GKE
-已知 Google 的 GKE 托管 Kubernetes 平台与 Helm 一起工作，并且不需要额外的配置。
+已知 Google 的 GKE 托管 Kubernetes 平台 默认启用 RBAC. 因此需要为 tiller 创建一个服务帐户（service account），并在初始化 helm 服务端时使用 --service-account 参数。查看 [Tiller 和 RBAC](rbac-zh_cn.md) 获取更详细的信息.
 
 ## Ubuntu 与'kubeadm'
 kubeadm 构建的 Kubernetes 已知可用于以下 Linux 发行版：

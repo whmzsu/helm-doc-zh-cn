@@ -16,10 +16,12 @@ Helm 拥有可帮助 chart 用户验证 chart 包完整性和出处的工具。�
 
 - 二进制（非 ASCII）格式的有效 PGP 密钥对
 - helm 命令行工具
-- GnuPG 命令行工具（可选）
+- GnuPG >=2.1 命令行工具（可选）
 - Keybase 命令行工具（可选）
 -
-** 注意：** 如果 PGP 私钥有密码，支持 `--sign` 选项的任何命令系统将提示输入密码以查看。
+** 注意：** 如果 PGP 私钥有密码，支持 `--sign` 选项的任何命令系统将提示输入密码。可以设置 HELM_KEY_PASSPHRASE 环境变量避免每次输入.
+
+** 注意：** GnuPG 的密钥文件格式在 2.1 版中已更改。在该版本之前，没有必要从 GnuPG 中导出密钥，可以将 Helm 指向你的 `* .gpg` 文件。使用 2.1 时，引入了新的 `.kbx` 格式，Helm 不支持这种格式。
 
 创建 chart：
 
@@ -34,9 +36,9 @@ Creating mychart
 $ helm package --sign --key 'helm signing key' --keyring path/to/keyring.secret mychart
 ```
 
-** 提示：** 对于 GnuPG 用户，密钥环已存在 `~/.gnupg/secring.gpg`。可以使用 gpg --list-secret-keys 列出拥有的密钥。
+** 提示：** 对于 GnuPG 用户，密钥环已存在 `~/.gnupg/secring.kbx`。可以使用 gpg --list-secret-keys 列出拥有的密钥。
 
-** 警告：** GnuPG v2 在默认位置在 `〜/ .gnupg / pubring.kbx`，使用新格式'kbx'存储密钥 keyring。请使用以下命令将钥匙 keyring 转换为传统的 gpg 格式：
+** 警告：** GnuPG v2.1 在默认位置在 `〜/ .gnupg / pubring.kbx`，使用新格式'kbx'存储密钥 keyring。请使用以下命令将钥匙 keyring 转换为传统的 gpg 格式：
 
 ```
 $ gpg --export-secret-keys >~/.gnupg/secring.gpg
@@ -80,10 +82,10 @@ $ helm install --verify mychart-0.1.0.tgz
 第一步是将 keybase 密钥导入到本地 GnuPG 密钥 keyring 中：
 
 ```
-$ keybase pgp export -s | gpg --import
+$ keybase pgp export -s > secring.gpg
 ```
 
-这会将 Keybase 密钥转换为 OpenPGP 格式，然后将其本地导入到 `~/.gnupg/secring.gpg` 文件中。
+这会将 Keybase 密钥转换为 OpenPGP 格式，然后将其本地导入到 secring.gpg 文件中。
 
 可以通过运行 `gpg --list-secret-keys` 进行仔细检查。
 
@@ -95,7 +97,9 @@ uid                  technosophos (keybase.io/technosophos) <technosophos@keybas
 ssb   2048R/D125E546 2016-07-25
 ```
 
-注意，密钥有一个标识符字符串：
+提示: 如果你想添加一个 Keybase key 到已存在的 keyring, 你需要执行 `keybase pgp export -s | gpg --import && gpg --export-secret-keys --outfile secring.gpg`
+
+你的密钥有一个标识符字符串：
 
 ```
 technosophos (keybase.io/technosophos) <technosophos@keybase.io>

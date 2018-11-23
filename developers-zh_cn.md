@@ -23,7 +23,7 @@ $ make bootstrap build
 
 这将构建 Helm 和 Tiller。`make bootstrap` 将尝试安装某些工具，如果它们不存在的话。
 
-要运行所有测试（无需运行测试 `vendor/`），请运行 make test。
+要运行所有测试（无需运行测试 `vendor/`），请运行 `make test`。在容器环境运行所有测试，请运行 `make docker-test`
 
 要在本地运行 Helm 和 Tiller，可以运行 `bin/helm` 或 `bin/tiller`。
 
@@ -102,7 +102,7 @@ Tiller 应该在 >= 1.3 Kubernetes 群集上运行。
 
 确保你已经阅读并理解了贡献指南：
 
-https://github.com/kubernetes/helm/blob/master/CONTRIBUTING.md
+https://github.com/helm/blob/master/CONTRIBUTING.md
 
 ### 代码的结构
 
@@ -124,7 +124,7 @@ Go 依赖关系由 Glide 管理 并存储在 `vendor/` 目录中。
 
 我们通过 GitHub Pull Requests（PR）接受对代码的更改。执行此操作的一个工作流程如下所示：
 
-1. 转到 `$GOPATH/src/k8s.io` 目录，`git clone` `github.com/kubernetes/helm` 存储库。
+1. 转到 `$GOPATH/src/k8s.io` 目录，`git clone` `github.com/helm` 存储库。
 2. 将该存储库 fork 到你自己的 GitHub 帐户
 3. 将你的存储库添加为远程服务器 `$GOPATH/src/k8s.io/helm`
 4. 创建一个新的工作分支（`git checkout -b feat/my-feature`）并在该分支上完成工作。
@@ -168,6 +168,8 @@ Closes #1234
 我们非常密切地遵循 Go 编码风格标准。通常，运行 `go fmt` 会让你的代码更加漂亮。
 
 我们通常也遵循由 `go lint` 和 `gometalinter` 推荐的约定。运行 `make test-style` 以测试样式一致性。
+
+如果你不想将 `gometalinter` 中的所有 linters 安装到你的全局 Go 环境中，你可以运行 `make docker-test-style`，它将运行相同的测试，但是在 docker 容器中是隔离的。
 
 更多阅读：
 

@@ -13,4 +13,4 @@
 - Kubernetes 资源：
   - [Pod 及其规格](pods-zh_cn.md)：查看使用 pod 规格的最佳做法。
   - [基于角色的访问控制](rbac-zh_cn.md)：有关创建和使用服务帐户，角色和角色绑定的指导。
- ;- [第三方资源]：第三方资源（TPR）有其自己的相关最佳实践。
+  - [自定义资源](custom_resource_definitions-zh_cn.md)：自定义资源（CRDs）有其自己的相关最佳实践。
