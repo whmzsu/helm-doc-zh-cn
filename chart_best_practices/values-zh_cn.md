@@ -44,15 +44,15 @@ serverPort: 80
 为了获得最佳安全性，必须在每个级别检查嵌套值：
 
 ```
-{{ if .Values.server }}
-  {{ default "none" .Values.server.name }}
-{{ end }}
+{{if .Values.server}}
+  {{default "none" .Values.server.name}}
+{{end}}
 ```
 
 对于每一层嵌套，都必须进行存在检查。但对于展平配置，可以跳过这些检查，使模板更易于阅读和使用。
 
 ```
-{{ default "none" .Values.serverName }}
+{{default "none" .Values.serverName}}
 ```
 
 当有大量相关变量时，且至少有一个是非可选的，可以使用嵌套值来提高可读性。
@@ -69,11 +69,12 @@ YAML 的类型强制规则有时是违反直觉的。例如， `foo: false` 与 
 
 ## 考虑用户如何使用你的 values
 
-有三种潜在的 values 来源：
+有几种潜在的 values 来源：
 
 - chart 的 `values.yaml` 文件
 - 由 `helm install -f` 或 `helm upgrade -f` 提供的 value 文件
 - 传递给 `--set` 或的 `--set-string` 标志 `helm install` 或 `helm upgrade` 命令
+- 通过 `--set-file`  将 文件内容传递给 `helm install` or `helm upgrade`
 
 在设计 value 的结构时，请记住 chart 的用户可能希望通过 `-f` 标志或 `--set ` 选项覆盖它们。
 

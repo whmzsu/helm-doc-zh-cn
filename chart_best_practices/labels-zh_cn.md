@@ -7,7 +7,7 @@
 - Kubernetes 使用它来识别此资源
 - 为了查询系统目的，向操作员暴露是非常有用的。
 
-例如，我们建议使用 `chart: NAME-VERSION` 标签作为标签，以便操作员可以方便地查找要使用的特定 chart 的所有实例。
+例如，我们建议使用 `helm.sh/chart: NAME-VERSION` 标签作为标签，以便操作员可以方便地查找要使用的特定 chart 的所有实例。
 
 如果元数据项不用于查询，则应将其设置为注释。
 
@@ -18,8 +18,12 @@ Helm hook 总是注释。
 
 名称 | 状态 | 描述
 -----|------|----------
-heritage|	REC	| 这应该始终设置为 {% raw %}{{ .Release.Service }}{% endraw %}。它用于查找 Tiller 管理的所有东西。
-release| REC | 这应该是 {% raw %}{{ .Release.Name }}{% endraw %}。
-chart| REC| 这应该是 chart 名称和版本：{% raw %}{{ .Chart.Name }}-{{ .Chart.Version }}{% endraw %}。
-app| REC| 这应该是应用程序名称，代表了整个应用程序。通常 {% raw %}{{ template "name" . }}{% endraw %} 用于此。这被许多 Kubernetes manifests 所使用，而不是 Helm 特有的。
-component| OPT|	这是标记片段,在应用程序中可能发挥的不同角色的常用标签。例如，`component: frontend`。
+`app.kubernetes.io/name` | REC | This should be the app name, reflecting the entire app. Usually \{\{template "name" .\}\} is used for this. This is used by many Kubernetes manifests, and is not Helm-specific.
+`helm.sh/chart` | REC | This should be the chart name and version: \{\{.Chart.Name\}\}-\{\{ .Chart.Version \| replace "+" "_" \}\}.
+`app.kubernetes.io/managed-by` | REC | This should always be set to \{\{.Release.Service\}\}. It is for finding all things managed by Tiller.
+`app.kubernetes.io/instance` | REC | This should be the \{\{.Release.Name\}\}. It aid in differentiating between different instances of the same application.
+`app.kubernetes.io/version` | OPT | The version of the app and can be set to \{\{.Chart.AppVersion\}\}.
+`app.kubernetes.io/component` | OPT | This is a common label for marking the different roles that pieces may play in an application. For example, `app.kubernetes.io/component: frontend`.
+`app.kubernetes.io/part-of` | OPT | When multiple charts or pieces of software are used together to make one application. For example, application software and a database to produce a website. This can be set to the top level application being supported.
+
+获取更多关于 `app.kubernetes.io`前缀的 Kubernetes labels 的信息 [Kubernetes documentation](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)

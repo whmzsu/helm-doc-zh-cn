@@ -41,9 +41,9 @@ dessert: cake
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-cfgmap2
+  name: {{.Release.Name}}-cfgmap2
 data:
-  dessert: {{ .Values.dessert }}
+  dessert: {{.Values.dessert}}
 ```
 
 由于每个子 chart 都是独立的 chart，因此我们可以给 mysubchart 自行测试：
@@ -127,7 +127,7 @@ global:
   salad: caesar
 ```
 
-因为这样全局值的使用方法，`mychart/templates/configmap.yaml` 和 `mysubchart/templates/configmap.yaml` 都能够访问该值 `{{.Values.global.salad}}`。
+因为这样全局值的使用方法，`mychart/templates/configmap.yaml` 和 `mychart/charts/mysubchart/templates/configmap.yaml` 都能够访问该值 `{{.Values.global.salad}}`。
 
 `mychart/templates/configmap.yaml`：
 
@@ -135,9 +135,9 @@ global:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
-  salad: {{ .Values.global.salad }}
+  salad: {{.Values.global.salad}}
 ```
 
 `mysubchart/templates/configmap.yaml`：
@@ -146,10 +146,10 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-cfgmap2
+  name: {{.Release.Name}}-cfgmap2
 data:
-  dessert: {{ .Values.dessert }}
-  salad: {{ .Values.global.salad }}
+  dessert: {{.Values.dessert}}
+  salad: {{.Values.global.salad}}
 ```
 
 现在，如果我们运行 dry run，我们会在两个输出中看到相同的值：
@@ -184,7 +184,7 @@ data:
 
 
 ```yaml
-{{- define "labels" }}from: mychart{{ end }}
+{{- define "labels"}}from: mychart{{ end }}
 ```
 
 回想一下模板上的标签是如何全局共享的。因此，`labels` chart 可以包含在其他 chart 中。
@@ -192,7 +192,7 @@ data:
 尽管 chart 开发人员可以选择 `include` 和 `template`, 使用 `include` 的一个优点是，include 可以动态地引用模板：
 
 ```yaml
-{{ include $mytemplate }}
+{{include $mytemplate}}
 ```
 
 以上例子不会引用 $mytemplate。`template` 相反，将只接受一个字符串。

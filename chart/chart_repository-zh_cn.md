@@ -2,7 +2,7 @@
 
 本节介绍如何创建和使用 Helm chart repo。在高层次上，chart 库是可以存储和共享打包 chart 的位置。
 
-官方 chart 库由 [Kubernetes Charts](https://github.com/kubernetes/charts) 维护 ，我们欢迎参与贡献。Helm 还可以轻松创建和运行自己的 chart 库。本指南讲解了如何做到这一点。
+官方 chart 库由 [Helm Charts](https://github.com/helm/charts) 维护 ，我们欢迎参与贡献。Helm 还可以轻松创建和运行自己的 chart 库。本指南讲解了如何做到这一点。
 
 ## 前提条件
 
@@ -13,7 +13,7 @@
 
 chart 库是带有一个 index.yaml 文件和任意个打包 cahrt 的 HTTP 服务器。当准备好分享 chart 时，首选方法是将其上传到 chart 库。
 
-** 注意：** 对于 Helm 2.0.0，chart 库没有任何内部认证。 在 GitHub 中有一个跟踪进度的问题 [issue tracking progress](https://github.com/kubernetes/helm/issues/1038)。
+** 注意：** 对于 Helm 2.0.0，chart 库没有任何内部认证。 在 GitHub 中有一个跟踪进度的问题 [issue tracking progress](https://github.com/helm/issues/1038)。
 
 由于 chart 库可以是任何可以提供 YAML 和 tar 文件并可以回答 GET 请求的 HTTP 服务器，因此当托管自己的 chart 库时，很多选择。例如，可以使用 Google 云端存储（GCS）存储桶，Amazon S3 存储桶，Github Pages，甚至可以创建自己的 Web 服务器。
 
@@ -52,7 +52,7 @@ entries:
       home: https://k8s.io/helm
       name: alpine
       sources:
-      - https://github.com/kubernetes/helm
+      - https://github.com/helm
       urls:
       - https://technosophos.github.io/tscharts/alpine-0.2.0.tgz
       version: 0.2.0
@@ -62,7 +62,7 @@ entries:
       home: https://k8s.io/helm
       name: alpine
       sources:
-      - https://github.com/kubernetes/helm
+      - https://github.com/helm
       urls:
       - https://technosophos.github.io/tscharts/alpine-0.1.0.tgz
       version: 0.1.0
@@ -73,7 +73,7 @@ entries:
       home: https://k8s.io/helm
       name: nginx
       sources:
-      - https://github.com/kubernetes/charts
+      - https://github.com/helm/charts
       urls:
       - https://technosophos.github.io/tscharts/nginx-1.1.0.tgz
       version: 1.1.0
@@ -116,7 +116,7 @@ Now serving you on 127.0.0.1:8879
 
 恭喜，现在你有一个空的 GCS bucket 准备好给 chart 提供服务！
 
-可以使用 Google Cloud Storage 命令行工具或使用 GCS Web UI 上传 chart 库。这是官方 Kubernetes Charts 存储库托管其 chart 的技术，因此如果遇到困难，可能需要查看该项目 [peek at that project](https://github.com/kubernetes/charts) 。
+可以使用 Google Cloud Storage 命令行工具或使用 GCS Web UI 上传 chart 库。这是官方 Kubernetes Charts 存储库托管其 chart 的技术，因此如果遇到困难，可能需要查看该项目 [peek at that project](https://github.com/helm/charts) 。
 
 ** 注意：** 可以通过此处的 HTTPS 地址方便的访问公开的 GCS 存储桶 `https://bucket-name.storage.googleapis.com/`。
 

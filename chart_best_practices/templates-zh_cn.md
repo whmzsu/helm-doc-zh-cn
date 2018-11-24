@@ -19,9 +19,9 @@ templates 目目录的结构应如下所示：
 正确：
 
 ```yaml
-{{- define "nginx.fullname" }}
+{{- define "nginx.fullname"}}
 {{/* ... */}}
-{{ end -}}
+{{end -}}
 ```
 
 不正确：
@@ -29,7 +29,7 @@ templates 目目录的结构应如下所示：
 ```yaml
 {{- define "fullname" -}}
 {{/* ... */}}
-{{ end -}}
+{{end -}}
 ```
 
 强烈建议通过 `helm create` 命令创建新 chart，因为根据此最佳做法自动定义模板名称。
@@ -43,8 +43,8 @@ templates 目目录的结构应如下所示：
 正确：
 
 ```
-{{ .foo }}
-{{ print "foo" }}
+{{.foo}}
+{{print "foo"}}
 {{- print "bar" -}}
 ```
 
@@ -60,16 +60,16 @@ templates 目目录的结构应如下所示：
 
 ```
 foo:
-  {{- range .Values.items }}
-  {{ . }}
-  {{ end -}}
+  {{- range .Values.items}}
+  {{.}}
+  {{end -}}
 ```
 
 块（如控制结构）可以缩进以指示模板代码的流向。
 
 ```
-{{ if $foo -}}
-  {{- with .Bar }}Hello{{ end -}}
+{{if $foo -}}
+  {{- with .Bar}}Hello{{ end -}}
 {{- end -}}
 ```
 
@@ -125,6 +125,39 @@ metadata:
     second: second
 
 ```
+## Resource Naming in Templates
+
+将 `name:` 硬编码到资源中通常被认为是不好的做法。名称对于 release 应该是唯一的。因此，我们可能希望通过插入 release 名称来生成 name 字段，例如：
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Release.Name}}-myservice
+```
+
+Or if there is only one resource of this kind then we could use .Release.Name or the template fullname function defined in \_helpers.tpl (which uses release name):
+
+或者，如果只有一个此类资源，那么可以使用 .Release.Name 或 \_helpers.tpl（使用 release 名称）中定义的模板 fullname 函数：
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{template "fullname" .}}
+```
+尽快如此，可能还存在不会来自固定名称的命名冲突的情况。在这些情况下，固定名称可能使应用程序更容易找到诸如服务之类的资源。如果需要固定名称，那么一种可能的管理方法是通过使用 values.yaml 中的 service.name 值来显式设置名称（如果提供的话）:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  {{- if .Values.service.name}}
+    name: {{.Values.service.name}}
+  {{- else}}
+    name: {{template "fullname" .}}
+  {{- end}}
+```
 
 ## 注释（YAML 注释与模板注释）
 YAML 和头盔模板都有注释标记。
@@ -151,8 +184,8 @@ type: frobnitz
 {{- /*
 mychart.shortname provides a 6 char truncated version of the release name.
 */ -}}
-{{ define "mychart.shortname" -}}
-{{ .Release.Name | trunc 6 }}
+{{define "mychart.shortname" -}}
+{{.Release.Name | trunc 6}}
 {{- end -}}
 
 ```
@@ -161,7 +194,7 @@ mychart.shortname provides a 6 char truncated version of the release name.
 
 ```
 # This may cause problems if the value is more than 100Gi
-memory: {{ .Values.maxMem | quote }}
+memory: {{.Values.maxMem | quote}}
 ```
 
 上面的注释在用户运行 `helm install --debug` 时可见，而在 `{{- /* */ -}}` 部分中指定的注释不是。

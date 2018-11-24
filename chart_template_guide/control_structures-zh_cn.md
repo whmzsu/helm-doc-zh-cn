@@ -20,13 +20,13 @@
 条件的基本结构如下所示：
 
 ```
-{{ if PIPELINE }}
+{{if PIPELINE}}
   # Do something
-{{ else if OTHER PIPELINE }}
+{{else if OTHER PIPELINE}}
   # Do something else
-{{ else }}
+{{else}}
   # Default case
-{{ end }}
+{{end}}
 ```
 
 注意，我们现在讨论的是管道而不是值。其原因是要明确控制结构可以执行整个管道，而不仅仅是评估一个值。
@@ -39,7 +39,7 @@
 - 一个 `nil`（空或 null）
 - 一个空的集合（`map`，`slice`，`tuple`，`dict`，`array`）
 
-在所有其他条件下，条件为真。
+在其他情况下, 条件值为 _true_ 此管道被执行。
 
 我们为 ConfigMap 添加一个简单的条件。如果饮料被设置为咖啡，我们将添加另一个设置：
 
@@ -47,16 +47,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{ .Values.favorite.drink | default "tea" | quote }}
-  food: {{ .Values.favorite.food | upper | quote }}
-  {{ if eq .Values.favorite.drink "coffee" }}mug: true{{ end }}
+  drink: {{.Values.favorite.drink | default "tea" | quote}}
+  food: {{.Values.favorite.food | upper | quote}}
+  {{if and (.Values.favorite.drink) (eq .Values.favorite.drink "coffee") }}mug: true{{ end }}
+
 ```
-
-由于我们在最后一个例子中注释了 drink: coffee，因此输出结果不应包含 `mug: true` 标志。但是，如果我们将该行添加回到我们的 values.yaml 文件中，则输出应如下所示：
-
+注意 `.Values.favorite.drink` 必须已定义，否则在将它与 “coffee” 进行比较时会抛出错误。由于我们在上一个例子中注释掉了 `drink：coffee`，因此输出不应该包含 `mug：true` 标志。但是如果我们将该行添加回 `values.yaml` 文件中，输出应该如下所示:
 
 ```yaml
 # Source: mychart/templates/configmap.yaml
@@ -79,11 +78,11 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{ .Values.favorite.drink | default "tea" | quote }}
-  food: {{ .Values.favorite.food | upper | quote }}
+  drink: {{.Values.favorite.drink | default "tea" | quote}}
+  food: {{.Values.favorite.food | upper | quote}}
   {{if eq .Values.favorite.drink "coffee"}}
     mug: true
   {{end}}
@@ -119,11 +118,11 @@ mug 不正确地缩进。让我们简单地缩进那行，然后重新运行：
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{ .Values.favorite.drink | default "tea" | quote }}
-  food: {{ .Values.favorite.food | upper | quote }}
+  drink: {{.Values.favorite.drink | default "tea" | quote}}
+  food: {{.Values.favorite.food | upper | quote}}
   {{if eq .Values.favorite.drink "coffee"}}
   mug: true
   {{end}}
@@ -160,11 +159,11 @@ YAML 中的缩进空格是严格的的，因此管理空格变得非常重要。
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{ .Values.favorite.drink | default "tea" | quote }}
-  food: {{ .Values.favorite.food | upper | quote }}
+  drink: {{.Values.favorite.drink | default "tea" | quote}}
+  food: {{.Values.favorite.food | upper | quote}}
   {{- if eq .Values.favorite.drink "coffee"}}
   mug: true
   {{- end}}
@@ -177,11 +176,11 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{ .Values.favorite.drink | default "tea" | quote }}
-  food: {{ .Values.favorite.food | upper | quote }}*
+  drink: {{.Values.favorite.drink | default "tea" | quote}}
+  food: {{.Values.favorite.food | upper | quote}}*
 **{{- if eq .Values.favorite.drink "coffee"}}
   mug: true*
 **{{- end}}
@@ -207,7 +206,7 @@ data:
 
 
 ```yaml
-  food: {{ .Values.favorite.food | upper | quote }}
+  food: {{.Values.favorite.food | upper | quote}}
   {{- if eq .Values.favorite.drink "coffee" -}}
   mug: true
   {{- end -}}
@@ -227,9 +226,9 @@ data:
 其语法 with 类似于一个简单的 if 语句：
 
 ```
-{{ with PIPELINE }}
+{{with PIPELINE}}
   # restricted scope
-{{ end }}
+{{end}}
 ```
 范围可以改变。with 可以允许将当前范围（`.`）设置为特定的对象。例如，我们一直在使用的 `.Values.favorites`。让我们重写我们的 ConfigMap 来改变 `.` 范围来指向 `.Values.favorites`：
 
@@ -237,13 +236,13 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
-  {{- with .Values.favorite }}
-  drink: {{ .drink | default "tea" | quote }}
-  food: {{ .food | upper | quote }}
-  {{- end }}
+  {{- with .Values.favorite}}
+  drink: {{.drink | default "tea" | quote}}
+  food: {{.food | upper | quote}}
+  {{- end}}
 ```
 
 
@@ -252,21 +251,21 @@ data:
 但是请注意！在受限范围内，此时将无法从父范围访问其他对象。例如，下面会报错：
 
 ```yaml
-  {{- with .Values.favorite }}
-  drink: {{ .drink | default "tea" | quote }}
-  food: {{ .food | upper | quote }}
-  release: {{ .Release.Name }}
-  {{- end }}
+  {{- with .Values.favorite}}
+  drink: {{.drink | default "tea" | quote}}
+  food: {{.food | upper | quote}}
+  release: {{.Release.Name}}
+  {{- end}}
 ```
 
 它会产生一个错误，因为 Release.Name 它不在 `.` 限制范围内。但是，如果我们交换最后两行，所有将按预期工作，因为范围在 {{end}} 之后被重置。
 
 ```yaml
-  {{- with .Values.favorite }}
-  drink: {{ .drink | default "tea" | quote }}
-  food: {{ .food | upper | quote }}
-  {{- end }}
-  release: {{ .Release.Name }}
+  {{- with .Values.favorite}}
+  drink: {{.drink | default "tea" | quote}}
+  food: {{.food | upper | quote}}
+  {{- end}}
+  release: {{.Release.Name}}
 ```
 
 看下 `range`，我们看看模板变量，它提供了一个解决上述范围问题的方法。
@@ -294,17 +293,17 @@ pizzaToppings:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
-  {{- with .Values.favorite }}
-  drink: {{ .drink | default "tea" | quote }}
-  food: {{ .food | upper | quote }}
-  {{- end }}
+  {{- with .Values.favorite}}
+  drink: {{.drink | default "tea" | quote}}
+  food: {{.food | upper | quote}}
+  {{- end}}
   toppings: |-
-    {{- range .Values.pizzaToppings }}
-    - {{ . | title | quote }}
-    {{- end }}
+    {{- range .Values.pizzaToppings}}
+    - {{. | title | quote}}
+    {{- end}}
 
 ```
 让我们仔细看看 `toppings`:list。该 range 函数将遍历 pizzaToppings 列表。但现在发生了一些有趣的事. 就像 `with`sets 的范围 `.`，`range` 操作子也是一样。每次通过循环时，`.` 都设置为当前比萨饼顶部。也就是第一次 `.` 设定 mushrooms。第二个迭代它设置为 `cheese`，依此类推。
@@ -336,9 +335,9 @@ data:
 
 ```yaml
   sizes: |-
-    {{- range tuple "small" "medium" "large" }}
-    - {{ . }}
-    {{- end }}
+    {{- range tuple "small" "medium" "large"}}
+    - {{.}}
+    {{- end}}
 ```
 
 ```yaml

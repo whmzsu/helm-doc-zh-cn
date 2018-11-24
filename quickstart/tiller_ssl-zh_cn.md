@@ -238,7 +238,20 @@ $ cp helm.key.pem $(helm home)/key.pem
 
 * 如果我使用 `--tls-verify` 客户端，报错 `Error: x509: certificate is valid for tiller-server, not localhost`*
 
-如果打算 --tls-verify 在客户端上使用，则需要确保 Helm 连接的主机名与证书上的主机名匹配。在某些情况下，这很尴尬，因为 Helm 将通过本地主机连接，或者 FQDN 不可用于公共解析。
+如果打算 --tls-verify 在客户端上使用，则需要确保 Helm 连接的主机名与证书上的主机名匹配。在某些情况下，这很尴尬，因为 Helm 将通过本地主机 localhost 连接，或者 FQDN 不可用于公共解析。
+
+* 如果我在客户端使用 `--tls-verify` , 返回报错信息 `Error: x509: cannot validate certificate for 127.0.0.1 because it doesn't contain any IP SANs`*
+
+
+默认情况下，Helm 客户端通过隧道（即 kube 代理）127.0.0.1 连接到 Tiller。 在 TLS 握手期间，通常提供主机名（例如 example.com），对证书进行检查，包括附带的信息。 但是，由于通过隧道，目标是 IP 地址。因此，要验证证书，必须在 Tiller 证书中将 IP 地址 127.0.0.1 列为 IP 附带备用名称（IP SAN： IP subject alternative name）。
+
+例如，要在生成 Tiller 证书时将 127.0.0.1 列为 IP SAN：
+
+```bash
+$ echo subjectAltName=IP:127.0.0.1 > extfile.cnf
+$ openssl x509 -req -CA ca.cert.pem -CAkey ca.key.pem -CAcreateserial -in tiller.csr.pem -out tiller.cert.pem -days 365 -extfile extfile.cnf
+```
+
 
 * 如果我在客户端使用 `--tls-verify`，报错 `Error: x509: certificate has expired or is not yet valid`*
 

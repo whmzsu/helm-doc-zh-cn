@@ -4,19 +4,22 @@
 
 ## Chart 名称
 
-Chart 名称应该是小写字母和数字组成，可以用破折号（-）分隔：
+Chart 名称应该是小写字母和数字组成，字母开头：
 
 举例：
+可以使用破折号 `-`, 但在 Helm templates 中使用需要一些小技巧 (查看 [issue #2192](https://github.com/helm/helm/issues/2192) 获取更多信息).
++
+这里有一些好例子 [Helm Community Charts](https://github.com/helm/charts):
 
 ```
 drupal
-nginx-lego
-aws-cluster-autoscaler
+cert-manager
+oauth2-proxy
 ```
 
 Chart 名称中不能使用大写字母和下划线。Chart 名称不应使用点。
 
-包含 chart 的目录必须与 chart 具有相同的名称。因此，chart `nginx-lego` 必须在名为 `nginx-lego/` 的目录中创建。这不仅仅是一种风格的细节，而是 Helm Chart 格式的要求。
+包含 chart 的目录必须与 chart 具有相同的名称。因此，chart `cert-manager` 必须在名为 `cert-manager/` 的目录中创建。这不仅仅是一种风格的细节，而是 Helm Chart 格式的要求。
 
 ## 版本号
 

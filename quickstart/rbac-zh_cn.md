@@ -31,7 +31,7 @@ metadata:
   name: tiller
   namespace: kube-system
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v11
 kind: ClusterRoleBinding
 metadata:
   name: tiller
@@ -69,12 +69,12 @@ serviceaccount "tiller" created
 
 ```yaml
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v11
 metadata:
   name: tiller-manager
   namespace: tiller-world
 rules:
-- apiGroups: ["", "extensions", "apps"]
+- apiGroups: ["","extensions","apps"]
   resources: ["*"]
   verbs: ["*"]
 ```
@@ -88,7 +88,7 @@ role "tiller-manager" created
 
 ```yaml
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v11
 metadata:
   name: tiller-binding
   namespace: tiller-world
@@ -145,12 +145,12 @@ serviceaccount "tiller" created
 
 ```yaml
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v11
 metadata:
   name: tiller-manager
   namespace: myorg-users
 rules:
-- apiGroups: ["", "extensions", "apps"]
+- apiGroups: ["","extensions","apps"]
   resources: ["*"]
   verbs: ["*"]
 ```
@@ -164,7 +164,7 @@ role "tiller-manager" created
 
 ```yaml
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v11
 metadata:
   name: tiller-binding
   namespace: myorg-users
@@ -186,12 +186,12 @@ rolebinding "tiller-binding" created
 
 ```yaml
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v11
 metadata:
   namespace: myorg-system
   name: tiller-manager
 rules:
-- apiGroups: ["", "extensions", "apps"]
+- apiGroups: ["","extensions","apps"]
   resources: ["configmaps"]
   verbs: ["*"]
 ```
@@ -205,7 +205,7 @@ role "tiller-manager" created
 
 ```yaml
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v11
 metadata:
   name: tiller-binding
   namespace: myorg-system
@@ -241,7 +241,7 @@ metadata:
   name: helm
   namespace: helm-world
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v11
 kind: Role
 metadata:
   name: tiller-user
@@ -260,7 +260,7 @@ rules:
   verbs:
   - list
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v11
 kind: RoleBinding
 metadata:
   name: tiller-user-binding

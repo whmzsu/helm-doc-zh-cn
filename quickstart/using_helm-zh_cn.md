@@ -66,10 +66,10 @@ keywords:
 ```
 $ helm install stable/mariadb
 Fetched stable/mariadb-0.3.0 to /Users/mattbutcher/Code/Go/src/k8s.io/helm/mariadb-0.3.0.tgz
-happy-panda
-Last Deployed: Wed Sep 28 12:32:28 2016
-Namespace: default
-Status: DEPLOYED
+NAME: happy-panda
+LAST DEPLOYED: Wed Sep 28 12:32:28 2016
+NAMESPACE: default
+STATUS: DEPLOYED
 
 Resources:
 ==> extensions/Deployment
@@ -183,7 +183,7 @@ $ helm install -f config.yaml stable/mariadb
 在安装过程中有两种方式传递自定义配置数据：
 
 - --values（或 - f）：指定一个 overrides 的 YAML 文件。可以指定多次，最右边的文件将优先使用
-- --set：在命令行上指定 overrides。
+- --set  (也包括 `--set-string` 和 `--set-file`): ：在命令行上指定 overrides。
 
 如果两者都使用，则将 `--set` 值合并到 `--values` 更高的优先级中。指定的 override `--set` 将保存在 configmap 中。`--set` 可以通过使用特定的版本查看已经存在的值 `helm get values <release-name>`,`--set` 设置的值可以通过运行 helm upgrade 带有 --reset-values 参数重置。
 
@@ -233,7 +233,7 @@ servers:
     host: example
 ```
 
-有时候你需要在 `--set` 行中使用特殊字符。可以使用反斜杠来转义字符; --set name="value1\,value2" 会变成：
+有时候你需要在 `--set` 行中使用特殊字符。可以使用反斜杠来转义字符; `--set name="value1\,value2"` 会变成：
 
 ```yaml
 name: "value1,value2"
@@ -247,6 +247,29 @@ nodeSelector:
 ```
 
 使用深层嵌套的数据结构可能很难用 `--set` 表达。鼓励 chart 设计师在设计 values.yaml 文件格式时考虑 `--set` 使用情况。
+
+Helm 会使用 `--set` 将指定的某些值转换为整数。例如，`--set foo = true`Helm 会将 `true` 强制转换为 int64 值。如果你想要一个字符串，请使用 `--set` 的变体名为 `--set-string`。 `--set-string foo = true` 会设置字符串值为 `"true"`。
+
+`--set-file key = filepath` 是 `--set` 的另一种变体。 它读取文件并将其内容用作值。 它的一个示例用例是将多行文本注入值而不处理 YAML 中的缩进。 假设您要创建一个 [brigade](https://github.com/Azure/brigade) 项目，其中包含包含 5 行 JavaScript 代码的特定值，您可以编写一个 `values.yaml`，如：
+
+```yaml
+defaultScript: |
+  const {events, Job} = require("brigadier")
+  function run(e, project) {
+    console.log("hello default script")
+  }
+  events.on("run", run)
+```
+
+嵌入在 YAML 中，这使你更难以使用支持编写代码的 IDE 功能和测试框架等。 因此，你可以使用 `-set-file defaultScript = brigade.js` 替代，`brigade.js` 包含：
+
+```javascript
+const {events, Job} = require("brigadier")
+function run(e, project) {
+  console.log("hello default script")
+}
+events.on("run", run)
+```
 
 ### 更多的安装方法
 helm install 命令可以从多个来源安装：
@@ -359,7 +382,7 @@ $ helm repo add dev https://example.com/dev-charts
 由于 chart repo 经常更改，因此可以随时通过运行 `helm repo updat` 确保 Helm 客户端处于最新状态。
 
 ## 创建你自己的 charts
-该 chart 开发指南 [Chart Development Guide](charts.md) 介绍了如何开发自己的 charts。也可以通过使用以下 helm create 命令快速入门：
+该 chart 开发指南 [Chart Development Guide](../chart/charts-zh_cn.md) 介绍了如何开发自己的 charts。也可以通过使用以下 helm create 命令快速入门：
 
 ```bash
 $ helm create deis-workflow
@@ -386,13 +409,13 @@ $ helm install ./deis-workflow-0.1.0.tgz
 
 可以将已归档的 chart 加载到 chart repo 中。请参阅 chart repo 服务器的文档以了解如何上传。
 
-注意：stable repo 在 Kubernetes Charts GitHub 存储库上进行管理。该项目接受 chart 源代码，并且（在审计后）自动打包。
+注意：stable repo 在 Helm Charts GitHub 存储库 [Helm Charts GitHub repository](https://github.com/helm/charts) 上进行管理。该项目接受 chart 源代码，并且（在审计后）自动打包。
 
 ## Tiller，Namespaces 和 RBAC
 在某些情况下，可能希望将 Tiller 的范围或将多个 Tillers 部署到单个群集。以下是在这些情况下操作的一些最佳做法。
 
 1. Tiller 可以安装到任何 namespace。默认情况下，它安装在 kube-system 中。可以运行多个 Tillers，只要它们各自在自己的 namespace 中运行。
-2. 限制 Tiller 只能安装到特定的 namespace 和 / 或资源类型由 Kubernetes RBAC 角色和角色绑定控制。可以通过在配置 Helm 时通过 `helm init --service-account <NAME>` 向 Tiller 添加服务帐户。你可以在这里 [here](rbac.md). 找到更多的信息。
+2. 限制 Tiller 只能安装到特定的 namespace 和 / 或资源类型由 Kubernetes RBAC 角色和角色绑定控制。可以通过在配置 Helm 时通过 `helm init --service-account <NAME>` 向 Tiller 添加服务帐户。你可以在这里 [here](rbac-zh_cn.md). 找到更多的信息。
 3. Release 名称在每个 Tiller 实例中是唯一的。
 4. chart 应该只包含存在于单个命名空间中的资源。
 5. 不建议将多个 Tillers 配置为在相同的命名空间中管理资源。

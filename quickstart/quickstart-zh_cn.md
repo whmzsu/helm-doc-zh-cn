@@ -12,7 +12,7 @@
 - 必须已安装 Kubernetes。对于 Helm 的最新版本，我们推荐最新的 Kubernetes 稳定版本，在大多数情况下它是次新版本。
 - 应该有一个本地配置好的 `kubectl`。
 
-** 注意：**1.6 之前的 Kubernetes 版本对于基于角色的访问控制（RBAC），要么有限制，或者不支持。
+** 注意：** 1.6 之前的 Kubernetes 版本对于基于角色的访问控制（RBAC），要么有限制，或者不支持。
 
 Helm 将通过 Kubernetes 配置文件（通常是 `$HOME/.kube/config`）来确定在哪里安装 Tiller 。这个配置文件也是 kubectl 使用的文件。
 
@@ -32,7 +32,7 @@ my-cluster
 如果群集启用了基于角色的访问控制（RBAC），在继续之前配置 [服务帐户 (service account) 和规则](rbac-zh_cn.md)。
 
 ## 安装 Helm
-下载 Helm 客户端的二进制版本。可以使用类似工具如 `homebrew`，或查看 [官方发布页面](https://github.com/kubernetes/helm/releases)。
+下载 Helm 客户端的二进制版本。可以使用类似工具如 `homebrew`，或查看 [官方发布页面](https://github.com/helm/helm/releases)。
 
 有关更多详细信息或其他选项，请参阅 [安装指南](install-zh_cn.md)。
 
@@ -57,8 +57,67 @@ $ helm init
 $ helm repo update               ＃确保我们获得最新的 chart 清单
 $ helm install stable/mysql
 Released smile-penguin
+NAME:   wintering-rodent
+LAST DEPLOYED: Thu Oct 18 14:21:18 2018
+NAMESPACE: default
+STATUS: DEPLOYED
+
+RESOURCES:
+==> v1/Secret
+NAME                    AGE
+wintering-rodent-mysql  0s
+
+==> v1/ConfigMap
+wintering-rodent-mysql-test  0s
+
+==> v1/PersistentVolumeClaim
+wintering-rodent-mysql  0s
+
+==> v1/Service
+wintering-rodent-mysql  0s
+
+==> v1beta1/Deployment
+wintering-rodent-mysql  0s
+
+==> v1/Pod(related)
+
+NAME                                    READY  STATUS   RESTARTS  AGE
+wintering-rodent-mysql-6986fd6fb-988x7  0/1    Pending  0         0s
+
+
+NOTES:
+MySQL can be accessed via port 3306 on the following DNS name from within your cluster:
+wintering-rodent-mysql.default.svc.cluster.local
+
+To get your root password run:
+
+    MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace default wintering-rodent-mysql -o jsonpath="{.data.mysql-root-password}" | base64 --decode; echo)
+
+To connect to your database:
+
+1. Run an Ubuntu pod that you can use as a client:
+
+    kubectl run -i --tty ubuntu --image=ubuntu:16.04 --restart=Never -- bash -il
+
+2. Install the mysql client:
+
+    $ apt-get update && apt-get install mysql-client -y
+
+3. Connect using the mysql cli, then provide your password:
+    $ mysql -h wintering-rodent-mysql -p
+
+To connect to your database directly from outside the K8s cluster:
+    MYSQL_HOST=127.0.0.1
+    MYSQL_PORT=3306
+
+    # Execute the following command to route the connection:
+    kubectl port-forward svc/wintering-rodent-mysql 3306
+
+    mysql -h ${MYSQL_HOST} -P${MYSQL_PORT} -u root -p${MYSQL_ROOT_PASSWORD}
+
+
 ```
-在上面的例子中，stable/mysql 已经安装，安装版本的 release 的名字是 smiling-penguin。通过运行 `helm inspect stable/mysql` 可以简单了解这个 MySQL chart 的功能。
+在上面的例子中，stable/mysql 已经安装，安装版本的 release 的名字是 `wintering-rodent`。通过运行 `helm inspect stable/mysql` 可以简单了解这个 MySQL chart 的功能。
 
 无论何时安装 chart，都会创建一个新 release 版本。所以一个 chart 可以多次安装到同一个群集中。而且每个都可以独立管理和升级。
 
@@ -70,8 +129,8 @@ Released smile-penguin
 
 ```bash
 $ helm ls
-NAME             VERSION   UPDATED                   STATUS    CHART
-smiling-penguin  1         Wed Sep 28 12:59:46 2016  DEPLOYED  mysql-0.1.0
++NAME            	REVISION	UPDATED                 	STATUS  	CHART       	APP VERSION	NAMESPACE
++wintering-rodent	1       	Thu Oct 18 15:06:58 2018	DEPLOYED	mysql-0.10.1	5.7.14     	default
 ```
 
 ## 卸载安装的 release
@@ -79,16 +138,48 @@ smiling-penguin  1         Wed Sep 28 12:59:46 2016  DEPLOYED  mysql-0.1.0
 要卸载安装的 release，请使用以下 `helm delete` 命令：
 
 ```bash
-$ helm delete smiling-penguin
-Removed smiling-penguin
+$ helm delete wintering-rodent
+release "wintering-rodent" deleted
 ```
 
-smiling-penguin release 将从 Kubernetes 卸载，但仍然可以查询有关该 release 的信息：
+`wintering-rodent` release 将从 Kubernetes 卸载，但仍然可以查询有关该 release 的信息：
 
 ```bash
-$ helm status smiling-penguin
-Status: DELETED
-...
+$ helm status wintering-rodent
+LAST DEPLOYED: Thu Oct 18 14:21:18 2018
+NAMESPACE: default
+STATUS: DELETED
+
+NOTES:
+MySQL can be accessed via port 3306 on the following DNS name from within your cluster:
+wintering-rodent-mysql.default.svc.cluster.local
+
+To get your root password run:
+
+    MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace default wintering-rodent-mysql -o jsonpath="{.data.mysql-root-password}" | base64 --decode; echo)
+
+To connect to your database:
+
+1. Run an Ubuntu pod that you can use as a client:
+
+    kubectl run -i --tty ubuntu --image=ubuntu:16.04 --restart=Never -- bash -il
+
+2. Install the mysql client:
+
+    $ apt-get update && apt-get install mysql-client -y
+
+3. Connect using the mysql cli, then provide your password:
+    $ mysql -h wintering-rodent-mysql -p
+
+To connect to your database directly from outside the K8s cluster:
+    MYSQL_HOST=127.0.0.1
+    MYSQL_PORT=3306
+
+    # Execute the following command to route the connection:
+    kubectl port-forward svc/wintering-rodent-mysql 3306
+
+    mysql -h ${MYSQL_HOST} -P${MYSQL_PORT} -u root -p${MYSQL_ROOT_PASSWORD}
+
 ```
 
 由于 Helm 在删除它们之后也会跟踪该 release，因此可以审核群集的历史记录，甚至可以取消删除动作（使用 `helm rollback`）。

@@ -30,7 +30,7 @@ helm init 将 Tiller 安装到 kube-system 名称空间中的集群中，而不�
 4. Helm harts
 
 ### RBAC
-Kubernetes 的最新版本采用基于角色的访问控制（或 RBAC）系统（与现代操作系统一样），以帮助缓解证书被滥用或存在错误时可能造成的损害。即使在身份被劫持的情况下，这个身份在受控空间也只有这么多的权限。这有效地增加了一层安全性，以限制使用该身份进行攻击的范围。
+Kubernetes 的最新版本采用基于角色的访问控制（[RBAC] (https://en.wikipedia.org/wiki/Role-based_access_control) ）系统（与现代操作系统一样），以帮助缓解证书被滥用或存在错误时可能造成的损害。即使在身份被劫持的情况下，这个身份在受控空间也只有这么多的权限。这有效地增加了一层安全性，以限制使用该身份进行攻击的范围。
 
 Helm 和 Tiller 在安装，删除和修改逻辑应用程序时，可以包含许多服务交互。因此，它的使用通常涉及整个集群的操作，在多租户集群中意味着 Tiller 安装必须非常小心才能访问整个集群，以防止不正确的安全活动。
 
@@ -46,18 +46,32 @@ Helm 和 Tiller 在安装，删除和修改逻辑应用程序时，可以包含�
 ### Tiller gRPC 端点和 TLS
 在默认安装中，Tiller 提供的 gRPC 端点在集群内部（不在集群外部）可用，不需要应用认证配置。如果不应用身份验证，集群中的任何进程都可以使用 gRPC 端点在集群内执行操作。在本地或安全的专用群集中，这可以实现快速使用并且是合适的。（当在集群外部运行时，Helm 通过 Kubernetes API 服务器进行身份验证，以达到 Tiller，利用现有的 Kubernetes 身份验证支持。）
 
-共享和生产群集 - 大多数情况下 - 应至少使用 Helm 2.7.2，并为每个 Tiller gRPC 端点配置 TLS，以确保群集内 gRPC 端点的使用仅适用于该端点的正确身份验证标识。这样做可以在任意数量的 namespace 中部署任意数量的 Tiller 实例，任何 gRPC 端点未经授权不可使用。使用 Helm `init` --tiller-tls-verify 选择安装启用 TLS 的 Tiller, 并验证远程证书，所有其他 Helm 命令都应该使用该 --tls 选项。
+The following two sub-sections describe options of how to setup Tiller so there isn't an unauthenticated endpoint (i.e. gRPC) in your cluster.
 
-有关正确配置并使用 TLS 的 Tiller 和 Helm 的正确步骤的更多信息，请参阅 Helm 和 Tiller 使用 SSL[Using SSL between Helm and Tiller](tiller_ssl.md)。
+#### Enabling TLS
 
-当 Helm 客户端从群集外部连接时，Helm 客户端和 API 服务器之间的安全性由 Kubernetes 本身管理。你可能需要确保这个链接是安全的。请注意，如果使用上面建议的 TLS 配置，则 Kubernetes API 服务器也无法访问客户端和 Tiller 之间的未加密消息。
+(Note that out of the two options, this is the recommended one for Helm 2.)
+共享和生产群集 - 大多数情况下 - 应至少使用 Helm 2.7.2，并为每个 Tiller gRPC 端点配置 TLS，以确保群集内 gRPC 端点的使用仅适用于该端点的正确身份验证标识。这样做可以在任意数量的 namespace 中部署任意数量的 Tiller 实例，任何 gRPC 端点未经授权不可使用。使用 Helm `init` 和 `--tiller-tls-verify` 选择安装启用 TLS 的 Tiller, 并验证远程证书，所有其他 Helm 命令都应该使用该 `--tls` 选项。
+
+有关正确配置并使用 TLS 的 Tiller 和 Helm 的正确步骤的更多信息，请参阅下面的章节 [Best Practices](#Helm 和 Tiller 安全最佳实践) 以及 Helm 和 Tiller 使用 SSL[在 Helm 和 Tiller 之间使用 SSL](tiller_ssl-zh_cn.md)。
+
+当 Helm 客户端从群集外部连接时，Helm 客户端和 API 服务器之间的安全性由 Kubernetes 本身管理。你可能需要确保这个链接是安全的。请注意，如果使用上面建议的 TLS 配置，则 Kubernetes API 服务器也无法访问客户端和 Tiller 之间的加密消息。
+
+#### Running Tiller Locally
+
+与上面的章节 [Enabling TLS](#Enabling TLS) 相反, 本节不涉及在集群中运行分蘖服务器 pod（就其价值而言，它符合当前情况 [helm v3 proposal](https://github.com/helm/community/blob/master/helm-v3/000-helm-v3.md)), 因此没有 gRPC 端点（因此不需要创建和管理 TLS 证书来保护每个 gRPC 端点）。
+
+步骤:
+ * 获取最新安装包 [GitHub release page](https://github.com/helm/helm/releases), 解压缩，并将 `helm` and `tiller` 放到你的路径 `$PATH`.
+ * "服务端": 运行 `tiller --storage=secret`. (`tiller` 默认监听 ":44134" 通过 `--listen` 参数.)
+ * "客户端": 在另一个终端 (同一台运行 `tiller` 的机器上): 运行 `export HELM_HOST=:44134`, 然后运行 `helm`.
 
 ### Tiller Release 信息
 由于历史原因，Tiller 将其 release 信息存储在 ConfigMaps 中。我们建议将默认设置更改为 Secrets。
 
 Secrets 是 Kubernetes 用于保存被认为是敏感的配置数据的可接受的方法。尽管 secrets 本身并不提供很多保护，但 Kubernetes 集群管理软件经常将它们与其他对象区别开来。因此，我们建议使用 secrets 来存储 release 信息。
 
-启用此功能目前需要在 Tiller 部署时设置参数 `--storage=secret`。这需要直接修改 deployment 或使用 `helm init --override=...`，因为当前没有 helm init 参数可供执行此操作。有关更多信息，请参阅 [Using --override](install.md#using---override)。
+启用此功能目前需要在 Tiller 部署时设置参数 `--storage=secret`。这需要直接修改 deployment 或使用 `helm init --override 'spec.template.spec.containers[0].command'='{/tiller,--storage=secret}'`，因为当前没有 helm init 参数可供执行此操作。
 
 ### 关于 chart
 由于 Helm 的相对生命周期，Helm chart 生态系统的发展并没有考虑到整个集群的控制，这在开发人员来说，是完全合理的。但是，chart 是一种不仅可以安装可能已经验证或可能未验证的容器的包，它也可以安装到多个 namespace 中。
@@ -82,6 +96,7 @@ Secrets 是 Kubernetes 用于保存被认为是敏感的配置数据的可接受
 
 ```bash
 $ helm init \
+--override 'spec.template.spec.containers[0].command'='{/tiller,--storage=secret}' \
 --tiller-tls \
 --tiller-tls-verify \
 --tiller-tls-cert=cert.pem \
@@ -90,4 +105,4 @@ $ helm init \
 --service-account=accountname
 ```
 
-此命令将通过gRPC进行强身份验证，并应用RBAC策略的服务帐户安装启动Tiller。
+此命令将通过gRPC进行强身份验证，release信息存储在Kubernetes Secret，并使用RBAC策略的服务帐户安装启动Tiller。

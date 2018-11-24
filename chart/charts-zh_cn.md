@@ -67,7 +67,7 @@ nginx-1.2.3.tgz
 
 更复杂的 SemVer 2 命名也是支持的，例如 version: 1.2.3-alpha.1+ef365。但非 SemVer 命名是明确禁止的。
 
-** 注意 **：虽然 Helm Classic 和 Deployment Manager 在 chart 方面都非常适合 GitHub，但 Kubernetes Helm 并不依赖或需要 GitHub 甚至 Git。因此，它不使用 Git SHA 进行版本控制。
+** 注意 ** ：虽然 Helm Classic 和 Deployment Manager 在 chart 方面都非常适合 GitHub，但 Kubernetes Helm 并不依赖或需要 GitHub 甚至 Git。因此，它不使用 Git SHA 进行版本控制。
 
 许多 Helm 工具都使用 `Chart.yaml` 的 v`ersion` 字段，其中包括 CLI 和 Tiller 服务。在生成包时，helm package 命令将使用它在 Chart.yaml 中的版本名作为包名。系统假定 chart 包名称中的版本号与 `Chart.yaml` 中的版本号相匹配。不符合这个情况会导致错误。
 
@@ -77,7 +77,7 @@ nginx-1.2.3.tgz
 
 ### 弃用 charts
 
-在管理 chart tepo 库中的 chart 时，有时需要弃用 chart。`Chart.yaml` 的 d`eprecated` 字段可用于将 chart 标记为已弃用。如果存储库中最新版本的 chart 标记为已弃用，则整个 chart 被视为已弃用。chart 名称稍后可以通过发布未标记为已弃用的较新版本来重新使用。废弃 chart 的工作流程根据 [kubernetes/charts](https://github.com/kubernetes/charts) 项目的工作流程如下：
+在管理 chart tepo 库中的 chart 时，有时需要弃用 chart。`Chart.yaml` 的 d`eprecated` 字段可用于将 chart 标记为已弃用。如果存储库中最新版本的 chart 标记为已弃用，则整个 chart 被视为已弃用。chart 名称稍后可以通过发布未标记为已弃用的较新版本来重新使用。废弃 chart 的工作流程根据 [helm/charts](https://github.com/helm/charts) 项目的工作流程如下：
 
 -   更新 chart 的 `Chart.yaml` 以将 chart 标记为启用，并且更新版本
 -   在 chart Repository 中发布新的 chart 版本
@@ -387,7 +387,7 @@ wordpress:
 
 因此，单个 release 是使用 charts 及其依赖关系创建的所有对象。
 
-Kubernetes 类型的安装顺序由 kind_sorter.go 中的枚举 InstallOrder 给出（[the Helm source file](https://github.com/kubernetes/helm/blob/master/pkg/tiller/kind_sorter.go#L26))）。
+Kubernetes 类型的安装顺序由 kind_sorter.go 中的枚举 InstallOrder 给出（[the Helm source file](https://github.com/helm/blob/master/pkg/tiller/kind_sorter.go#L26))）。
 
 ## 模板 Templates 和值 Values
 
@@ -413,15 +413,15 @@ metadata:
   name: deis-database
   namespace: deis
   labels:
-    heritage: deis
+    app.kubernetes.io/managed-by: deis
 spec:
   replicas: 1
   selector:
-    app: deis-database
+    app.kubernetes.io/name: deis-database
   template:
     metadata:
       labels:
-        app: deis-database
+        app.kubernetes.io/name: deis-database
     spec:
       serviceAccount: deis-database
       containers:
@@ -514,15 +514,15 @@ metadata:
   name: deis-database
   namespace: deis
   labels:
-    heritage: deis
+    app.kubernetes.io/managed-by: deis
 spec:
   replicas: 1
   selector:
-    app: deis-database
+    app.kubernetes.io/name: deis-database
   template:
     metadata:
       labels:
-        app: deis-database
+        app.kubernetes.io/name: deis-database
     spec:
       serviceAccount: deis-database
       containers:
@@ -655,5 +655,5 @@ repo 库的主要特征是存在一个名为的特殊文件 `index.yaml`，它�
 
 -   `Chart.yaml` 将被生成器覆盖。
 -   用户将期望修改这样的 chart 内容，因此文档应该指出用户如何做到这一点。
--   所有匹配项 <CHARTNAME> 将被替换为指定的 chart 名称，以便起始 chart 可用作模板。
+-   所有 templates 目录下的匹配项 `<CHARTNAME>` 将被替换为指定的 chart 名称，以便起始 chart 可用作模板。另外, `values.yaml` 的 `<CHARTNAME>` 也会被替换.
 -   目前添加chart的唯一方法是手动将其复制到`$HELM_HOME/starters`。在chart的文档中，你需要解释该过程。

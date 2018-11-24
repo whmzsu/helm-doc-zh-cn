@@ -5,11 +5,11 @@
 
 
 ```yaml
-  {{- with .Values.favorite }}
-  drink: {{ .drink | default "tea" | quote }}
-  food: {{ .food | upper | quote }}
-  release: {{ .Release.Name }}
-  {{- end }}
+  {{- with .Values.favorite}}
+  drink: {{.drink | default "tea" | quote}}
+  food: {{.food | upper | quote}}
+  release: {{.Release.Name}}
+  {{- end}}
 ```
 
 `Release.Name` 不在该 `with` 块中限制的范围内。解决范围问题的一种方法是将对象分配给可以在不考虑当前范围的情况下访问的变量。
@@ -20,15 +20,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
   {{- $relname := .Release.Name -}}
-  {{- with .Values.favorite }}
-  drink: {{ .drink | default "tea" | quote }}
-  food: {{ .food | upper | quote }}
-  release: {{ $relname }}
-  {{- end }}
+  {{- with .Values.favorite}}
+  drink: {{.drink | default "tea" | quote}}
+  food: {{.food | upper | quote}}
+  release: {{$relname}}
+  {{- end}}
 ```
 
 注意，在我们开始 `with` 块之前，我们赋值 `$relname := `.Release.Name。现在在 `with` 块内部，`$relname` 变量仍然指向发布名称。
@@ -53,9 +53,9 @@ data:
 
 ```yaml
   toppings: |-
-    {{- range $index, $topping := .Values.pizzaToppings }}
-      {{ $index }}: {{ $topping }}
-    {{- end }}
+    {{- range $index, $topping := .Values.pizzaToppings}}
+      {{$index}}: {{ $topping }}
+    {{- end}}
 
 ```
 
@@ -75,11 +75,11 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
-  {{- range $key, $val := .Values.favorite }}
-  {{ $key }}: {{ $val | quote }}
+  {{- range $key, $val := .Values.favorite}}
+  {{$key}}: {{ $val | quote }}
   {{- end}}
 ```
 
@@ -104,25 +104,25 @@ data:
 举例说明：
 
 ```yaml
-{{- range .Values.tlsSecrets }}
+{{- range .Values.tlsSecrets}}
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ .name }}
+  name: {{.name}}
   labels:
     # Many helm templates would use `.` below, but that will not work,
     # however `$` will work here
-    app: {{ template "fullname" $ }}
+    app.kubernetes.io/name: {{template "fullname" $}}
     # I cannot reference .Chart.Name, but I can do $.Chart.Name
-    chart: "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
-    release: "{{ $.Release.Name }}"
-    heritage: "{{ $.Release.Service }}"
+    helm.sh/chart: "{{$.Chart.Name}}-{{ $.Chart.Version }}"
+    app.kubernetes.io/instance: "{{$.Release.Name}}"
+    app.kubernetes.io/managed-by: "{{$.Release.Service}}"
 type: kubernetes.io/tls
 data:
-  tls.crt: {{ .certificate }}
-  tls.key: {{ .key }}
+  tls.crt: {{.certificate}}
+  tls.key: {{.key}}
 ---
-{{- end }}
+{{- end}}
 ```
 
 到目前为止，我们只查看了一个文件中声明的一个模板。但是Helm模板语言的强大功能之一是它能够声明多个模板并将它们一起使用。我们将在下一节中讨论。
