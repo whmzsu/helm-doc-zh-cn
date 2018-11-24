@@ -976,8 +976,8 @@
 <p>&#x5728; Helm &#x4E2D;&#xFF0C;&#x6709;&#x4E24;&#x4E2A;&#x6D4B;&#x8BD5; hook&#xFF1A;<code>test-success</code> &#x548C; <code>test-failure</code>.</p>
 <p><code>test-success</code> &#x8868;&#x793A;&#x6D4B;&#x8BD5; pod &#x5E94;&#x8BE5;&#x6210;&#x529F;&#x5B8C;&#x6210;&#x3002;&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;&#x5BB9;&#x5668;&#x4E2D;&#x7684;&#x5BB9;&#x5668;&#x5E94;&#x8BE5; exit 0. <code>test-failure</code> &#x662F;&#x4E00;&#x79CD;&#x65AD;&#x8A00;&#x6D4B;&#x8BD5;&#x5BB9;&#x5668;&#x4E0D;&#x80FD;&#x6210;&#x529F;&#x5B8C;&#x6210;&#x7684;&#x65B9;&#x5F0F;&#x3002;&#x5982;&#x679C; pod &#x4E2D;&#x7684;&#x5BB9;&#x5668;&#x672A; exit 0&#xFF0C;&#x5219;&#x8868;&#x793A;&#x6210;&#x529F;&#x3002;</p>
 <h2 id="&#x793A;&#x4F8B;&#x6D4B;&#x8BD5;">&#x793A;&#x4F8B;&#x6D4B;&#x8BD5;</h2>
-<p>&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B; mariadb chart &#x4E2D; helm &#x6D4B;&#x8BD5; pod &#x5B9A;&#x4E49;&#x7684;&#x793A;&#x4F8B;&#xFF1A;</p>
-<pre class="language-"><code>mariadb/
+<p>&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B; WordPress chart &#x4E2D; helm &#x6D4B;&#x8BD5; pod &#x5B9A;&#x4E49;&#x7684;&#x793A;&#x4F8B;&#x3002;&#x8FD9;&#x4E2A;&#x6D4B;&#x8BD5;&#x9A8C;&#x8BC1;&#x4E86; mariadb &#x7684;&#x8FDE;&#x63A5;&#x548C;&#x767B;&#x5F55;&#xFF1A;</p>
+<pre class="language-"><code>wordpress/
   Chart.yaml
   README.md
   values.yaml
@@ -988,32 +988,32 @@
 <pre class="language-"><code>apiVersion: v1
 kind: Pod
 metadata:
-  name: &quot;{{ .Release.Name }}-credentials-test&quot;
+  name: &quot;{{.Release.Name}}-credentials-test&quot;
   annotations:
     &quot;helm.sh/hook&quot;: test-success
 spec:
   containers:
-  - name: {{ .Release.Name }}-credentials-test
-    image: {{ .Values.image }}
+  - name: {{.Release.Name}}-credentials-test
+    image: {{.Values.image}}
     env:
       - name: MARIADB_HOST
-        value: {{ template &quot;mariadb.fullname&quot; . }}
+        value: {{template &quot;mariadb.fullname&quot; .}}
       - name: MARIADB_PORT
         value: &quot;3306&quot;
       - name: WORDPRESS_DATABASE_NAME
-        value: {{ default &quot;&quot; .Values.mariadb.mariadbDatabase | quote }}
+        value: {{default &quot;&quot; .Values.mariadb.mariadbDatabase | quote}}
       - name: WORDPRESS_DATABASE_USER
-        value: {{ default &quot;&quot; .Values.mariadb.mariadbUser | quote }}
+        value: {{default &quot;&quot; .Values.mariadb.mariadbUser | quote}}
       - name: WORDPRESS_DATABASE_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: {{ template &quot;mariadb.fullname&quot; . }}
+            name: {{template &quot;mariadb.fullname&quot; .}}
             key: mariadb-password
     command: [&quot;sh&quot;, &quot;-c&quot;, &quot;mysql --host=$MARIADB_HOST --port=$MARIADB_PORT --user=$WORDPRESS_DATABASE_USER --password=$WORDPRESS_DATABASE_PASSWORD&quot;]
   restartPolicy: Never
 </code></pre><h2 id="&#x5728;-release-&#x4E0A;&#x8FD0;&#x884C;&#x6D4B;&#x8BD5;&#x5957;&#x4EF6;&#x7684;&#x6B65;&#x9AA4;">&#x5728; release &#x4E0A;&#x8FD0;&#x884C;&#x6D4B;&#x8BD5;&#x5957;&#x4EF6;&#x7684;&#x6B65;&#x9AA4;</h2>
 <ol>
-<li><p><code>$ helm install mariadb</code></p>
+<li><p><code>$ helm install wordpress</code></p>
 <pre class="language-"><code>NAME:   quirky-walrus
 LAST DEPLOYED: Mon Feb 13 13:50:43 2017
 NAMESPACE: default
@@ -1030,7 +1030,7 @@ SUCCESS: quirky-walrus-credentials-test
 <li>&#x63D0;&#x5021;&#x5C06;&#x6D4B;&#x8BD5;&#x5957;&#x4EF6;&#x5D4C;&#x5165;&#x5230;&#x4E00;&#x4E2A;<code>tests/</code>&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x6BD4;&#x5982;<code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>chart-name</span><span class="token punctuation">&gt;</span></span>/templates/tests/</code>&#x4EE5;&#x4FBF;&#x5B9E;&#x73B0;&#x66F4;&#x591A;&#x9694;&#x79BB;</li>
 </ul>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; Mingo(whmzsu@gmail.com) 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
-2018-06-29 10:03:13
+2018-11-23 22:31:49
 </span></footer>
                                 
                                 </section>
@@ -1074,7 +1074,7 @@ SUCCESS: quirky-walrus-credentials-test
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"测试","level":"4.7","depth":1,"next":{"title":"Repository FAQ","level":"4.8","depth":1,"path":"chart/chart_repository_faq-zh_cn.md","ref":"chart/chart_repository_faq-zh_cn.md","articles":[]},"previous":{"title":"验证出处和完整性","level":"4.6","depth":1,"path":"chart/provenance-zh_cn.md","ref":"chart/provenance-zh_cn.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","3-ba","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","theme-default","-highlight","prism","prism-themes"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © Mingo(whmzsu@gmail.com) 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prism-themes/themes/prism-ghcolors.css"]},"github":{"url":"https://github.com/whmzsu/helm-doc-zh-cn"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/whmzsu/helm-doc-zh-cn/blob/master/"},"splitter":{},"codesnippet":{},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"whmzsu/helm-doc-zh-cn","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"4c047edc6924037f9f149230b592da80"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"Mingo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.1","level":"4.4","list_caption":"Figure: Create a GCS Bucket","alt":"Create a GCS Bucket","nro":1,"url":"../images/create-a-bucket.png","index":1,"caption_template":"图片 - _CAPTION_","label":"Create a GCS Bucket","attributes":{},"skip":false,"key":"4.4.1"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.2","level":"4.4","list_caption":"Figure: Edit Permissions","alt":"Edit Permissions","nro":2,"url":"../images/edit-permissions.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Edit Permissions","attributes":{},"skip":false,"key":"4.4.2"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.3","level":"4.4","list_caption":"Figure: Make Bucket Public","alt":"Make Bucket Public","nro":3,"url":"../images/make-bucket-public.png","index":3,"caption_template":"图片 - _CAPTION_","label":"Make Bucket Public","attributes":{},"skip":false,"key":"4.4.3"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.4","level":"4.4","list_caption":"Figure: Create Github Pages branch","alt":"Create Github Pages branch","nro":4,"url":"../images/create-a-gh-page-button.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Create Github Pages branch","attributes":{},"skip":false,"key":"4.4.4"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.5","level":"4.4","list_caption":"Figure: Create Github Pages branch","alt":"Create Github Pages branch","nro":5,"url":"../images/set-a-gh-page.png","index":5,"caption_template":"图片 - _CAPTION_","label":"Create Github Pages branch","attributes":{},"skip":false,"key":"4.4.5"}]},"title":"Helm用户指南","language":"zh-hans","gitbook":"*","description":"Helm用户指南|Helm User Guide|Mingo|吴洪明"},"file":{"path":"chart/chart_tests-zh_cn.md","mtime":"2018-06-29T02:03:13.021Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-06-29T09:19:23.469Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"测试","level":"4.7","depth":1,"next":{"title":"Repository FAQ","level":"4.8","depth":1,"path":"chart/chart_repository_faq-zh_cn.md","ref":"chart/chart_repository_faq-zh_cn.md","articles":[]},"previous":{"title":"验证出处和完整性","level":"4.6","depth":1,"path":"chart/provenance-zh_cn.md","ref":"chart/provenance-zh_cn.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","3-ba","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","theme-default","-highlight","prism","prism-themes","livereload"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © Mingo(whmzsu@gmail.com) 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prism-themes/themes/prism-ghcolors.css"]},"github":{"url":"https://github.com/whmzsu/helm-doc-zh-cn"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/whmzsu/helm-doc-zh-cn/blob/master/"},"livereload":{},"splitter":{},"codesnippet":{},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"whmzsu/helm-doc-zh-cn","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"4c047edc6924037f9f149230b592da80"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"Mingo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.1","level":"4.4","list_caption":"Figure: Create a GCS Bucket","alt":"Create a GCS Bucket","nro":1,"url":"../images/create-a-bucket.png","index":1,"caption_template":"图片 - _CAPTION_","label":"Create a GCS Bucket","attributes":{},"skip":false,"key":"4.4.1"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.2","level":"4.4","list_caption":"Figure: Edit Permissions","alt":"Edit Permissions","nro":2,"url":"../images/edit-permissions.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Edit Permissions","attributes":{},"skip":false,"key":"4.4.2"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.3","level":"4.4","list_caption":"Figure: Make Bucket Public","alt":"Make Bucket Public","nro":3,"url":"../images/make-bucket-public.png","index":3,"caption_template":"图片 - _CAPTION_","label":"Make Bucket Public","attributes":{},"skip":false,"key":"4.4.3"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.4","level":"4.4","list_caption":"Figure: Create Github Pages branch","alt":"Create Github Pages branch","nro":4,"url":"../images/create-a-gh-page-button.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Create Github Pages branch","attributes":{},"skip":false,"key":"4.4.4"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.5","level":"4.4","list_caption":"Figure: Create Github Pages branch","alt":"Create Github Pages branch","nro":5,"url":"../images/set-a-gh-page.png","index":5,"caption_template":"图片 - _CAPTION_","label":"Create Github Pages branch","attributes":{},"skip":false,"key":"4.4.5"}]},"title":"Helm用户指南","language":"zh-hans","gitbook":"*","description":"Helm用户指南|Helm User Guide|Mingo|吴洪明"},"file":{"path":"chart/chart_tests-zh_cn.md","mtime":"2018-11-23T14:31:49.605Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-24T02:26:28.756Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -1117,6 +1117,10 @@ SUCCESS: quirky-walrus-credentials-test
     
         
         <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
         
     
         
