@@ -382,7 +382,7 @@ $ helm repo add dev https://example.com/dev-charts
 由于 chart repo 经常更改，因此可以随时通过运行 `helm repo updat` 确保 Helm 客户端处于最新状态。
 
 ## 创建你自己的 charts
-该 chart 开发指南 [Chart Development Guide](charts.md) 介绍了如何开发自己的 charts。也可以通过使用以下 helm create 命令快速入门：
+该 chart 开发指南 [Chart Development Guide](../chart/charts-zh_cn.md) 介绍了如何开发自己的 charts。也可以通过使用以下 helm create 命令快速入门：
 
 ```bash
 $ helm create deis-workflow
@@ -409,13 +409,13 @@ $ helm install ./deis-workflow-0.1.0.tgz
 
 可以将已归档的 chart 加载到 chart repo 中。请参阅 chart repo 服务器的文档以了解如何上传。
 
-注意：stable repo 在 Kubernetes Charts GitHub 存储库上进行管理。该项目接受 chart 源代码，并且（在审计后）自动打包。
+注意：stable repo 在 Helm Charts GitHub 存储库 [Helm Charts GitHub repository](https://github.com/helm/charts) 上进行管理。该项目接受 chart 源代码，并且（在审计后）自动打包。
 
 ## Tiller，Namespaces 和 RBAC
 在某些情况下，可能希望将 Tiller 的范围或将多个 Tillers 部署到单个群集。以下是在这些情况下操作的一些最佳做法。
 
 1. Tiller 可以安装到任何 namespace。默认情况下，它安装在 kube-system 中。可以运行多个 Tillers，只要它们各自在自己的 namespace 中运行。
-2. 限制 Tiller 只能安装到特定的 namespace 和 / 或资源类型由 Kubernetes RBAC 角色和角色绑定控制。可以通过在配置 Helm 时通过 `helm init --service-account <NAME>` 向 Tiller 添加服务帐户。你可以在这里 [here](rbac.md). 找到更多的信息。
+2. 限制 Tiller 只能安装到特定的 namespace 和 / 或资源类型由 Kubernetes RBAC 角色和角色绑定控制。可以通过在配置 Helm 时通过 `helm init --service-account <NAME>` 向 Tiller 添加服务帐户。你可以在这里 [here](rbac-zh_cn.md). 找到更多的信息。
 3. Release 名称在每个 Tiller 实例中是唯一的。
 4. chart 应该只包含存在于单个命名空间中的资源。
 5. 不建议将多个 Tillers 配置为在相同的命名空间中管理资源。

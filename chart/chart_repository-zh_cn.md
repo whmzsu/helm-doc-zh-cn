@@ -2,7 +2,7 @@
 
 本节介绍如何创建和使用 Helm chart repo。在高层次上，chart 库是可以存储和共享打包 chart 的位置。
 
-官方 chart 库由 [Kubernetes Charts](https://github.com/kubernetes/charts) 维护 ，我们欢迎参与贡献。Helm 还可以轻松创建和运行自己的 chart 库。本指南讲解了如何做到这一点。
+官方 chart 库由 [Helm Charts](https://github.com/helm/charts) 维护 ，我们欢迎参与贡献。Helm 还可以轻松创建和运行自己的 chart 库。本指南讲解了如何做到这一点。
 
 ## 前提条件
 
@@ -73,7 +73,7 @@ entries:
       home: https://k8s.io/helm
       name: nginx
       sources:
-      - https://github.com/kubernetes/charts
+      - https://github.com/helm/charts
       urls:
       - https://technosophos.github.io/tscharts/nginx-1.1.0.tgz
       version: 1.1.0
@@ -116,7 +116,7 @@ Now serving you on 127.0.0.1:8879
 
 恭喜，现在你有一个空的 GCS bucket 准备好给 chart 提供服务！
 
-可以使用 Google Cloud Storage 命令行工具或使用 GCS Web UI 上传 chart 库。这是官方 Kubernetes Charts 存储库托管其 chart 的技术，因此如果遇到困难，可能需要查看该项目 [peek at that project](https://github.com/kubernetes/charts) 。
+可以使用 Google Cloud Storage 命令行工具或使用 GCS Web UI 上传 chart 库。这是官方 Kubernetes Charts 存储库托管其 chart 的技术，因此如果遇到困难，可能需要查看该项目 [peek at that project](https://github.com/helm/charts) 。
 
 ** 注意：** 可以通过此处的 HTTPS 地址方便的访问公开的 GCS 存储桶 `https://bucket-name.storage.googleapis.com/`。
 

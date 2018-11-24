@@ -3,7 +3,7 @@
 
 但是当谈到 chart 的实际日常开发时，本指南还没有涉及很多事情。以下是一些有用的指向其他文档的指南，这些指南将帮助您创建新 chart：
 
-- Kubernetes chart 项目 [Kubernetes Charts project](https://github.com/kubernetes/charts) 是 chart 不可缺少的来源。该项目也是 chart 开发中最佳实践的标准。
+- Kubernetes chart 项目 [Helm Charts project](https://github.com/helm/charts) 是 chart 不可缺少的来源。该项目也是 chart 开发中最佳实践的标准。
 - Kubernetes 用户指南 [User's Guide](http://kubernetes.io/docs/user-guide/) 提供了可以使用的各种资源类型的详细示例，从 ConfigMaps 和 Secrets 到 DaemonSetkubernetes 和 Deployments。
 - Helm chart 指南 [Charts Guide](../chart/charts-zh_cn.md) 介绍了使用 chart 的工作流程。
 - Helm Chart Hooks 指南 [Chart Hooks Guide](../chart/charts_hooks-zh_cn.md) 解释了如何创建生命周期 hook。

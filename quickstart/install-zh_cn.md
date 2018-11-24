@@ -23,7 +23,7 @@ Helm 客户端可以从源代码安装，也可以从预构建的二进制版本
 Snap package 维护站点 [Snapcrafters](https://github.com/snapcrafters/helm).
 
 ```
-$ sudo snap install helm
+$ sudo snap install helm --classic
 ```
 
 ### 通过 homebrew（macOS）
@@ -95,8 +95,8 @@ Helm 的服务器端部分 Tiller 通常运行在 Kubernetes 集群内部。但�
 
 ### Special Note for RBAC Users
 
-Most cloud providers enable a feature called Role-Based Access Control - RBAC for short. If your cloud provider enables this feature, you will need to create a service account for Tiller with the right roles and permissions to access resources.
-Check the [Kubernetes Distribution Guide](kubernetes_distros-zh_cn.md) to see if there's any further points of interest on using Helm with your cloud provider. Also check out the guide on [Tiller and Role-Based Access Control](rbac-zh_cn.md) for more information on how to run Tiller in an RBAC-enabled Kubernetes cluster.
+大多数云提供商都支持名为基于角色的访问控制（简称 RBAC）的特性。如果您的云提供商启用了该特性，您将需要为 Tiller 创建一个具有访问资源的正确角色和权限的服务帐户 (service account)。
+查看 [Kubernetes Distribution Guide](kubernetes_distros-zh_cn.md) 在云提供商中使用 Helm 是否还有其他兴趣点. 也可以查看 [Tiller and Role-Based Access Control](rbac-zh_cn.md) 来获取关于如何在 RBAC 的 K8S 集群中使用 Tiller 的更多信息。
 
 ### 快捷群集内安装
 

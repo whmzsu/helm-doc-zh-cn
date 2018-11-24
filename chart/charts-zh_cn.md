@@ -77,7 +77,7 @@ nginx-1.2.3.tgz
 
 ### 弃用 charts
 
-在管理 chart tepo 库中的 chart 时，有时需要弃用 chart。`Chart.yaml` 的 d`eprecated` 字段可用于将 chart 标记为已弃用。如果存储库中最新版本的 chart 标记为已弃用，则整个 chart 被视为已弃用。chart 名称稍后可以通过发布未标记为已弃用的较新版本来重新使用。废弃 chart 的工作流程根据 [kubernetes/charts](https://github.com/kubernetes/charts) 项目的工作流程如下：
+在管理 chart tepo 库中的 chart 时，有时需要弃用 chart。`Chart.yaml` 的 d`eprecated` 字段可用于将 chart 标记为已弃用。如果存储库中最新版本的 chart 标记为已弃用，则整个 chart 被视为已弃用。chart 名称稍后可以通过发布未标记为已弃用的较新版本来重新使用。废弃 chart 的工作流程根据 [helm/charts](https://github.com/helm/charts) 项目的工作流程如下：
 
 -   更新 chart 的 `Chart.yaml` 以将 chart 标记为启用，并且更新版本
 -   在 chart Repository 中发布新的 chart 版本

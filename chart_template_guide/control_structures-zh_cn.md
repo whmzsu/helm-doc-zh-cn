@@ -52,7 +52,7 @@ data:
   myvalue: "Hello World"
   drink: {{.Values.favorite.drink | default "tea" | quote}}
   food: {{.Values.favorite.food | upper | quote}}
-  {{if (.Values.favorite.drink) and eq .Values.favorite.drink "coffee" }}mug: true{{ end }}
+  {{if and (.Values.favorite.drink) (eq .Values.favorite.drink "coffee") }}mug: true{{ end }}
 
 ```
 注意 `.Values.favorite.drink` 必须已定义，否则在将它与 “coffee” 进行比较时会抛出错误。由于我们在上一个例子中注释掉了 `drink：coffee`，因此输出不应该包含 `mug：true` 标志。但是如果我们将该行添加回 `values.yaml` 文件中，输出应该如下所示:
