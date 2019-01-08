@@ -84,7 +84,11 @@ nginx-1.2.3.tgz
 -   从源代码库中删除 chart（例如 git）
 
 ## Chart 许可证文件，自述文件和说明文件
-chart 还可以包含描述 chart 的安装，配置，使用和许可证的文件。chart 的自述文件应由 Markdown（README.md）语法格式化，并且通常应包含：
+Chart 还可以包含描述 chart 的安装，配置，使用和许可证的文件。
+
+LICENSE 文件是一个纯文本文件，包含 chart 的 [许可证]（https://en.wikipedia.org/wiki/Software_license）。 Chart 可以包含许可证，它可能在模板中具有编程逻辑，因此不仅仅是配置。 如果需要，还可以为 chart 安装的应用程序提供单独的许可证。
+
+Chart 的自述文件应由 Markdown（README.md）语法格式化，并且通常应包含：
 
 -   chart 提供的应用程序或服务的描述
 -   运行 chart 的任何前提条件或要求
