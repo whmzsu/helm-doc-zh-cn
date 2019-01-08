@@ -1,5 +1,5 @@
 
-BOOK_NAME := "Helm User Guide"
+BOOK_NAME := "Helm User and Developer's Guide"
 BOOK_OUTPUT := _book
 
 .PHONY: build

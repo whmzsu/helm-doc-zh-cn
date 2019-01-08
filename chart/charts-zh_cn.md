@@ -192,26 +192,26 @@ Condition - condition 字段包含一个或多个 YAML 路径（用逗号分隔�
 
 Tags - 标签字段是与此 chart 关联的 YAML 标签列表。在顶级父级的值中，可以通过指定标签和布尔值来启用或禁用所有带有标签的 chart。
 
-```bash
+```yaml
 # parentchart/requirements.yaml
 dependencies:
-      - name: subchart1
-        repository: http://localhost:10191
-        version: 0.1.0
-        condition: subchart1.enabled, global.subchart1.enabled
-        tags:
-          - front-end
-          - subchart1
+  - name: subchart1
+    repository: http://localhost:10191
+    version: 0.1.0
+    condition: subchart1.enabled, global.subchart1.enabled
+    tags:
+      - front-end
+      - subchart1
 
-      - name: subchart2
-        repository: http://localhost:10191
-        version: 0.1.0
-        condition: subchart2.enabled,global.subchart2.enabled
-        tags:
+  - name: subchart2
+    repository: http://localhost:10191
+    version: 0.1.0
+    condition: subchart2.enabled,global.subchart2.enabled
+    tags:
           - back-end
           - subchart2
 ```
-```bash
+```yaml
 # parentchart/values.yaml
 
 subchart1:
