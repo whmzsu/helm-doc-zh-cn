@@ -66,7 +66,7 @@ data:
   dessert: cake
 ```
 
-## 覆盖父 chart 中的值
+## 覆盖子 chart 中的值
 
 我们原来的 chart，`mychart` 现在是其 `mysubchart` 的父 chart,。这种关系完全是因为 mysubchart 内在 mychart/charts 目录中。
 

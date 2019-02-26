@@ -39,8 +39,8 @@ Creating mychart
 看一下 `mychart/templates/` 目录，发现如下几个文件已经存在。
 
 - NOTES.txt：chart 的 “帮助文本”。这会在用户运行 `helm install` 时显示给用户。
-- deployment.yaml：创建 Kubernetes [deployment](http://kubernetes.io/docs/user-guide/deployments/) 的基本 manifest
-- service.yaml：为 deployment 创建 service 端点的基本 manifest
+- deployment.yaml：创建 Kubernetes [deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) 的基本 manifest
+- service.yaml：为 deployment 创建 service 端点 [service endpoint](https://kubernetes.io/docs/concepts/services-networking/service/) 的基本 manifest
 - `_helpers.tpl`：放置模板助手的地方，可以在整个 chart 中重复使用
 
 而我们要做的就是...... 全部删除它们！这样我们就可以从头开始学习我们的教程。实际上，我们将创建自己的 NOTES.txt 和_helpers.tpl。
@@ -124,7 +124,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
 ```

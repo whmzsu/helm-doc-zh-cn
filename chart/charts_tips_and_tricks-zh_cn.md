@@ -23,6 +23,13 @@ value: {{include "mytpl" . | lower | quote}}
 value: {{required "A valid .Values.who entry required!" .Values.who}}
 ```
 
+当使用 `include` 函数时，可以使用 `dict` 函数给它传递一个通过当前上下文自定义对象树。
+
+```yaml
+{{- include "mytpl" (dict "key1" .Values.originalKey1 "key2" .Values.originalKey2) }}
+```
+
+
 ## 引用字符串，不要引用整数
 
 当使用字符串数据时，引用字符串比把它们留为空白字符更安全：
@@ -192,7 +199,7 @@ metadata:
 
 下面的项目说明了两种强大的设计模式：
 
-**SAP's [OpenStack chart](https://github.com/sapcc/openstack-helm):**：该 chart 在 Kubernetes 上安装完整的 OpenStack IaaS。所有 chart 都收集在一个 GitHub 存储库中。
+**SAP's [OpenStack chart](https://github.com/sapcc/openstack-helm):**：该 chart 在 Kubernetes 上安装完整的 SAP 云的 OpenStack IaaS。所有 chart 都收集在一个 GitHub 存储库中，除了一些子模块。
 
 **Deis's [Workflow](https://github.com/deis/workflow/tree/master/charts/workflow):**： 该 chart 显示了整个 Deis PaaS 系统的一个 chart。但与 SAP chart 不同的是，该伞形 chart 是从每个组件构建而来的，每个组件都在不同的 Git 存储库中进行跟踪。查看 `requirements.yaml` 文件以查看此 chart 是如何由其 CI/CD 流水线组成的。
 

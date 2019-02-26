@@ -10,9 +10,9 @@ Helm 客户端可以从源代码安装，也可以从预构建的二进制版本
 
 ### 从二进制版本
 
-每一个版本 [release](https://github.com/helm/releases)Helm 提供多种操作系统的二进制版本。这些二进制版本可以手动下载和安装。
+每一个版本 [release](https://github.com/helm/helm/releases)Helm 提供多种操作系统的二进制版本。这些二进制版本可以手动下载和安装。
 
-1. 下载你 [想要的版本](https://github.com/helm/releases)
+1. 下载你 [想要的版本](https://github.com/helm/helm/releases)
 2. 解压缩（`tar -zxvf helm-v2.0.0-linux-amd64.tgz`）
 3. `helm` 在解压后的目录中找到二进制文件，并将其移动到所需的位置（`mv linux-amd64/helm /usr/local/bin/helm`）
 
@@ -35,13 +35,19 @@ brew install kubernetes-helm
 ```
 （注意：emacs-helm 也是一个软件，这是一个不同的项目。）
 
-### 从 Chocolatey（Windows）
+### 从 Chocolatey 或 scoop （Windows）
 
 Kubernetes 社区的成员为 Chocolatey 贡献了 Helm 包。这个软件包通常是最新的。
 
 ```
 choco install kubernetes-helm
 ```
+也可以通过 [`scoop`](https://scoop.sh) 命令行安装.
+
+```
+scoop install helm
+```
+
 
 ## 从脚本
 

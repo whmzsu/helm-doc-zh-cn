@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Values 文件 · Helm用户指南</title>
+        <title>Values 文件 · Helm用户与开发者指南</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -566,12 +566,27 @@
             
         </li>
     
-        <li class="chapter " data-level="5.10" data-path="notes_files-zh_cn.html">
+        <li class="chapter " data-level="5.10" data-path="helm_ignore_file-zh_cn.html">
+            
+                <a href="helm_ignore_file-zh_cn.html">
+            
+                    
+                        <b>5.10.</b>
+                    
+                    忽略不需要的文件和文件夹
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.11" data-path="notes_files-zh_cn.html">
             
                 <a href="notes_files-zh_cn.html">
             
                     
-                        <b>5.10.</b>
+                        <b>5.11.</b>
                     
                     notes 文件
             
@@ -581,12 +596,12 @@
             
         </li>
     
-        <li class="chapter " data-level="5.11" data-path="subcharts_and_globals-zh_cn.html">
+        <li class="chapter " data-level="5.12" data-path="subcharts_and_globals-zh_cn.html">
             
                 <a href="subcharts_and_globals-zh_cn.html">
             
                     
-                        <b>5.11.</b>
+                        <b>5.12.</b>
                     
                     子 chart 和全局值
             
@@ -596,12 +611,12 @@
             
         </li>
     
-        <li class="chapter " data-level="5.12" data-path="debugging-zh_cn.html">
+        <li class="chapter " data-level="5.13" data-path="debugging-zh_cn.html">
             
                 <a href="debugging-zh_cn.html">
             
                     
-                        <b>5.12.</b>
+                        <b>5.13.</b>
                     
                     调试模板
             
@@ -611,12 +626,12 @@
             
         </li>
     
-        <li class="chapter " data-level="5.13" data-path="wrapping_up-zh_cn.html">
+        <li class="chapter " data-level="5.14" data-path="wrapping_up-zh_cn.html">
             
                 <a href="wrapping_up-zh_cn.html">
             
                     
-                        <b>5.13.</b>
+                        <b>5.14.</b>
                     
                     总结
             
@@ -626,12 +641,12 @@
             
         </li>
     
-        <li class="chapter " data-level="5.14" data-path="yaml_techniques-zh_cn.html">
+        <li class="chapter " data-level="5.15" data-path="yaml_techniques-zh_cn.html">
             
                 <a href="yaml_techniques-zh_cn.html">
             
                     
-                        <b>5.14.</b>
+                        <b>5.15.</b>
                     
                     附录 1：Yaml 技巧
             
@@ -641,12 +656,12 @@
             
         </li>
     
-        <li class="chapter " data-level="5.15" data-path="data_types-zh_cn.html">
+        <li class="chapter " data-level="5.16" data-path="data_types-zh_cn.html">
             
                 <a href="data_types-zh_cn.html">
             
                     
-                        <b>5.15.</b>
+                        <b>5.16.</b>
                     
                     附录 2：数据类型
             
@@ -760,7 +775,7 @@
                     
                         <b>6.7.</b>
                     
-                    Pods and PodTemplates
+                    Pods 和 PodTemplates
             
                 </a>
             
@@ -911,7 +926,7 @@
 
     
         
-        <li class="header">何处寻找Charts</li>
+        <li class="header">何处寻找 Charts</li>
         
         
     
@@ -977,10 +992,10 @@
 <pre class="language-"><code class="lang-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Release.Name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span>.Release.Name<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
 <span class="token key atrule">data</span><span class="token punctuation">:</span>
   <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">&quot;Hello World&quot;</span>
-  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> .Values.favoriteDrink <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span>.Values.favoriteDrink<span class="token punctuation">}</span><span class="token punctuation">}</span>
 </code></pre>
 <p>&#x6CE8;&#x610F;&#x6211;&#x4EEC;&#x5728;&#x6700;&#x540E;&#x4E00;&#x884C; {{ .Values.favoriteDrink}} &#x83B7;&#x53D6; <code>favoriteDrink</code> &#x7684;&#x503C;&#x3002;</p>
 <p>&#x8BA9;&#x6211;&#x4EEC;&#x770B;&#x770B;&#x8FD9;&#x662F;&#x5982;&#x4F55;&#x6E32;&#x67D3;&#x7684;&#x3002;</p>
@@ -992,7 +1007,7 @@ TARGET NAMESPACE:   default
 CHART:  mychart 0.1.0
 MANIFEST:
 ---
-<span class="token comment" spellcheck="true"># Source: mychart/templates/configmap.yaml</span>
+<span class="token comment"># Source: mychart/templates/configmap.yaml</span>
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -1002,38 +1017,40 @@ data:
   drink: coffee
 </code></pre>
 <p>&#x7531;&#x4E8E; <code>favoriteDrink</code> &#x5728;&#x9ED8;&#x8BA4; <code>values.yaml</code> &#x6587;&#x4EF6;&#x4E2D;&#x8BBE;&#x7F6E;&#x4E3A; <code>coffee</code>&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x6A21;&#x677F;&#x4E2D;&#x663E;&#x793A;&#x7684;&#x503C;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8F7B;&#x677E;&#x5730;&#x5728;&#x6211;&#x4EEC;&#x7684; helm install &#x547D;&#x4EE4;&#x4E2D;&#x901A;&#x8FC7;&#x52A0;&#x4E00;&#x4E2A; <code>--set</code> &#x6DFB;&#x6807;&#x5FD7;&#x6765;&#x8986;&#x76D6;&#xFF1A;</p>
-<pre class="language-"><code>helm install --dry-run --debug --set favoriteDrink=slurm ./mychart
-SERVER: &quot;localhost:44134&quot;
+<pre class="language-"><code class="lang-bash">helm <span class="token function">install</span> --dry-run --debug --set favoriteDrink<span class="token operator">=</span>slurm ./mychart
+SERVER: <span class="token string">&quot;localhost:44134&quot;</span>
 CHART PATH: /Users/mattbutcher/Code/Go/src/k8s.io/helm/_scratch/mychart
 NAME:   solid-vulture
 TARGET NAMESPACE:   default
 CHART:  mychart 0.1.0
 MANIFEST:
 ---
-# Source: mychart/templates/configmap.yaml
+<span class="token comment"># Source: mychart/templates/configmap.yaml</span>
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: solid-vulture-configmap
 data:
-  myvalue: &quot;Hello World&quot;
+  myvalue: <span class="token string">&quot;Hello World&quot;</span>
   drink: slurm
-</code></pre><p>&#x7531;&#x4E8E; <code>--set</code> &#x6BD4;&#x9ED8;&#x8BA4; <code>values.yaml</code> &#x6587;&#x4EF6;&#x5177;&#x6709;&#x66F4;&#x9AD8;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x6A21;&#x677F;&#x751F;&#x6210; <code>drink: slurm</code>&#x3002;</p>
+</code></pre>
+<p>&#x7531;&#x4E8E; <code>--set</code> &#x6BD4;&#x9ED8;&#x8BA4; <code>values.yaml</code> &#x6587;&#x4EF6;&#x5177;&#x6709;&#x66F4;&#x9AD8;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x6A21;&#x677F;&#x751F;&#x6210; <code>drink: slurm</code>&#x3002;</p>
 <p>values &#x6587;&#x4EF6;&#x4E5F;&#x53EF;&#x4EE5;&#x5305;&#x542B;&#x66F4;&#x591A;&#x7ED3;&#x6784;&#x5316;&#x5185;&#x5BB9;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x6211;&#x4EEC;&#x5728; values.yaml &#x6587;&#x4EF6;&#x4E2D;&#x53EF;&#x4EE5;&#x521B;&#x5EFA; <code>favorite</code> &#x90E8;&#x5206;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x5176;&#x4E2D;&#x6DFB;&#x52A0;&#x51E0;&#x4E2A;&#x952E;&#xFF1A;</p>
 <pre class="language-"><code class="lang-yaml"><span class="token key atrule">favorite</span><span class="token punctuation">:</span>
   <span class="token key atrule">drink</span><span class="token punctuation">:</span> coffee
   <span class="token key atrule">food</span><span class="token punctuation">:</span> pizza
 </code></pre>
 <p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x7A0D;&#x5FAE;&#x4FEE;&#x6539;&#x6A21;&#x677F;&#xFF1A;</p>
-<pre class="language-"><code>apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Release.Name }}-configmap
-data:
-  myvalue: &quot;Hello World&quot;
-  drink: {{ .Values.favorite.drink }}
-  food: {{ .Values.favorite.food }}
-</code></pre><p>&#x867D;&#x7136;&#x4EE5;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x6784;&#x5EFA;&#x6570;&#x636E;&#x662F;&#x53EF;&#x4EE5;&#x7684;&#xFF0C;&#x4F46;&#x5EFA;&#x8BAE;&#x4FDD;&#x6301; value &#x6811;&#x6D45;&#x4E00;&#x4E9B;&#xFF0C;&#x5E73;&#x4E00;&#x4E9B;&#x3002;&#x5F53;&#x6211;&#x4EEC;&#x770B;&#x770B;&#x4E3A;&#x5B50; chart &#x5206;&#x914D;&#x503C;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x770B;&#x5230;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x6811;&#x7ED3;&#x6784;&#x6765;&#x547D;&#x540D;&#x503C;&#x3002;</p>
+<pre class="language-"><code class="lang-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span>.Release.Name<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">-</span>configmap
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">myvalue</span><span class="token punctuation">:</span> <span class="token string">&quot;Hello World&quot;</span>
+  <span class="token key atrule">drink</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span>.Values.favorite.drink<span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">food</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span>.Values.favorite.food<span class="token punctuation">}</span><span class="token punctuation">}</span>
+</code></pre>
+<p>&#x867D;&#x7136;&#x4EE5;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x6784;&#x5EFA;&#x6570;&#x636E;&#x662F;&#x53EF;&#x4EE5;&#x7684;&#xFF0C;&#x4F46;&#x5EFA;&#x8BAE;&#x4FDD;&#x6301; value &#x6811;&#x6D45;&#x4E00;&#x4E9B;&#xFF0C;&#x5E73;&#x4E00;&#x4E9B;&#x3002;&#x5F53;&#x6211;&#x4EEC;&#x770B;&#x770B;&#x4E3A;&#x5B50; chart &#x5206;&#x914D;&#x503C;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x770B;&#x5230;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x6811;&#x7ED3;&#x6784;&#x6765;&#x547D;&#x540D;&#x503C;&#x3002;</p>
 <h2 id="&#x5220;&#x9664;&#x9ED8;&#x8BA4;-key">&#x5220;&#x9664;&#x9ED8;&#x8BA4; key</h2>
 <p>&#x5982;&#x679C;&#x60A8;&#x9700;&#x8981;&#x4ECE;&#x9ED8;&#x8BA4;&#x503C;&#x4E2D;&#x5220;&#x9664;&#x4E00;&#x4E2A;&#x952E;&#xFF0C;&#x53EF;&#x4EE5;&#x8986;&#x76D6;&#x8BE5;&#x952E;&#x7684;&#x503C;&#x4E3A; null&#xFF0C;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;Helm &#x5C06;&#x4ECE;&#x8986;&#x76D6;&#x503C;&#x5408;&#x5E76;&#x4E2D;&#x5220;&#x9664;&#x8BE5;&#x952E;&#x3002;</p>
 <p>&#x4F8B;&#x5982;&#xFF0C;stable &#x7248;&#x672C;&#x7684; Drupal chart &#x5141;&#x8BB8;&#x914D;&#x7F6E; liveness &#x63A2;&#x6D4B;&#x5668;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x914D;&#x7F6E;&#x81EA;&#x5B9A;&#x4E49;&#x7684; image&#x3002;&#x4EE5;&#x4E0B;&#x662F;&#x9ED8;&#x8BA4;&#x503C;&#xFF1A;</p>
@@ -1059,7 +1076,7 @@ data:
 </code></pre>
 <p>&#x5230;&#x8FD9;&#x91CC;&#xFF0C;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x770B;&#x5230;&#x4E86;&#x51E0;&#x4E2A;&#x5185;&#x7F6E;&#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x7528;&#x5B83;&#x4EEC;&#x5C06;&#x4FE1;&#x606F;&#x6CE8;&#x5165;&#x5230;&#x6A21;&#x677F;&#x4E2D;&#x3002;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x770B;&#x6A21;&#x677F;&#x5F15;&#x64CE;&#x7684;&#x53E6;&#x5916;&#x5185;&#x5BB9;&#xFF1A;&#x51FD;&#x6570;&#x548C;&#x7BA1;&#x9053;&#x3002;</p>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; Mingo(whmzsu@gmail.com) 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
-2018-06-29 10:04:32
+2019-02-26 15:18:27
 </span></footer>
                                 
                                 </section>
@@ -1103,7 +1120,7 @@ data:
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Values 文件","level":"5.4","depth":1,"next":{"title":"函数和管道","level":"5.5","depth":1,"path":"chart_template_guide/functions_and_pipelines-zh_cn.md","ref":"chart_template_guide/functions_and_pipelines-zh_cn.md","articles":[]},"previous":{"title":"内置对象","level":"5.3","depth":1,"path":"chart_template_guide/builtin_objects-zh_cn.md","ref":"chart_template_guide/builtin_objects-zh_cn.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","3-ba","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","theme-default","-highlight","prism","prism-themes","livereload"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © Mingo(whmzsu@gmail.com) 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prism-themes/themes/prism-ghcolors.css"]},"github":{"url":"https://github.com/whmzsu/helm-doc-zh-cn"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/whmzsu/helm-doc-zh-cn/blob/master/"},"livereload":{},"splitter":{},"codesnippet":{},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"whmzsu/helm-doc-zh-cn","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"4c047edc6924037f9f149230b592da80"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"Mingo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.1","level":"4.4","list_caption":"Figure: Create a GCS Bucket","alt":"Create a GCS Bucket","nro":1,"url":"../images/create-a-bucket.png","index":1,"caption_template":"图片 - _CAPTION_","label":"Create a GCS Bucket","attributes":{},"skip":false,"key":"4.4.1"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.2","level":"4.4","list_caption":"Figure: Edit Permissions","alt":"Edit Permissions","nro":2,"url":"../images/edit-permissions.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Edit Permissions","attributes":{},"skip":false,"key":"4.4.2"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.3","level":"4.4","list_caption":"Figure: Make Bucket Public","alt":"Make Bucket Public","nro":3,"url":"../images/make-bucket-public.png","index":3,"caption_template":"图片 - _CAPTION_","label":"Make Bucket Public","attributes":{},"skip":false,"key":"4.4.3"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.4","level":"4.4","list_caption":"Figure: Create Github Pages branch","alt":"Create Github Pages branch","nro":4,"url":"../images/create-a-gh-page-button.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Create Github Pages branch","attributes":{},"skip":false,"key":"4.4.4"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.5","level":"4.4","list_caption":"Figure: Create Github Pages branch","alt":"Create Github Pages branch","nro":5,"url":"../images/set-a-gh-page.png","index":5,"caption_template":"图片 - _CAPTION_","label":"Create Github Pages branch","attributes":{},"skip":false,"key":"4.4.5"}]},"title":"Helm用户指南","language":"zh-hans","gitbook":"*","description":"Helm用户指南|Helm User Guide|Mingo|吴洪明"},"file":{"path":"chart_template_guide/values_files-zh_cn.md","mtime":"2018-06-29T02:04:32.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-24T02:26:28.756Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Values 文件","level":"5.4","depth":1,"next":{"title":"函数和管道","level":"5.5","depth":1,"path":"chart_template_guide/functions_and_pipelines-zh_cn.md","ref":"chart_template_guide/functions_and_pipelines-zh_cn.md","articles":[]},"previous":{"title":"内置对象","level":"5.3","depth":1,"path":"chart_template_guide/builtin_objects-zh_cn.md","ref":"chart_template_guide/builtin_objects-zh_cn.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","3-ba","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","theme-default","-highlight","prism","prism-themes","livereload"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © Mingo(whmzsu@gmail.com) 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prism-themes/themes/prism-ghcolors.css"]},"github":{"url":"https://github.com/whmzsu/helm-doc-zh-cn"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/whmzsu/helm-doc-zh-cn/blob/master/"},"livereload":{},"splitter":{},"codesnippet":{},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"whmzsu/helm-doc-zh-cn","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"4c047edc6924037f9f149230b592da80"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"Mingo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.1","level":"4.4","list_caption":"Figure: Create a GCS Bucket","alt":"Create a GCS Bucket","nro":1,"url":"../images/create-a-bucket.png","index":1,"caption_template":"图片 - _CAPTION_","label":"Create a GCS Bucket","attributes":{},"skip":false,"key":"4.4.1"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.2","level":"4.4","list_caption":"Figure: Edit Permissions","alt":"Edit Permissions","nro":2,"url":"../images/edit-permissions.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Edit Permissions","attributes":{},"skip":false,"key":"4.4.2"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.3","level":"4.4","list_caption":"Figure: Make Bucket Public","alt":"Make Bucket Public","nro":3,"url":"../images/make-bucket-public.png","index":3,"caption_template":"图片 - _CAPTION_","label":"Make Bucket Public","attributes":{},"skip":false,"key":"4.4.3"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.4","level":"4.4","list_caption":"Figure: Create Github Pages branch","alt":"Create Github Pages branch","nro":4,"url":"../images/create-a-gh-page-button.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Create Github Pages branch","attributes":{},"skip":false,"key":"4.4.4"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.5","level":"4.4","list_caption":"Figure: Create Github Pages branch","alt":"Create Github Pages branch","nro":5,"url":"../images/set-a-gh-page.png","index":5,"caption_template":"图片 - _CAPTION_","label":"Create Github Pages branch","attributes":{},"skip":false,"key":"4.4.5"}]},"title":"Helm用户与开发者指南","language":"zh-hans","gitbook":"*","description":"Helm用户与开发者指南|Helm User and Developer'S Guide|Mingo|吴洪明"},"file":{"path":"chart_template_guide/values_files-zh_cn.md","mtime":"2019-02-26T07:18:27.215Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-02-26T08:12:55.892Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

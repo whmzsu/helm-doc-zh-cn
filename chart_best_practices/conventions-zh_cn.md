@@ -23,7 +23,7 @@ Chart 名称中不能使用大写字母和下划线。Chart 名称不应使用�
 
 ## 版本号
 
-只要有可能，Helm 使用 [SemVer 2](http://semver.org) 来表示版本号。（请注意，Docker 镜像 tag 不一定遵循 SemVer，因此被视为该规则的一个例外。）
+只要有可能，Helm 使用 [SemVer 2](https://semver.org) 来表示版本号。（请注意，Docker 镜像 tag 不一定遵循 SemVer，因此被视为该规则的一个例外。）
 
 当 SemVer 版本存储在 Kubernetes 标签中时，我们通常会将该 `+` 字符更改为一个 `_` 字符，因为标签不允许 `+` 标志作为值。
 

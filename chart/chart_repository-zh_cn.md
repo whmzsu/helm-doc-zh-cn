@@ -94,6 +94,36 @@ Now serving you on 127.0.0.1:8879
 
 本部分介绍了提供 chart 库的几种方法。
 
+### ChartMuseum
+
+Helm 提供了一个 open-source Helm 库服务叫 [ChartMuseum](https://chartmuseum.com) ，你可以自己托管这个服务.
+
+ChartMuseum 支撑多种云存储后端. 配置它指向你存放 chart 包的目录或者 bucket，index.yaml 文件会自动动态生成。
+
+它也可以通过 [Helm chart](https://github.com/helm/charts/tree/master/stable/chartmuseum) 部署:
+```
+helm install stable/chartmuseum
+```
+
+或者 [Docker image](https://hub.docker.com/r/chartmuseum/chartmuseum/tags):
+```
+docker run --rm -it \
+  -p 8080:8080 \
+  -v $(pwd)/charts:/charts \
+  -e DEBUG=true \
+  -e STORAGE=local \
+  -e STORAGE_LOCAL_ROOTDIR=/charts \
+  chartmuseum/chartmuseum
+```
+
+你可以将它加到本地存储库:
+```
+helm repo add chartmuseum http://localhost:8080
+```
+
+ChartMuseum 提供其他特性, 如 chart 上传的 API. 查看更多信息 [README](https://github.com/helm/chartmuseum).
+
+
 ### Google 云端存储
 
 第一步是创建 GCS 存储桶。我们会给我们称之为 `fantastic-charts`。

@@ -57,7 +57,7 @@ tillerVersion: The version of Tiller that this chart requires. This should be ex
 其他字段将被忽略。
 
 ### Charts 和版本控制
-每个 chart 都必须有一个版本号。版本必须遵循 [SemVer 2](http://semver.org/) 标准。与 Helm Class 格式不同，Kubernetes Helm 使用版本号作为发布标记。存储库中的软件包由名称加版本识别。
+每个 chart 都必须有一个版本号。版本必须遵循 [SemVer 2](https://semver.org/) 标准。与 Helm Class 格式不同，Kubernetes Helm 使用版本号作为发布标记。存储库中的软件包由名称加版本识别。
 
 例如，`nginx` version 字段设置为 1.2.3 将被命名为：
 
@@ -84,7 +84,11 @@ nginx-1.2.3.tgz
 -   从源代码库中删除 chart（例如 git）
 
 ## Chart 许可证文件，自述文件和说明文件
-chart 还可以包含描述 chart 的安装，配置，使用和许可证的文件。chart 的自述文件应由 Markdown（README.md）语法格式化，并且通常应包含：
+Chart 还可以包含描述 chart 的安装，配置，使用和许可证的文件。
+
+LICENSE 文件是一个纯文本文件，包含 chart 的 [许可证]（https://en.wikipedia.org/wiki/Software_license）。 Chart 可以包含许可证，它可能在模板中具有编程逻辑，因此不仅仅是配置。 如果需要，还可以为 chart 安装的应用程序提供单独的许可证。
+
+Chart 的自述文件应由 Markdown（README.md）语法格式化，并且通常应包含：
 
 -   chart 提供的应用程序或服务的描述
 -   运行 chart 的任何前提条件或要求
@@ -188,26 +192,26 @@ Condition - condition 字段包含一个或多个 YAML 路径（用逗号分隔�
 
 Tags - 标签字段是与此 chart 关联的 YAML 标签列表。在顶级父级的值中，可以通过指定标签和布尔值来启用或禁用所有带有标签的 chart。
 
-```bash
+```yaml
 # parentchart/requirements.yaml
 dependencies:
-      - name: subchart1
-        repository: http://localhost:10191
-        version: 0.1.0
-        condition: subchart1.enabled, global.subchart1.enabled
-        tags:
-          - front-end
-          - subchart1
+  - name: subchart1
+    repository: http://localhost:10191
+    version: 0.1.0
+    condition: subchart1.enabled, global.subchart1.enabled
+    tags:
+      - front-end
+      - subchart1
 
-      - name: subchart2
-        repository: http://localhost:10191
-        version: 0.1.0
-        condition: subchart2.enabled,global.subchart2.enabled
-        tags:
-          - back-end
-          - subchart2
+  - name: subchart2
+    repository: http://localhost:10191
+    version: 0.1.0
+    condition: subchart2.enabled,global.subchart2.enabled
+    tags:
+      - back-end
+      - subchart2
 ```
-```bash
+```yaml
 # parentchart/values.yaml
 
 subchart1:
@@ -609,7 +613,7 @@ apache:
 
 -   [Go templates](https://godoc.org/text/template)
 -   [Extra template functions](https://godoc.org/github.com/Masterminds/sprig)
--   [The YAML format](http://yaml.org/spec/)
+-   [The YAML format](https://yaml.org/spec/)
 
 ## 使用 Helm 管理 chart
 

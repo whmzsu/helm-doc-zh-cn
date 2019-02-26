@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Templates · Helm用户指南</title>
+        <title>Templates · Helm用户与开发者指南</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -566,12 +566,27 @@
             
         </li>
     
-        <li class="chapter " data-level="5.10" data-path="../chart_template_guide/notes_files-zh_cn.html">
+        <li class="chapter " data-level="5.10" data-path="../chart_template_guide/helm_ignore_file-zh_cn.html">
+            
+                <a href="../chart_template_guide/helm_ignore_file-zh_cn.html">
+            
+                    
+                        <b>5.10.</b>
+                    
+                    忽略不需要的文件和文件夹
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.11" data-path="../chart_template_guide/notes_files-zh_cn.html">
             
                 <a href="../chart_template_guide/notes_files-zh_cn.html">
             
                     
-                        <b>5.10.</b>
+                        <b>5.11.</b>
                     
                     notes 文件
             
@@ -581,12 +596,12 @@
             
         </li>
     
-        <li class="chapter " data-level="5.11" data-path="../chart_template_guide/subcharts_and_globals-zh_cn.html">
+        <li class="chapter " data-level="5.12" data-path="../chart_template_guide/subcharts_and_globals-zh_cn.html">
             
                 <a href="../chart_template_guide/subcharts_and_globals-zh_cn.html">
             
                     
-                        <b>5.11.</b>
+                        <b>5.12.</b>
                     
                     子 chart 和全局值
             
@@ -596,12 +611,12 @@
             
         </li>
     
-        <li class="chapter " data-level="5.12" data-path="../chart_template_guide/debugging-zh_cn.html">
+        <li class="chapter " data-level="5.13" data-path="../chart_template_guide/debugging-zh_cn.html">
             
                 <a href="../chart_template_guide/debugging-zh_cn.html">
             
                     
-                        <b>5.12.</b>
+                        <b>5.13.</b>
                     
                     调试模板
             
@@ -611,12 +626,12 @@
             
         </li>
     
-        <li class="chapter " data-level="5.13" data-path="../chart_template_guide/wrapping_up-zh_cn.html">
+        <li class="chapter " data-level="5.14" data-path="../chart_template_guide/wrapping_up-zh_cn.html">
             
                 <a href="../chart_template_guide/wrapping_up-zh_cn.html">
             
                     
-                        <b>5.13.</b>
+                        <b>5.14.</b>
                     
                     总结
             
@@ -626,12 +641,12 @@
             
         </li>
     
-        <li class="chapter " data-level="5.14" data-path="../chart_template_guide/yaml_techniques-zh_cn.html">
+        <li class="chapter " data-level="5.15" data-path="../chart_template_guide/yaml_techniques-zh_cn.html">
             
                 <a href="../chart_template_guide/yaml_techniques-zh_cn.html">
             
                     
-                        <b>5.14.</b>
+                        <b>5.15.</b>
                     
                     附录 1：Yaml 技巧
             
@@ -641,12 +656,12 @@
             
         </li>
     
-        <li class="chapter " data-level="5.15" data-path="../chart_template_guide/data_types-zh_cn.html">
+        <li class="chapter " data-level="5.16" data-path="../chart_template_guide/data_types-zh_cn.html">
             
                 <a href="../chart_template_guide/data_types-zh_cn.html">
             
                     
-                        <b>5.15.</b>
+                        <b>5.16.</b>
                     
                     附录 2：数据类型
             
@@ -760,7 +775,7 @@
                     
                         <b>6.7.</b>
                     
-                    Pods and PodTemplates
+                    Pods 和 PodTemplates
             
                 </a>
             
@@ -911,7 +926,7 @@
 
     
         
-        <li class="header">何处寻找Charts</li>
+        <li class="header">何处寻找 Charts</li>
         
         
     
@@ -1070,7 +1085,7 @@
 <h2 id="&#x6CE8;&#x91CA;&#xFF08;yaml-&#x6CE8;&#x91CA;&#x4E0E;&#x6A21;&#x677F;&#x6CE8;&#x91CA;&#xFF09;">&#x6CE8;&#x91CA;&#xFF08;YAML &#x6CE8;&#x91CA;&#x4E0E;&#x6A21;&#x677F;&#x6CE8;&#x91CA;&#xFF09;</h2>
 <p>YAML &#x548C;&#x5934;&#x76D4;&#x6A21;&#x677F;&#x90FD;&#x6709;&#x6CE8;&#x91CA;&#x6807;&#x8BB0;&#x3002;</p>
 <p>YAML &#x6CE8;&#x91CA;&#xFF1A;</p>
-<pre class="language-"><code class="lang-yaml"><span class="token comment" spellcheck="true"># This is a comment</span>
+<pre class="language-"><code class="lang-yaml"><span class="token comment"># This is a comment</span>
 <span class="token key atrule">type</span><span class="token punctuation">:</span> sprocket
 </code></pre>
 <p>&#x6A21;&#x677F;&#x6CE8;&#x91CA;&#xFF1A;</p>
@@ -1104,7 +1119,7 @@ memory: {{.Values.maxMem | quote}}
 <p>&#x4F7F;&#x7528; JSON &#x589E;&#x52A0;&#x6613;&#x8BFB;&#x6027;&#x662F;&#x5F88;&#x597D;&#x7684;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x4E0D;&#x5E94;&#x8BE5;&#x4F7F;&#x7528; JSON &#x8BED;&#x6CD5;&#x6765;&#x8868;&#x793A;&#x66F4;&#x590D;&#x6742;&#x7684;&#x6784;&#x9020;&#x3002;</p>
 <p>&#x5728;&#x5904;&#x7406;&#x5D4C;&#x5165;&#x5230;YAML&#x4E2D;&#x7684;&#x7EAF;JSON&#x65F6;&#xFF08;&#x4F8B;&#x5982;init&#x5BB9;&#x5668;&#x914D;&#x7F6E;&#xFF09;&#xFF0C;&#x4F7F;&#x7528;JSON&#x683C;&#x5F0F;&#x5F53;&#x7136;&#x662F;&#x5408;&#x9002;&#x7684;&#x3002;</p>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; Mingo(whmzsu@gmail.com) 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
-2018-11-24 09:50:30
+2019-01-08 11:58:33
 </span></footer>
                                 
                                 </section>
@@ -1148,7 +1163,7 @@ memory: {{.Values.maxMem | quote}}
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Templates","level":"6.4","depth":1,"next":{"title":"Requirements","level":"6.5","depth":1,"path":"chart_best_practices/requirements-zh_cn.md","ref":"chart_best_practices/requirements-zh_cn.md","articles":[]},"previous":{"title":"Values","level":"6.3","depth":1,"path":"chart_best_practices/values-zh_cn.md","ref":"chart_best_practices/values-zh_cn.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","3-ba","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","theme-default","-highlight","prism","prism-themes","livereload"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © Mingo(whmzsu@gmail.com) 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prism-themes/themes/prism-ghcolors.css"]},"github":{"url":"https://github.com/whmzsu/helm-doc-zh-cn"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/whmzsu/helm-doc-zh-cn/blob/master/"},"livereload":{},"splitter":{},"codesnippet":{},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"whmzsu/helm-doc-zh-cn","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"4c047edc6924037f9f149230b592da80"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"Mingo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.1","level":"4.4","list_caption":"Figure: Create a GCS Bucket","alt":"Create a GCS Bucket","nro":1,"url":"../images/create-a-bucket.png","index":1,"caption_template":"图片 - _CAPTION_","label":"Create a GCS Bucket","attributes":{},"skip":false,"key":"4.4.1"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.2","level":"4.4","list_caption":"Figure: Edit Permissions","alt":"Edit Permissions","nro":2,"url":"../images/edit-permissions.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Edit Permissions","attributes":{},"skip":false,"key":"4.4.2"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.3","level":"4.4","list_caption":"Figure: Make Bucket Public","alt":"Make Bucket Public","nro":3,"url":"../images/make-bucket-public.png","index":3,"caption_template":"图片 - _CAPTION_","label":"Make Bucket Public","attributes":{},"skip":false,"key":"4.4.3"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.4","level":"4.4","list_caption":"Figure: Create Github Pages branch","alt":"Create Github Pages branch","nro":4,"url":"../images/create-a-gh-page-button.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Create Github Pages branch","attributes":{},"skip":false,"key":"4.4.4"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.5","level":"4.4","list_caption":"Figure: Create Github Pages branch","alt":"Create Github Pages branch","nro":5,"url":"../images/set-a-gh-page.png","index":5,"caption_template":"图片 - _CAPTION_","label":"Create Github Pages branch","attributes":{},"skip":false,"key":"4.4.5"}]},"title":"Helm用户指南","language":"zh-hans","gitbook":"*","description":"Helm用户指南|Helm User Guide|Mingo|吴洪明"},"file":{"path":"chart_best_practices/templates-zh_cn.md","mtime":"2018-11-24T01:50:30.199Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-24T02:26:28.756Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Templates","level":"6.4","depth":1,"next":{"title":"Requirements","level":"6.5","depth":1,"path":"chart_best_practices/requirements-zh_cn.md","ref":"chart_best_practices/requirements-zh_cn.md","articles":[]},"previous":{"title":"Values","level":"6.3","depth":1,"path":"chart_best_practices/values-zh_cn.md","ref":"chart_best_practices/values-zh_cn.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","3-ba","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","theme-default","-highlight","prism","prism-themes","livereload"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © Mingo(whmzsu@gmail.com) 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prism-themes/themes/prism-ghcolors.css"]},"github":{"url":"https://github.com/whmzsu/helm-doc-zh-cn"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/whmzsu/helm-doc-zh-cn/blob/master/"},"livereload":{},"splitter":{},"codesnippet":{},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"whmzsu/helm-doc-zh-cn","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"4c047edc6924037f9f149230b592da80"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"Mingo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.1","level":"4.4","list_caption":"Figure: Create a GCS Bucket","alt":"Create a GCS Bucket","nro":1,"url":"../images/create-a-bucket.png","index":1,"caption_template":"图片 - _CAPTION_","label":"Create a GCS Bucket","attributes":{},"skip":false,"key":"4.4.1"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.2","level":"4.4","list_caption":"Figure: Edit Permissions","alt":"Edit Permissions","nro":2,"url":"../images/edit-permissions.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Edit Permissions","attributes":{},"skip":false,"key":"4.4.2"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.3","level":"4.4","list_caption":"Figure: Make Bucket Public","alt":"Make Bucket Public","nro":3,"url":"../images/make-bucket-public.png","index":3,"caption_template":"图片 - _CAPTION_","label":"Make Bucket Public","attributes":{},"skip":false,"key":"4.4.3"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.4","level":"4.4","list_caption":"Figure: Create Github Pages branch","alt":"Create Github Pages branch","nro":4,"url":"../images/create-a-gh-page-button.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Create Github Pages branch","attributes":{},"skip":false,"key":"4.4.4"},{"backlink":"chart/chart_repository-zh_cn.html#fig4.4.5","level":"4.4","list_caption":"Figure: Create Github Pages branch","alt":"Create Github Pages branch","nro":5,"url":"../images/set-a-gh-page.png","index":5,"caption_template":"图片 - _CAPTION_","label":"Create Github Pages branch","attributes":{},"skip":false,"key":"4.4.5"}]},"title":"Helm用户与开发者指南","language":"zh-hans","gitbook":"*","description":"Helm用户与开发者指南|Helm User and Developer'S Guide|Mingo|吴洪明"},"file":{"path":"chart_best_practices/templates-zh_cn.md","mtime":"2019-01-08T03:58:33.370Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-02-26T08:12:55.892Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
