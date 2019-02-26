@@ -36,10 +36,10 @@
 - [测试](chart/chart_tests-zh_cn.md)
 - [Repository FAQ](chart/chart_repository_faq-zh_cn.md)
 
-### 开发模板
+### 开发 chart 模板
 
 - [介绍](chart_template_guide/index-zh_cn.md)
-- [快速入门](chart_template_guide/getting_started-zh_cn.md)
+- [入门](chart_template_guide/getting_started-zh_cn.md)
 - [内置对象](chart_template_guide/builtin_objects-zh_cn.md)
 - [Values 文件](chart_template_guide/values_files-zh_cn.md)
 - [函数和管道](chart_template_guide/functions_and_pipelines-zh_cn.md)
@@ -47,6 +47,7 @@
 - [变量](chart_template_guide/variables-zh_cn.md)
 - [命名模板](chart_template_guide/named_templates-zh_cn.md)
 - [访问文件](chart_template_guide/accessing_files-zh_cn.md)
+- [忽略不需要的文件和文件夹](chart_template_guide/helm_ignore_file-zh_cn.md)
 - [notes 文件](chart_template_guide/notes_files-zh_cn.md)
 - [子 chart 和全局值](chart_template_guide/subcharts_and_globals-zh_cn.md)
 - [调试模板](chart_template_guide/debugging-zh_cn.md)
@@ -54,8 +55,7 @@
 - [附录 1：Yaml 技巧](chart_template_guide/yaml_techniques-zh_cn.md)
 - [附录 2：数据类型](chart_template_guide/data_types-zh_cn.md)
 
-### 最佳实践
-
+### chart 最佳实践
 - [介绍](chart_best_practices/README-zh_cn.md)
 - [通用约定](chart_best_practices/conventions-zh_cn.md)
 - [Values](chart_best_practices/values-zh_cn.md)

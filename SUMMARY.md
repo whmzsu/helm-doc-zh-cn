@@ -1,4 +1,5 @@
 # 目录
+
 ### 前言
 
   - [序言](README.md)
@@ -38,6 +39,7 @@
 - [变量](chart_template_guide/variables-zh_cn.md)
 - [命名模板](chart_template_guide/named_templates-zh_cn.md)
 - [访问文件](chart_template_guide/accessing_files-zh_cn.md)
+- [忽略不需要的文件和文件夹](chart_template_guide/helm_ignore_file-zh_cn.md)
 - [notes 文件](chart_template_guide/notes_files-zh_cn.md)
 - [子 chart 和全局值](chart_template_guide/subcharts_and_globals-zh_cn.md)
 - [调试模板](chart_template_guide/debugging-zh_cn.md)
@@ -52,7 +54,7 @@
 - [Templates](chart_best_practices/templates-zh_cn.md)
 - [Requirements](chart_best_practices/requirements-zh_cn.md)
 - [Labels 和 Annotations](chart_best_practices/labels-zh_cn.md)
-- [Pods and PodTemplates](chart_best_practices/pods-zh_cn.md)
+- [Pods 和 PodTemplates](chart_best_practices/pods-zh_cn.md)
 - [资源定义定制](chart_best_practices/custom_resource_definitions-zh_cn.md)
 - [RBAC](chart_best_practices/rbac-zh_cn.md)
 
@@ -71,4 +73,4 @@
 ### 术语表
 - [术语表](glossary-zh_cn.md)
 
-### [何处寻找Charts](https://hub.kubeapps.com/)
+### [何处寻找 Charts](https://hub.kubeapps.com/)
