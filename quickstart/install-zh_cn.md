@@ -35,13 +35,19 @@ brew install kubernetes-helm
 ```
 （注意：emacs-helm 也是一个软件，这是一个不同的项目。）
 
-### 从 Chocolatey（Windows）
+### 从 Chocolatey 或 scoop （Windows）
 
 Kubernetes 社区的成员为 Chocolatey 贡献了 Helm 包。这个软件包通常是最新的。
 
 ```
 choco install kubernetes-helm
 ```
+也可以通过 [`scoop`](https://scoop.sh) 命令行安装.
+
+```
+scoop install helm
+```
+
 
 ## 从脚本
 

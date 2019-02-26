@@ -67,7 +67,7 @@ spec:
 
 ## 在 release 上运行测试套件的步骤
 
-1. `$ helm install wordpress`
+1. `$ helm install stable\wordpress`
 ```
 NAME:   quirky-walrus
 LAST DEPLOYED: Mon Feb 13 13:50:43 2017

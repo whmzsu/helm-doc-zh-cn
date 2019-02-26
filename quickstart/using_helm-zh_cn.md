@@ -7,7 +7,7 @@
 
 一个 *Chart* 是一个 Helm 包。它包含在 Kubernetes 集群内部运行应用程序，工具或服务所需的所有资源定义。把它想像为一个自制软件，一个 Apt dpkg 或一个 Yum RPM 文件的 Kubernetes 环境里面的等价物。
 
-一个 *Repository* 是 Charts 收集和共享的地方。它就像 Perl 的 [CPAN archive](http://www.cpan.org) 或 Fedora 软件包 repo[Fedora Package Database](https://admin.fedoraproject.org/pkgdb/)。
+一个 *Repository* 是 Charts 收集和共享的地方。它就像 Perl 的 [CPAN archive](https://www.cpan.org) 或 Fedora 软件包 repo[Fedora Package Database](https://admin.fedoraproject.org/pkgdb/)。
 
 一个 *Release* 是处于 Kubernetes 集群中运行的 Chart 的一个实例。一个 chart 通常可以多次安装到同一个群集中。每次安装时，都会创建一个新 _release_ 。比如像一个 MySQL chart。如果希望在群集中运行两个数据库，则可以安装该 chart 两次。每个都有自己的 _release_，每个 _release_ 都有自己的 _release name_。
 
@@ -150,7 +150,7 @@ imageTag: 10.1.14-r3
 
 ## Specify a imagePullPolicy
 ## Default to 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
-## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
 ##
 # imagePullPolicy:
 
@@ -174,7 +174,10 @@ imageTag: 10.1.14-r3
 然后，可以在 YAML 格式的文件中覆盖任何这些设置，然后在安装过程中使用该文件。
 
 ```bash
-$ echo '{mariadbUser: user0, mariadbDatabase: user0db}' > config.yaml
+$ cat <<EOF>  config.yaml
+mariadbUser: user0
+mariadbDatabase: user0db
+EOF
 $ helm install -f config.yaml stable/mariadb
 ```
 

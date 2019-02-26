@@ -150,7 +150,7 @@ Provenance 文件包含 chart 的 YAML 文件以及几条验证信息。Provenan
 
 - 包含 chart 文件（Chart.yaml）可以让人员和工具轻松查看 chart 内容。
 - 包括 chart 包（.tgz 文件）的签名（SHA256，就像 Docker）一样，可用于验证 chart 包的完整性。
-- 整个文件使用 PGP 使用的算法进行签名（参见 [http://keybase.io]，这是一种使加密签名和验证变得容易的新方法）。
+- 整个文件使用 PGP 使用的算法进行签名（参见 [https://keybase.io]，这是一种使加密签名和验证变得容易的新方法）。
 
 这样的组合给了用户以下保证：
 
@@ -171,7 +171,7 @@ keywords:
   - proxy
 source:
 - https://github.com/foo/bar
-home: http://nginx.com
+home: https://nginx.com
 
 ...
 files:
@@ -187,7 +187,7 @@ WkQAmQGHuuoLEJuKhRNo+Wy7mhE7u1YG
 
 注意，YAML 部分包含两个文档（由分隔 `...\n`）。首先是 Chart.yaml。第二个是校验和，一个文件名到 SHA-256 摘要的映射（上显示的值是假的 / 被截断的）
 
-签名块是一个标准的 PGP 签名，它提供了 [防篡改](http://www.rossde.com/PGP/pgp_signatures.html) 功能。
+签名块是一个标准的 PGP 签名，它提供了 [防篡改](https://www.rossde.com/PGP/pgp_signatures.html) 功能。
 
 ## Chart 库
 

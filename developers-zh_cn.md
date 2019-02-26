@@ -27,7 +27,7 @@ $ make bootstrap build
 
 要在本地运行 Helm 和 Tiller，可以运行 `bin/helm` 或 `bin/tiller`。
 
-- 已知 Helm 和 Tiller 可在 macOS 和大多数 Linux，包括 Alpine 上运行。
+- 已知 Helm 和 Tiller 可在 macOS 和大多数 Linux 发行版，包括 Alpine 上运行。
 - Tiller 必须能够访问 Kubernetes 群集。它通过检查使用 kubectl 的 Kube 配置文件来了解群集信息。
 
 ### 手册页
@@ -130,7 +130,7 @@ Go 依赖关系由 Glide 管理 并存储在 `vendor/` 目录中。
 4. 创建一个新的工作分支（`git checkout -b feat/my-feature`）并在该分支上完成工作。
 5. 当准备好让我们 review 时，将你的分支推送到 GitHub，然后给我们提交一个新的 PR 请求。
 
-对于 Git 提交消息，我们遵循语义提交消息 [Semantic Commit Messages](http://karma-runner.github.io/0.13/dev/git-commit-msg.html)：
+对于 Git 提交消息，我们遵循语义提交消息 [Semantic Commit Messages](https://karma-runner.github.io/0.13/dev/git-commit-msg.html)：
 
 ```
 fix(helm): add --foo flag to 'helm install'
@@ -161,7 +161,7 @@ Closes #1234
 更多内容：
 
 - DEIS 准则 [Deis Guidelines](https://github.com/deis/workflow/blob/master/src/contributing/submitting-a-pull-request.md) 是这一部分的灵感启发。
-- Karma Runner [定义](http://karma-runner.github.io/0.13/dev/git-commit-msg.html) 了语义提交消息的主意。
+- Karma Runner [定义](https://karma-runner.github.io/0.13/dev/git-commit-msg.html) 了语义提交消息的主意。
 
 ### Go 语言约定
 

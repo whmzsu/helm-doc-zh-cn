@@ -23,6 +23,6 @@ Helm 优化为尽可能快地将尽可能多的资源加载到 Kubernetes 中。
 
 ### 方法 2：预安装 hook
 
-要将这两者打包在一起，在 CRD 定义中添加一个 `pre-install` 钩子，以便在执行 chart 的其余部分之前完全安装它。
+要将这两者打包在一起，在 CRD 定义中添加一个 `crd-install` 钩子，以便在执行 chart 的其余部分之前完全安装它。
 
-请注意，如果使用`pre-install` hook创建CRD ，则该CRD定义在`helm delete`运行时不会被删除。
+请注意，如果使用`crd-install` hook创建CRD ，则该CRD定义在`helm delete`运行时不会被删除。

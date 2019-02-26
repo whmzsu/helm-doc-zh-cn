@@ -22,10 +22,10 @@ favoriteDrink: coffee
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{ .Values.favoriteDrink }}
+  drink: {{.Values.favoriteDrink}}
 ```
 
 注意我们在最后一行 \{\{ .Values.favoriteDrink\}\} 获取 `favoriteDrink` 的值。
@@ -53,7 +53,7 @@ data:
 
 由于 `favoriteDrink` 在默认 `values.yaml` 文件中设置为 `coffee`，这就是模板中显示的值。我们可以轻松地在我们的 helm install 命令中通过加一个 `--set` 添标志来覆盖：
 
-```
+```bash
 helm install --dry-run --debug --set favoriteDrink=slurm ./mychart
 SERVER: "localhost:44134"
 CHART PATH: /Users/mattbutcher/Code/Go/src/k8s.io/helm/_scratch/mychart
@@ -84,15 +84,15 @@ favorite:
 
 现在我们稍微修改模板：
 
-```
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{ .Values.favorite.drink }}
-  food: {{ .Values.favorite.food }}
+  drink: {{.Values.favorite.drink}}
+  food: {{.Values.favorite.food}}
 ```
 
 虽然以这种方式构建数据是可以的，但建议保持 value 树浅一些，平一些。当我们看看为子 chart 分配值时，我们将看到如何使用树结构来命名值。

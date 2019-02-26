@@ -26,7 +26,7 @@ Chart 可能依赖于其他 chart。有两种方式可能会出现依赖性：
 ## Chart 版本
 
 根据 [SemVer 2
-spec](http://semver.org) 规范对 chart 进行版本控制。每个 chart 上都需要一个版本号。
+spec](https://semver.org) 规范对 chart 进行版本控制。每个 chart 上都需要一个版本号。
 
 ## Chart.yaml
 
