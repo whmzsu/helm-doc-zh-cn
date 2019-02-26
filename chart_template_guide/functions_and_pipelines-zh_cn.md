@@ -4,15 +4,15 @@
 
 让我们从一个最佳实践开始：当从. Values 对象注入字符串到模板中时，我们引用这些字符串。我们可以通过调用 quote 模板指令中的函数来实现：
 
-```
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{ quote .Values.favorite.drink }}
-  food: {{ quote .Values.favorite.food }}
+  drink: {{quote .Values.favorite.drink}}
+  food: {{quote .Values.favorite.food}}
 ```
 
 模板函数遵循语法 `functionName arg1 arg2...`。在上面的代码片段中，`quote .Values.favorite.drink` 调用 quote 函数并将一个参数传递给它。
@@ -29,11 +29,11 @@ Helm 拥有超过 60 种可用函数。其中一些是由 Go 模板语言 [Go te
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{ .Values.favorite.drink | quote }}
-  food: {{ .Values.favorite.food | quote }}
+  drink: {{.Values.favorite.drink | quote}}
+  food: {{.Values.favorite.food | quote}}
 ```
 
 在这个例子中，没有调用 `quote ARGUMENT`，我们调换了顺序。我们使用管道（|）将 “参数” 发送给函数：`.Values.favorite.drink | quote`。使用管道，我们可以将几个功能链接在一起：
@@ -42,11 +42,11 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{ .Values.favorite.drink | quote }}
-  food: {{ .Values.favorite.food | upper | quote }}
+  drink: {{.Values.favorite.drink | quote}}
+  food: {{.Values.favorite.food | upper | quote}}
 ```
 > 反转顺序是模板中的常见做法。你会看到.`val | quote` 比 `quote .val` 更常见。练习也是。
 
@@ -73,11 +73,11 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{.Release.Name}}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{ .Values.favorite.drink | repeat 5 | quote }}
-  food: {{ .Values.favorite.food | upper | quote }}
+  drink: {{.Values.favorite.drink | repeat 5 | quote}}
+  food: {{.Values.favorite.food | upper | quote}}
 ```
 
 该 repeat 函数将回送给定的字符串和给定的次数，所以我们将得到这个输出：
@@ -99,13 +99,13 @@ data:
 经常使用的一个函数是 `default`：`default DEFAULT_VALUE GIVEN_VALUE`。该功能允许在模板内部指定默认值，以防该值被省略。让我们用它来修改上面的饮料示例：
 
 ```yaml
-drink: {{ .Values.favorite.drink | default "tea" | quote }}
+drink: {{.Values.favorite.drink | default "tea" | quote}}
 ```
 
 如果我们像往常一样运行，我们会得到我们的 coffee：
 
 
-```
+```yaml
 # Source: mychart/templates/configmap.yaml
 apiVersion: v1
 kind: ConfigMap
@@ -142,7 +142,7 @@ data:
 在实际的 chart 中，所有静态默认值应该存在于 values.yaml 中，不应该使用该 default 命令重复（否则它们将是重复多余的）。但是，default 命令对于计算的值是合适的，因为计算值不能在 values.yaml 中声明。例如：
 
 ```yaml
-drink: {{ .Values.favorite.drink | default (printf "%s-tea" (include "fullname" .)) }}
+drink: {{.Values.favorite.drink | default (printf "%s-tea" (include "fullname" .)) }}
 ```
 
 在一些地方，一个 `if` 条件可能比这 `default` 更适合。我们将在下一节中看到这些。
@@ -152,5 +152,20 @@ drink: {{ .Values.favorite.drink | default (printf "%s-tea" (include "fullname" 
 ## 运算符函数
 
 对于模板，运算符（eq，ne，lt，gt，and，or 等等）都是已实现的功能。在管道中，运算符可以用圆括号（`(` 和 `)`）分组。
+
+将运算符放到声明的前面，后面跟着它的参数，就像使用函数一样。要多个运算符一起使用，将每个函数通过圆括号分隔。
+
+```yaml
+{{/* include the body of this if statement when the variable .Values.fooString xists and is set to "foo" */}}
+{{if and .Values.fooString (eq .Values.fooString "foo") }}
+    {{...}}
+{{end}}
+
+
+{{/* do not include the body of this if statement because unset variables evaluate o false and .Values.setVariable was negated with the not function. */}}
+{{if or .Values.anUnsetVariable (not .Values.aSetVariable) }}
+   {{...}}
+{{end}}
+```
 
 现在我们可以从函数和管道转向流控制,条件，循环和范围修饰符。

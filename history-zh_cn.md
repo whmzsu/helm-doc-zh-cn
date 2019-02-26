@@ -7,7 +7,7 @@ Classic](https://github.com/helm/helm) 和 GCS Deployment Manager 的 Kubernetes
 - Helm 现在有一个客户端（`helm`）和一个服务端（`tiller`）。服务端在 Kubernetes 内部运行，并管理资源。
 - Helm 的 chart 格式更好：
   - 依赖关系是不可变的，并存储在 chart 的 `charts/` 目录中。
-  - chart 使用 [SemVer 2](http://semver.org/spec/v2.0.0.html) 版本标准化
+  - chart 使用 [SemVer 2](https://semver.org/spec/v2.0.0.html) 版本标准化
   - chart 可以从目录或 chart 归档文件中加载
   - Helm 支持 Go 模板，无需运行 `generate` 或 `template` 命令。
   - Helm 可以轻松配置 release - 并与团队的其他成员共享配置。

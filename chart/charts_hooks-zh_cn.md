@@ -135,12 +135,9 @@ hook 权重可以是正数或负数，但必须表示为字符串。当 Tiller �
 * "before-hook-creation" 指定 Tiller 应在删除新 hook 之前删除以前的 hook。
 
 ### 自动删除以前版本的 hook
-当 helm 的 release 更新时，有可能 hook 资源已经存在于群集中。默认情况下，helm 会尝试创建资源，并抛出错误 "... already exists"。
+当 helm 的 release 更新, 如果这个 release 使用了 hook，有可能 hook 资源已经存在于群集中。默认情况下，helm 会尝试创建资源，并抛出错误 "... already exists"。
 
-我们可以选择 `"helm.sh/hook-delete-policy": "before-hook-creation"`，取代 `"helm.sh/hook-delete-policy": "hook-succeeded,hook-failed"` 因为：
+Hook 资源可能已经存在的一个常见原因是，在以前的安装 / 升级中使用它之后它没有被删除。事实上，有充分理由说明为什么人们可能想要保留 hook：例如，在出现问题时帮助手动调试。在这种情况下，确保后续尝试创建 hook 的推​​荐方法不会失败是定义一个 `"hook-delete-policy"`，它可以处理这个：`"helm.sh/hook-delete-policy": "before-hook-creation"`。在安装新 hook 之前，此 hook 注释会导致删除任何现有挂钩。
 
-* 例如为了手动调试，将错误的 hook 作业资源保存在 kubernetes 中是很方便的。
-* 出于某种原因，可能有必要将成功的 hook 资源保留在 kubernetes 中。
-* 同时，在 helm release 升级之前进行手动资源删除是不可取的。
-
-`"helm.sh/hook-delete-policy": "before-hook-creation"` 在hook中的注释，如果在新的hook启动前有一个hook的话，会使Tiller将以前的release中的hook删除，而这个hook同时它可能正在被其他一个策略使用。
+如果偏好在每次使用后删除钩子（而不是在后续使用时处理它，如上所示）
+我们可以选择使用 `"helm.sh/hook-delete-policy": "hook-succeeded,hook-failed"` ：

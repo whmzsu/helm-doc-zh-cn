@@ -52,7 +52,7 @@ data:
   myvalue: "Hello World"
   drink: {{.Values.favorite.drink | default "tea" | quote}}
   food: {{.Values.favorite.food | upper | quote}}
-  {{if and (.Values.favorite.drink) (eq .Values.favorite.drink "coffee") }}mug: true{{ end }}
+  {{if and .Values.favorite.drink (eq .Values.favorite.drink "coffee") }}mug: true{{ end }}
 
 ```
 注意 `.Values.favorite.drink` 必须已定义，否则在将它与 “coffee” 进行比较时会抛出错误。由于我们在上一个例子中注释掉了 `drink：coffee`，因此输出不应该包含 `mug：true` 标志。但是如果我们将该行添加回 `values.yaml` 文件中，输出应该如下所示:
@@ -74,7 +74,7 @@ data:
 
 在查看条件时，我们应该快速查看模板中的空格控制方式。让我们看一下前面的例子，并将其格式化为更容易阅读的格式：
 
-```
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -114,7 +114,7 @@ data:
 
 mug 不正确地缩进。让我们简单地缩进那行，然后重新运行：
 
-```
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -327,7 +327,7 @@ data:
     - "Onions"
 ```
 
-现在，在这个例子中，我们碰到了一些棘手的事情。该 `toppings: |-` 行声明了一个多行字符串。所以我们的 toppings list 实际上不是 YAML 清单。这是一个很大的字符串。我们为什么要这样做？因为 ConfigMaps 中的数据 `data` 由键 / 值对组成，其中键和值都是简单的字符串。要理解这种情况，请查看 Kubernetes ConfigMap 文档。但对我们来说，这个细节并不重要。
+现在，在这个例子中，我们碰到了一些棘手的事情。该 `toppings: |-` 行声明了一个多行字符串。所以我们的 toppings list 实际上不是 YAML 清单。这是一个很大的字符串。我们为什么要这样做？因为 ConfigMaps 中的数据 `data` 由键 / 值对组成，其中键和值都是简单的字符串。要理解这种情况，请查看 [Kubernetes ConfigMap 文档](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/).。但对我们来说，这个细节并不重要。
 
 > YAML 中的 `|-` 标记表示一个多行字符串。这可以是一种有用的技术，用于在清单中嵌入大块数据，如此处所示。
 

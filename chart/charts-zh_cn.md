@@ -57,7 +57,7 @@ tillerVersion: The version of Tiller that this chart requires. This should be ex
 其他字段将被忽略。
 
 ### Charts 和版本控制
-每个 chart 都必须有一个版本号。版本必须遵循 [SemVer 2](http://semver.org/) 标准。与 Helm Class 格式不同，Kubernetes Helm 使用版本号作为发布标记。存储库中的软件包由名称加版本识别。
+每个 chart 都必须有一个版本号。版本必须遵循 [SemVer 2](https://semver.org/) 标准。与 Helm Class 格式不同，Kubernetes Helm 使用版本号作为发布标记。存储库中的软件包由名称加版本识别。
 
 例如，`nginx` version 字段设置为 1.2.3 将被命名为：
 
@@ -613,7 +613,7 @@ apache:
 
 -   [Go templates](https://godoc.org/text/template)
 -   [Extra template functions](https://godoc.org/github.com/Masterminds/sprig)
--   [The YAML format](http://yaml.org/spec/)
+-   [The YAML format](https://yaml.org/spec/)
 
 ## 使用 Helm 管理 chart
 
