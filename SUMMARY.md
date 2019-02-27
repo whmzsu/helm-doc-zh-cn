@@ -74,3 +74,6 @@
 - [术语表](glossary-zh_cn.md)
 
 ### [何处寻找 Charts](https://hub.kubeapps.com/)
+
+### Helm 版本发布 checklist
+- [版本发布checklist](release_checklist-zh-cn.md)
