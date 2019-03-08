@@ -107,7 +107,7 @@ data:
   {{- end }}
 ```
 
-如上所述，** 模板名称是全局的 **。因此，如果两个模板被命名为相同的名称，则最后一次使用的模板将被使用。由于子 chart 中的模板与顶级模板一起编译，因此最好使用 chart 专用名称命名模板。一个流行的命名约定是为每个定义的模板添加 chart 名称：`{{define "mychart.labels"}}`。
+如上所述，** 模板名称是全局的 ** 。因此，如果两个模板被命名为相同的名称，则最后一次使用的模板将被使用。由于子 chart 中的模板与顶级模板一起编译，因此最好使用 chart 专用名称命名模板。一个流行的命名约定是为每个定义的模板添加 chart 名称：`{{define "mychart.labels"}}`。
 
 ## 设置模板的范围
 
@@ -156,7 +156,7 @@ metadata:
   {{- template "mychart.labels" . }}
 ```
 
-请注意，我们在条用 template 时末尾传递了 `.`。我们可以很容易地通过 `.Values` 或者 `.Values.favorite` 或者我们想要的任何范围。但是我们想要的是顶级范围。
+请注意，我们在调用 template 时末尾传递了 `.`。我们可以很容易地通过 `.Values` 或者 `.Values.favorite` 或者我们想要的任何范围。但是我们想要的是顶级范围。
 
 现在，当我们用 `helm install --dry-run --debug ./mychart` 执行这个模板，我们得到这个：
 
@@ -186,7 +186,7 @@ app_version: "{{ .Chart.Version }}+{{ .Release.Time.Seconds }}"
 {{- end -}}
 ```
 
-现在我想插入到我的模板的 `labels:` 部分和 `data:`` 部分：
+现在我想插入到我的模板的 `labels:` 部分和 `data:` 部分：
 
 ```yaml
 apiVersion: v1
