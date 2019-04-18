@@ -11,7 +11,7 @@
 
 ## 创建 chart 库
 
-chart 库是带有一个 index.yaml 文件和任意个打包 cahrt 的 HTTP 服务器。当准备好分享 chart 时，首选方法是将其上传到 chart 库。
+chart 库是带有一个 index.yaml 文件和任意个打包 chart 的 HTTP 服务器。当准备好分享 chart 时，首选方法是将其上传到 chart 库。
 
 ** 注意：** 对于 Helm 2.0.0，chart 库没有任何内部认证。 在 GitHub 中有一个跟踪进度的问题 [issue tracking progress](https://github.com/helm/issues/1038)。
 
@@ -35,7 +35,7 @@ charts/
 
 这种情况下，索引文件包含有关一个 chart（Alpine chart）的信息，并提供该 chart 的下载 URL `https://example.com/charts/alpine-0.1.2.tgz`。
 
-不要求 chart 包与 index.yaml 文件位于同一台服务器上 。但是，发在一起这样做通常是最简单的。
+不要求 chart 包与 index.yaml 文件位于同一台服务器上 。但是，放在一起这样做通常是最简单的。
 
 ### 索引文件
 索引文件是一个叫做 yaml 文件 index.yaml。它包含一些关于包的元数据，包括 chart 的 Chart.yaml 文件的内容。一个有效的 chart 库必须有一个索引文件。索引文件包含有关 chart 库中每个 chart 的信息。`helm repo index` 命令将根据包含打包的 chart 的给定本地目录生成索引文件。
