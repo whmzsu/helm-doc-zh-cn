@@ -122,7 +122,7 @@ Globs 有多个方法可选择：
 
 ```yaml
 {{range $path, $bytes := .Files.Glob "foo/*"}}
-{{$path.base}}: '{{ $root.Files.Get $path | b64enc }}'
+{{base $path}}: '{{ $root.Files.Get $path | b64enc }}'
 {{end}}
 ```
 
