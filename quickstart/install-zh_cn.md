@@ -49,20 +49,20 @@ scoop install helm
 ```
 
 
-## 从脚本
+### 从脚本
 
-Helm 现在有一个安装 shell 脚本，将自动获取最新版本的 Helm 客户端并在本地安装。
+Helm 现在有一个安装 shell 脚本，将自动获取最新版本的 Helm 客户端并在[本地安装](https://git.io/get_helm.sh).。
 
 可以获取该脚本，然后在本地执行它。这种方法也有文档指导，以便可以在运行之前仔细阅读并理解它在做什么。
 
 ```
-$ curl https://raw.githubusercontent.com/helm/master/scripts/get > get_helm.sh
+$ curl -LO https://git.io/get_helm.sh
 $ chmod 700 get_helm.sh
 $ ./get_helm.sh
 ```
 
 ```
-curl https://raw.githubusercontent.com/helm/master/scripts/get | bash
+curl -L https://git.io/get_helm.sh | bash
 ```
 也可以做到这一点。
 
