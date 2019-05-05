@@ -22,13 +22,17 @@ favoriteDrink: coffee
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{.Release.Name}}-configmap
+  name: {{ .Release.Name }}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{.Values.favoriteDrink}}
+  drink: {{ .Values.favoriteDrink }}
 ```
 
-注意我们在最后一行 \{\{ .Values.favoriteDrink\}\} 获取 `favoriteDrink` 的值。
+注意我们在最后一行
+```yaml
+{{ .Values.favoriteDrink }}
+```
+获取 `favoriteDrink` 的值。
 
 让我们看看这是如何渲染的。
 
@@ -88,11 +92,11 @@ favorite:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{.Release.Name}}-configmap
+  name: {{ .Release.Name }}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{.Values.favorite.drink}}
-  food: {{.Values.favorite.food}}
+  drink: {{ .Values.favorite.drink }}
+  food: {{ .Values.favorite.food }}
 ```
 
 虽然以这种方式构建数据是可以的，但建议保持 value 树浅一些，平一些。当我们看看为子 chart 分配值时，我们将看到如何使用树结构来命名值。

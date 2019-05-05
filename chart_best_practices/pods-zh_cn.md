@@ -17,13 +17,13 @@
 镜像可以在 `values.yaml` 文件中定义，可以很容易地换为镜像地址。
 
 ```
-image: {{.Values.redisImage | quote}}
+image: {{ .Values.redisImage | quote }}
 ```
 
 镜像和标签可以在 `values.yaml` 中定义为两个单独的字段：
 
 ```
-image: "{{.Values.redisImage}}:{{ .Values.redisTag }}"
+image: "{{ .Values.redisImage }}:{{  .Values.redisTag  }}"
 ```
 
 ## ImagePullPolicy
@@ -31,7 +31,7 @@ image: "{{.Values.redisImage}}:{{ .Values.redisTag }}"
 `helm create` 设置 `imagePullPolicy` 为 `IfNotPresent`, 在 `deployment.yaml` 中：
 
 ```yaml
-imagePullPolicy: {{.Values.image.pullPolicy}}
+imagePullPolicy: {{ .Values.image.pullPolicy }}
 ```
 
 和 values.yaml 中：

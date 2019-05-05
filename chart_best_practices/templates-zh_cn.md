@@ -12,16 +12,16 @@ templates 目目录的结构应如下所示：
 
 ## 定义模板的名称
 
-定义的模板（在 `{{define}}` 指令内创建的模板）可以全局访问。这意味着 chart 及其所有子 chart 都可以访问所有使用 `{{ define }}` 创建的模板。
+定义的模板（在 `{{ define }}` 指令内创建的模板）可以全局访问。这意味着 chart 及其所有子 chart 都可以访问所有使用 `{{ define }}` 创建的模板。
 
 出于这个原因，所有定义的模板名称应该是带有某个 namespace。
 
 正确：
 
 ```yaml
-{{- define "nginx.fullname"}}
-{{/* ... */}}
-{{end -}}
+{{- define "nginx.fullname" }}
+{{ /* ... */ }}
+{{ end -}}
 ```
 
 不正确：
@@ -29,7 +29,7 @@ templates 目目录的结构应如下所示：
 ```yaml
 {{- define "fullname" -}}
 {{/* ... */}}
-{{end -}}
+{{ end -}}
 ```
 
 强烈建议通过 `helm create` 命令创建新 chart，因为根据此最佳做法自动定义模板名称。
@@ -43,16 +43,16 @@ templates 目目录的结构应如下所示：
 正确：
 
 ```
-{{.foo}}
-{{print "foo"}}
+{{ .foo }}
+{{ print "foo" }}
 {{- print "bar" -}}
 ```
 
 不正确：
 
 ```
-{{.foo}}
-{{print "foo"}}
+{{ .foo }}
+{{ print "foo" }}
 {{-print "bar"-}}
 ```
 
@@ -60,15 +60,15 @@ templates 目目录的结构应如下所示：
 
 ```
 foo:
-  {{- range .Values.items}}
-  {{.}}
-  {{end -}}
+  {{- range .Values.items }}
+  {{ . }}
+  {{ end -}}
 ```
 
 块（如控制结构）可以缩进以指示模板代码的流向。
 
 ```
-{{if $foo -}}
+{{ if $foo -}}
   {{- with .Bar}}Hello{{ end -}}
 {{- end -}}
 ```
@@ -133,7 +133,7 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{.Release.Name}}-myservice
+  name: {{ .Release.Name }}-myservice
 ```
 
 Or if there is only one resource of this kind then we could use .Release.Name or the template fullname function defined in \_helpers.tpl (which uses release name):
@@ -144,7 +144,7 @@ Or if there is only one resource of this kind then we could use .Release.Name or
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{template "fullname" .}}
+  name: {{ template "fullname" . }}
 ```
 尽快如此，可能还存在不会来自固定名称的命名冲突的情况。在这些情况下，固定名称可能使应用程序更容易找到诸如服务之类的资源。如果需要固定名称，那么一种可能的管理方法是通过使用 values.yaml 中的 service.name 值来显式设置名称（如果提供的话）:
 
@@ -152,11 +152,11 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
-  {{- if .Values.service.name}}
-    name: {{.Values.service.name}}
-  {{- else}}
-    name: {{template "fullname" .}}
-  {{- end}}
+  {{- if .Values.service.name }}
+    name: {{ .Values.service.name }}
+  {{- else }}
+    name: {{ template "fullname" . }}
+  {{- end }}
 ```
 
 ## 注释（YAML 注释与模板注释）
@@ -184,8 +184,8 @@ type: frobnitz
 {{- /*
 mychart.shortname provides a 6 char truncated version of the release name.
 */ -}}
-{{define "mychart.shortname" -}}
-{{.Release.Name | trunc 6}}
+{{ define "mychart.shortname" -}}
+{{ .Release.Name | trunc 6 }}
 {{- end -}}
 
 ```
@@ -194,7 +194,7 @@ mychart.shortname provides a 6 char truncated version of the release name.
 
 ```
 # This may cause problems if the value is more than 100Gi
-memory: {{.Values.maxMem | quote}}
+memory: {{ .Values.maxMem | quote }}
 ```
 
 上面的注释在用户运行 `helm install --debug` 时可见，而在 `{{- /* */ -}}` 部分中指定的注释不是。

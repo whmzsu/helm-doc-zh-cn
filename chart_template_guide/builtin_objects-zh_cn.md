@@ -3,7 +3,7 @@
 
 对象可以很简单，只有一个值。或者他们可以包含其他对象或函数。例如，`Release` 对象包含多个对象（如 `Release.Name`）并且 `Files` 对象具有一些函数。
 
-在上一节中，我们使用 `{{.Release.Name}}` 将 release 的名称插入到模板中。`Release` 是可以在模板中访问的顶级对象之一。
+在上一节中，我们使用 `{{ .Release.Name }}` 将 release 的名称插入到模板中。`Release` 是可以在模板中访问的顶级对象之一。
 
 - `Release`：这个对象描述了 release 本身。它里面有几个对象：
 - `Release.Name`：release 名称

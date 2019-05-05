@@ -1,4 +1,4 @@
-# Helm User Guide - Helm 用户指南
+# Helm User and Developer's Guide - Helm 用户与开发者指南
 
 本指南是官方 Kubernetes 的 github 库下，helm 子目录下的文档的翻译，依照 https://docs.helm.sh/ 的文档架构和组织，当前非常粗糙的翻译了一版（剩余命令参考和术语表两部分还没有翻译），后续会陆续更新优化，用于给刚接触 Helm 这个工具的朋友一个参考。
 

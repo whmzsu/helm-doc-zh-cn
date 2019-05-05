@@ -124,16 +124,16 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{.Release.Name}}-configmap
+  name: {{ .Release.Name }}-configmap
 data:
   myvalue: "Hello World"
 ```
 
-`name:` 现在这个值发生了变化成了 `{{.Release.Name}}-configmap`。
+`name:` 现在这个值发生了变化成了 `{{ .Release.Name }}-configmap`。
 
 模板指令包含在 `{{` 和 `}}` 块中。
 
-模板指令 `{{.Release.Name}}` 将 release 名称注入模板。传递给模板的值可以认为是 namespace 对象，其中 dot（.）分隔每个 namespace 元素。
+模板指令 `{{ .Release.Name }}` 将 release 名称注入模板。传递给模板的值可以认为是 namespace 对象，其中 dot（.）分隔每个 namespace 元素。
 
 Release 前面的前一个小圆点表示我们从这个范围的最上面的 namespace 开始（我们将稍微谈一下 scope）。所以我们可以这样理解 `.Release.Name：`"从顶层命名空间开始，找到 Release 对象，然后在里面查找名为 `Name` 的对象"。
 
