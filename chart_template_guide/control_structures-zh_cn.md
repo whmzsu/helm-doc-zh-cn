@@ -20,13 +20,13 @@
 条件的基本结构如下所示：
 
 ```
-{{if PIPELINE}}
+{{ if PIPELINE }}
   # Do something
-{{else if OTHER PIPELINE}}
+{{ else if OTHER PIPELINE }}
   # Do something else
-{{else}}
+{{ else }}
   # Default case
-{{end}}
+{{ end }}
 ```
 
 注意，我们现在讨论的是管道而不是值。其原因是要明确控制结构可以执行整个管道，而不仅仅是评估一个值。
@@ -47,12 +47,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{.Release.Name}}-configmap
+  name: {{ .Release.Name }}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{.Values.favorite.drink | default "tea" | quote}}
-  food: {{.Values.favorite.food | upper | quote}}
-  {{if and .Values.favorite.drink (eq .Values.favorite.drink "coffee") }}mug: true{{ end }}
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}
+  {{ if and .Values.favorite.drink (eq .Values.favorite.drink "coffee") }}mug: true{{ end }}
 
 ```
 注意 `.Values.favorite.drink` 必须已定义，否则在将它与 “coffee” 进行比较时会抛出错误。由于我们在上一个例子中注释掉了 `drink：coffee`，因此输出不应该包含 `mug：true` 标志。但是如果我们将该行添加回 `values.yaml` 文件中，输出应该如下所示:
@@ -78,14 +78,14 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{.Release.Name}}-configmap
+  name: {{ .Release.Name }}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{.Values.favorite.drink | default "tea" | quote}}
-  food: {{.Values.favorite.food | upper | quote}}
-  {{if eq .Values.favorite.drink "coffee"}}
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}
+  {{ if eq .Values.favorite.drink "coffee" }}
     mug: true
-  {{end}}
+  {{ end }}
 ```
 
 最初，这看起来不错。但是如果我们通过模板引擎运行它，我们会得到一个错误的结果：
@@ -118,14 +118,14 @@ mug 不正确地缩进。让我们简单地缩进那行，然后重新运行：
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{.Release.Name}}-configmap
+  name: {{ .Release.Name }}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{.Values.favorite.drink | default "tea" | quote}}
-  food: {{.Values.favorite.food | upper | quote}}
-  {{if eq .Values.favorite.drink "coffee"}}
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}
+  {{ if eq .Values.favorite.drink "coffee" }}
   mug: true
-  {{end}}
+  {{ end }}
 ```
 
 当我们发送该信息时，我们会得到有效的 YAML，但仍然看起来有点意思：
@@ -159,14 +159,14 @@ YAML 中的缩进空格是严格的，因此管理空格变得非常重要。幸
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{.Release.Name}}-configmap
+  name: {{ .Release.Name }}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{.Values.favorite.drink | default "tea" | quote}}
-  food: {{.Values.favorite.food | upper | quote}}
-  {{- if eq .Values.favorite.drink "coffee"}}
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}
+  {{- if eq .Values.favorite.drink "coffee" }}
   mug: true
-  {{- end}}
+  {{- end }}
 ```
 
 为了清楚说明这一点，让我们调整上面的内容，将空格替换为 `*`, 按照此规则将每个空格将被删除。一个在该行的末尾的 `*` 指示换行符将被移除
@@ -176,14 +176,14 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{.Release.Name}}-configmap
+  name: {{ .Release.Name }}-configmap
 data:
   myvalue: "Hello World"
-  drink: {{.Values.favorite.drink | default "tea" | quote}}
-  food: {{.Values.favorite.food | upper | quote}}*
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}*
 **{{- if eq .Values.favorite.drink "coffee"}}
   mug: true*
-**{{- end}}
+**{{- end }}
 
 ```
 
@@ -206,7 +206,7 @@ data:
 
 
 ```yaml
-  food: {{.Values.favorite.food | upper | quote}}
+  food: {{ .Values.favorite.food | upper | quote }}
   {{- if eq .Values.favorite.drink "coffee" -}}
   mug: true
   {{- end -}}
@@ -217,7 +217,7 @@ data:
 
 > 有关模板中空格控制的详细信息，请参阅官方 Go 模板文档 [Official Go template documentation](https://godoc.org/text/template)
 
-最后，有时候告诉模板系统如何缩进更容易，而不是试图掌握模板指令的间距。因此，有时可能会发现使用 `indent` 函数（`{{indent 2 "mug:true"}}`）会很有用。
+最后，有时候告诉模板系统如何缩进更容易，而不是试图掌握模板指令的间距。因此，有时可能会发现使用 `indent` 函数（`{{ indent 2 "mug:true" }}`）会很有用。
 
 ## 使用 with 修改范围
 
@@ -226,9 +226,9 @@ data:
 其语法 with 类似于一个简单的 if 语句：
 
 ```
-{{with PIPELINE}}
+{{ with PIPELINE }}
   # restricted scope
-{{end}}
+{{ end }}
 ```
 范围可以改变。with 可以允许将当前范围（`.`）设置为特定的对象。例如，我们一直在使用的 `.Values.favorites`。让我们重写我们的 ConfigMap 来改变 `.` 范围来指向 `.Values.favorites`：
 
@@ -236,36 +236,36 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{.Release.Name}}-configmap
+  name: {{ .Release.Name }}-configmap
 data:
   myvalue: "Hello World"
-  {{- with .Values.favorite}}
-  drink: {{.drink | default "tea" | quote}}
-  food: {{.food | upper | quote}}
-  {{- end}}
+  {{- with .Values.favorite }}
+  drink: {{ .drink | default "tea" | quote }}
+  food: {{ .food | upper | quote }}
+  {{- end }}
 ```
 
 
-注意，现在我们可以引用 `.drink` 和 `.food` 无需对其进行限定。这是因为该 `with` 声明设置 `.` 为指向 `.Values.favorite`。在 `{{end}}` 后 `.` 复位其先前的范围。
+注意，现在我们可以引用 `.drink` 和 `.food` 无需对其进行限定。这是因为该 `with` 声明设置 `.` 为指向 `.Values.favorite`。在 `{{ end }}` 后 `.` 复位其先前的范围。
 
 但是请注意！在受限范围内，此时将无法从父范围访问其他对象。例如，下面会报错：
 
 ```yaml
-  {{- with .Values.favorite}}
-  drink: {{.drink | default "tea" | quote}}
-  food: {{.food | upper | quote}}
-  release: {{.Release.Name}}
-  {{- end}}
+  {{- with .Values.favorite }}
+  drink: {{ .drink | default "tea" | quote }}
+  food: {{ .food | upper | quote }}
+  release: {{ .Release.Name }}
+  {{- end }}
 ```
 
-它会产生一个错误，因为 Release.Name 它不在 `.` 限制范围内。但是，如果我们交换最后两行，所有将按预期工作，因为范围在 {{end}} 之后被重置。
+它会产生一个错误，因为 Release.Name 它不在 `.` 限制范围内。但是，如果我们交换最后两行，所有将按预期工作，因为范围在 `{{ end }}` 之后被重置。
 
 ```yaml
-  {{- with .Values.favorite}}
-  drink: {{.drink | default "tea" | quote}}
-  food: {{.food | upper | quote}}
-  {{- end}}
-  release: {{.Release.Name}}
+  {{- with .Values.favorite }}
+  drink: {{ .drink | default "tea" | quote }}
+  food: {{ .food | upper | quote }}
+  {{- end }}
+  release: {{ .Release.Name }}
 ```
 
 看下 `range`，我们看看模板变量，它提供了一个解决上述范围问题的方法。
@@ -293,22 +293,22 @@ pizzaToppings:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{.Release.Name}}-configmap
+  name: {{ .Release.Name }}-configmap
 data:
   myvalue: "Hello World"
-  {{- with .Values.favorite}}
-  drink: {{.drink | default "tea" | quote}}
-  food: {{.food | upper | quote}}
-  {{- end}}
+  {{- with .Values.favorite }}
+  drink: {{ .drink | default "tea" | quote }}
+  food: {{ .food | upper | quote }}
+  {{- end }}
   toppings: |-
-    {{- range .Values.pizzaToppings}}
-    - {{. | title | quote}}
-    {{- end}}
+    {{- range .Values.pizzaToppings }}
+    - {{ . | title | quote }}
+    {{- end }}
 
 ```
 让我们仔细看看 `toppings`:list。该 range 函数将遍历 pizzaToppings 列表。但现在发生了一些有趣的事. 就像 `with`sets 的范围 `.`，`range` 操作子也是一样。每次通过循环时，`.` 都设置为当前比萨饼顶部。也就是第一次 `.` 设定 mushrooms。第二个迭代它设置为 `cheese`，依此类推。
 
-我们可以直接向管道发送 `.` 的值，所以当我们这样做时 `{{. | title | quote}}`，它会发送 `.` 到 title（标题 case 函数），然后发送到 `quote`。如果我们运行这个模板，输出将是：
+我们可以直接向管道发送 `.` 的值，所以当我们这样做时 `{{ . | title | quote }}`，它会发送 `.` 到 title（标题 case 函数），然后发送到 `quote`。如果我们运行这个模板，输出将是：
 
 ```yaml
 # Source: mychart/templates/configmap.yaml
@@ -335,9 +335,9 @@ data:
 
 ```yaml
   sizes: |-
-    {{- range tuple "small" "medium" "large"}}
-    - {{.}}
-    {{- end}}
+    {{- range tuple "small" "medium" "large" }}
+    - {{ . }}
+    {{- end }}
 ```
 
 ```yaml

@@ -65,11 +65,11 @@ Hook 只是 Kubernetes manifest 文件，在 metadata 部分有特殊的注释 �
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "{{.Release.Name}}"
+  name: "{{ .Release.Name }}"
   labels:
-    app.kubernetes.io/managed-by: {{.Release.Service | quote}}
-    app.kubernetes.io/instance: {{.Release.Name | quote}}
-    helm.sh/chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+    app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
   annotations:
     # This is what defines this resource as a hook. Without this line, the
     # job is considered part of the release.
@@ -79,17 +79,17 @@ metadata:
 spec:
   template:
     metadata:
-      name: "{{.Release.Name}}"
+      name: "{{ .Release.Name }}"
       labels:
-      app.kubernetes.io/managed-by: {{.Release.Service | quote}}
-      app.kubernetes.io/instance: {{.Release.Name | quote}}
-      helm.sh/chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+      app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
+      helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     spec:
       restartPolicy: Never
       containers:
       - name: post-install-job
         image: "alpine:3.3"
-        command: ["/bin/sleep","{{default"10".Values.sleepyTime}}"]
+        command: ["/bin/sleep","{{ default"10".Values.sleepyTime }}"]
 
 ```
 

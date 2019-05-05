@@ -49,13 +49,13 @@ message = Goodbye from config 3
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{.Release.Name}}-configmap
+  name: {{ .Release.Name }}-configmap
 data:
-  {{- $files := .Files}}
-  {{- range tuple "config1.toml" "config2.toml" "config3.toml"}}
-  {{.}}: |-
-    {{$files.Get .}}
-  {{- end}}
+  {{- $files := .Files }}
+  {{- range tuple "config1.toml" "config2.toml" "config3.toml" }}
+  {{ . }}: |-
+    {{ $files.Get . }}
+  {{- end }}
 ```
 
 这个配置映射使用了前几节讨论的几种技术。例如，我们创建一个 `$files` 变量来保存 `.Files` 对象的引用。我们还使用该 `tuple` 函数来创建我们循环访问的文件列表。然后我们打印每个文件名（`{{.}}: |-`），然后打印文件的内容 `{{ $files.Get . }}`。
@@ -111,19 +111,19 @@ bar/:
 Globs 有多个方法可选择：
 
 ```yaml
-{{$root := .}}
-{{range $path, $bytes := .Files.Glob "**.yaml"}}
-{{$path}}: |-
-{{$root.Files.Get $path}}
-{{end}}
+{{ $root := . }}
+{{ range $path, $bytes := .Files.Glob "**.yaml" }}
+{{ $path }}: |-
+{{ $root.Files.Get $path }}
+{{ end }}
 ```
 
 或
 
 ```yaml
-{{range $path, $bytes := .Files.Glob "foo/*"}}
-{{$path.base}}: '{{ $root.Files.Get $path | b64enc }}'
-{{end}}
+{{ range $path, $bytes := .Files.Glob "foo/*" }}
+{{ $path.base }}: '{{ $root.Files.Get $path | b64enc }}'
+{{ end }}
 ```
 
 ## ConfigMap 和 Secrets 工具函数
@@ -162,11 +162,11 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{.Release.Name}}-secret
+  name: {{ .Release.Name }}-secret
 type: Opaque
 data:
   token: |-
-    {{.Files.Get "config1.toml" | b64enc}}
+    {{ .Files.Get "config1.toml" | b64enc }}
 ```
 
 以上例子将采用 `config1.toml` 文件，我们之前使用的相同文件并对其进行编码：
@@ -189,8 +189,8 @@ data:
 
 ```yaml
 data:
-  some-file.txt: {{range .Files.Lines "foo/bar.txt"}}
-    {{.}}{{ end }}
+  some-file.txt: {{ range .Files.Lines "foo/bar.txt" }}
+    {{ . }}{{ end }}
 ```
 
 目前，无法将 `helm install` 期间将外部文件传递给 chart。因此，如果要求用户提供数据，则必须使用 `helm install -f` 或进行加载 `helm install --set`。

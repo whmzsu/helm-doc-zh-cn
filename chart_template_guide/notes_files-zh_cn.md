@@ -1,5 +1,5 @@
 # 创建一个 NOTES.txt 文件
-在本节中，我们将看看 Helm 工具如何向你的 chart 用户提供说明。在 `chart install` 或 `chart upgrade` 结束时，Helm 可以为用户打印出一大堆有用的信息。这些信息是使用模板高度定制的。
+在本节中，我们将看看 Helm 工具如何向你的 chart 用户提供说明。在 `helm install` 或 `helm upgrade` 结束时，Helm 可以为用户打印出一大堆有用的信息。这些信息是使用模板高度定制的。
 
 要将安装说明添加到 chart，只需创建一个 `templates/NOTES.txt` 文件即可。这个文件是纯文本的，但是它像一个模板一样处理，并且具有所有可用的普通模板函数和对象。
 

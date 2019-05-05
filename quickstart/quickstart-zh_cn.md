@@ -40,8 +40,10 @@ my-cluster
 有了 Helm 安装文件，就可以初始化本地 CLI，并将 Tiller 安装到 Kubernetes 集群中：
 
 ```bash
-$ helm init
+$ helm init --history-max 200
 ```
+**TIP:** 推荐带 `--history-max 200` 参数， 因为 configmaps 和其他对象的历史记录会增长到很大的数量。没有这个参数的话，历史记录为永久保留，这样 Helm 和 Tiller 需要维护大量的历史数据.
+
 这会将 Tiller 安装到对应的 Kubernetes 群集中, 集群同 `kubectl config current-context`。
 
 ** 提示：** 想要安装到不同的群集中？使用 --kube-context 参数。

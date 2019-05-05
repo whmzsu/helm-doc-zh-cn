@@ -51,7 +51,7 @@ _Note: cluster-admin 角色是在 Kubernetes 集群中默认创建的，因此�
 $ kubectl create -f rbac-config.yaml
 serviceaccount "tiller" created
 clusterrolebinding "tiller" created
-$ helm init --service-account tiller
+$ helm init --service-account tiller --history-max 200
 ```
 
 ### 在特定 namespace 中部署 Tiller，并仅限于在该 namespace 中部署资源

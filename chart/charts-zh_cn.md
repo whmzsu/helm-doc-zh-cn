@@ -430,13 +430,13 @@ spec:
       serviceAccount: deis-database
       containers:
         - name: deis-database
-          image: {{.Values.imageRegistry}}/postgres:{{.Values.dockerTag}}
-          imagePullPolicy: {{.Values.pullPolicy}}
+          image: {{ .Values.imageRegistry }}/postgres:{{ .Values.dockerTag }}
+          imagePullPolicy: {{ .Values.pullPolicy }}
           ports:
             - containerPort: 5432
           env:
             - name: DATABASE_STORAGE
-              value: {{default "minio" .Values.storage}}
+              value: {{ default "minio" .Values.storage }}
 ```
 
 上面的示例基于 [此网址](https://github.com/deis/charts)，是 Kubernetes replication controller 的模板。它可以使用以下四个模板值（通常在 values.yaml 文件中定义 ）：
@@ -531,13 +531,13 @@ spec:
       serviceAccount: deis-database
       containers:
         - name: deis-database
-          image: {{.Values.imageRegistry}}/postgres:{{.Values.dockerTag}}
-          imagePullPolicy: {{.Values.pullPolicy}}
+          image: {{ .Values.imageRegistry }}/postgres:{{ .Values.dockerTag }}
+          imagePullPolicy: {{ .Values.pullPolicy }}
           ports:
             - containerPort: 5432
           env:
             - name: DATABASE_STORAGE
-              value: {{default "minio" .Values.storage}}
+              value: {{ default "minio" .Values.storage }}
 
 ```
 
