@@ -16,7 +16,7 @@
 
 * 大多数文件 `templates/` 被视为包含 Kubernetes manifests
 * `NOTES.txt` 是一个例外
-* 名称以下划线（`_`）开头的文件被假定为没有内部 manifest。这些文件不会渲染 Kubernetes 对象定义，而是在其他 chart 模板中随处可用以供调用。
+* 名称以下划线（`_`）开头的文件被假定为没有内部 manifest。这些文件不会被当作Kubernetes 对象进行渲染，但是可以在其他 chart 模板中随意使用。
 
 这些文件用于存储 partials 和辅助程序。事实上，当我们第一次创建时 mychart，我们看到一个叫做文件 `_helpers.tpl`。该文件是模板 partials 的默认位置。
 
